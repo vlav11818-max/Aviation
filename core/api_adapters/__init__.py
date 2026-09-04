@@ -1,34 +1,25 @@
-"""API adapter package.
+"""Legacy shim — the individual per-provider adapters were replaced by
+the LiteLLM-backed router in :mod:`core.llm.router`.
 
-Provides provider-specific adapters that normalise different LLM API
-wire formats into a common ``APIResponse`` dataclass.
-
-Adapters
---------
-- ``OpenAIAdapter`` -- OpenAI-native, OpenRouter, DeepSeek, Qwen
-  (any ``openai_compatible`` or ``openai_native`` provider).
-- ``AnthropicAdapter`` -- Anthropic Messages API.
-- ``GoogleAdapter`` -- Google Gemini ``generateContent`` API.
-
-Each adapter exposes a single async ``send()`` method returning an
-``APIResponse``.
+Only the :class:`APIResponse` dataclass is kept for backward compatibility
+with any code that imported it from here. New code should use
+:class:`core.llm.LLMResponse` directly.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+# Re-export the new response type under the old name so imports don't break.
+from core.llm import LLMResponse  # noqa: F401
+
 
 @dataclass(frozen=True)
 class APIResponse:
-    """Normalised response returned by every adapter.
+    """Deprecated alias for :class:`core.llm.LLMResponse`.
 
-    Attributes:
-        text: The generated text content.
-        tokens_in: Number of input tokens consumed (from usage metadata).
-        tokens_out: Number of output tokens generated (from usage metadata).
-        model: Model identifier reported by the API.
-        raw: Raw response dict for debugging (optional).
+    Retained so pre-refactor imports still work; instantiated only in a
+    handful of tests. Prefer :class:`LLMResponse` in new code.
     """
 
     text: str = ""

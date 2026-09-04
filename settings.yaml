@@ -42,45 +42,77 @@ generation:
   section_max_retries: 2
 
 # --- API settings ---
+# Model IDs use the LiteLLM convention. Any of these prefixes works
+# out of the box: openrouter/, openai/ (or bare gpt-*), anthropic/
+# (or bare claude-*), gemini/, deepseek/, kie/, custom/ (any OpenAI-
+# compatible base URL — set CUSTOM_BASE_URL + CUSTOM_API_KEY),
+# mock/demo (offline).
 api:
   primary_provider: "openrouter"
-  primary_model: "anthropic/claude-3.5-sonnet"
+  primary_model: "openrouter/anthropic/claude-3.5-sonnet"
   fallback_provider: "openai"
   fallback_model: "gpt-4o"
   auto_fallback: true
   max_retries: 3
   timeout_seconds: 120
 
-  # Per-provider model configuration.
-  # Each provider defines three model roles:
-  #   primary    — main generation model (concept, outline, section, revision)
-  #   fallback   — used when primary fails after retries
-  #   evaluation — lighter/cheaper model for evaluation prompts
+  # Per-role model overrides. Each generation role can be routed to a
+  # different / cheaper model. Roles used:
+  #   primary       — concept / outline / section / revision
+  #   evaluation    — evaluation & critic passes
+  #   fact_check    — RAG fact-checking against source PDF
+  #   summary       — chapter memory summariser
+  #   storyboard    — image-prompt generator
   models:
     openrouter:
-      primary: "anthropic/claude-3.5-sonnet"
-      fallback: "openai/gpt-4o"
-      evaluation: "anthropic/claude-3-haiku"
+      primary: "openrouter/anthropic/claude-3.5-sonnet"
+      fallback: "openrouter/openai/gpt-4o"
+      evaluation: "openrouter/anthropic/claude-3-haiku"
+      fact_check: "openrouter/anthropic/claude-3-haiku"
+      summary: "openrouter/anthropic/claude-3-haiku"
+      storyboard: "openrouter/anthropic/claude-3-haiku"
     openai:
       primary: "gpt-4o"
       fallback: "gpt-4-turbo"
       evaluation: "gpt-4o-mini"
+      fact_check: "gpt-4o-mini"
+      summary: "gpt-4o-mini"
+      storyboard: "gpt-4o-mini"
     anthropic:
-      primary: "claude-3-5-sonnet-latest"
-      fallback: "claude-3-5-haiku-latest"
-      evaluation: "claude-3-5-haiku-latest"
+      primary: "anthropic/claude-3-5-sonnet-latest"
+      fallback: "anthropic/claude-3-5-haiku-latest"
+      evaluation: "anthropic/claude-3-5-haiku-latest"
+      fact_check: "anthropic/claude-3-5-haiku-latest"
+      summary: "anthropic/claude-3-5-haiku-latest"
+      storyboard: "anthropic/claude-3-5-haiku-latest"
     google:
-      primary: "gemini-1.5-pro"
-      fallback: "gemini-1.5-flash"
-      evaluation: "gemini-1.5-flash"
+      primary: "gemini/gemini-1.5-pro"
+      fallback: "gemini/gemini-1.5-flash"
+      evaluation: "gemini/gemini-1.5-flash"
+      fact_check: "gemini/gemini-1.5-flash"
+      summary: "gemini/gemini-1.5-flash"
+      storyboard: "gemini/gemini-1.5-flash"
     deepseek:
-      primary: "deepseek-chat"
-      fallback: "deepseek-chat"
-      evaluation: "deepseek-chat"
+      primary: "deepseek/deepseek-chat"
+      fallback: "deepseek/deepseek-chat"
+      evaluation: "deepseek/deepseek-chat"
+      fact_check: "deepseek/deepseek-chat"
+      summary: "deepseek/deepseek-chat"
+      storyboard: "deepseek/deepseek-chat"
     qwen:
-      primary: "qwen-max"
-      fallback: "qwen-plus"
-      evaluation: "qwen-plus"
+      primary: "openrouter/qwen/qwen-max"
+      fallback: "openrouter/qwen/qwen-plus"
+      evaluation: "openrouter/qwen/qwen-plus"
+      fact_check: "openrouter/qwen/qwen-plus"
+      summary: "openrouter/qwen/qwen-plus"
+      storyboard: "openrouter/qwen/qwen-plus"
+    mock:
+      primary: "mock/demo"
+      fallback: "mock/demo"
+      evaluation: "mock/demo"
+      fact_check: "mock/demo"
+      summary: "mock/demo"
+      storyboard: "mock/demo"
 
   # Provider-specific rate limits (max concurrent requests)
   rate_limits:
