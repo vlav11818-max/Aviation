@@ -23,8 +23,11 @@ Model ID                                         Provider / notes
                                                   header injected alongside LiteLLM's default
                                                   ``x-api-key`` (kie.ai reads Authorization; the
                                                   extra x-api-key is harmless).
-                                                  ``KIE_BASE_URL`` must include the ``/v1``
-                                                  segment — e.g. ``https://api.kie.ai/claude/v1``.
+                                                  ``KIE_BASE_URL`` should be
+                                                  ``https://api.kie.ai/claude`` — LiteLLM
+                                                  appends ``/v1/messages`` itself. A trailing
+                                                  ``/v1`` is stripped defensively so the .env
+                                                  value works either way.
                                                   ``<their-model-slug>`` is whatever kie.ai calls
                                                   the model in their dashboard, e.g.
                                                   ``claude-sonnet-4-5`` or
@@ -231,6 +234,13 @@ async def call_llm(
         effective_model = "anthropic/" + model.split("/", 1)[1]
         if key:
             effective_headers.setdefault("Authorization", f"Bearer {key}")
+        # LiteLLM's anthropic handler always appends ``/v1/messages`` to
+        # ``api_base``. If the user's KIE_BASE_URL ended in ``/v1`` we
+        # would call ``…/v1/v1/messages`` (404). Strip it defensively so
+        # the .env value works whether the user wrote ``…/claude`` or
+        # ``…/claude/v1``.
+        if base_url and base_url.rstrip("/").endswith("/v1"):
+            base_url = base_url.rstrip("/")[: -len("/v1")]
     elif prefix == "custom":
         effective_model = "openai/" + model.split("/", 1)[1]
 
