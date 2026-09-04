@@ -130,30 +130,62 @@ def _sidebar_settings() -> None:
 
     provider_options = [
         "mock/demo (offline)",
-        "openrouter/anthropic/claude-3.5-sonnet",
-        "openrouter/openai/gpt-4o",
-        "openai/gpt-4o",
+        # Anthropic (direct)
         "anthropic/claude-3-5-sonnet-latest",
+        "anthropic/claude-3-5-haiku-latest",
+        # OpenAI (direct)
+        "openai/gpt-4o",
+        "openai/gpt-4o-mini",
+        # OpenRouter
+        "openrouter/anthropic/claude-3.5-sonnet",
+        "openrouter/anthropic/claude-3-haiku",
+        "openrouter/openai/gpt-4o",
+        # Google Gemini
         "gemini/gemini-1.5-pro",
+        "gemini/gemini-1.5-flash",
+        # DeepSeek
         "deepseek/deepseek-chat",
+        # kie.ai (needs KIE_API_KEY + KIE_BASE_URL in .env)
+        "kie/anthropic/claude-3.5-sonnet",
+        "kie/anthropic/claude-3-5-haiku-latest",
+        "kie/openai/gpt-4o",
+        "kie/openai/gpt-4o-mini",
+        # Custom OpenAI-compatible endpoint (needs CUSTOM_API_KEY + CUSTOM_BASE_URL)
+        "custom/whatever-your-endpoint-serves",
     ]
     st.sidebar.markdown("### Default model per role")
     st.sidebar.caption(
-        "Leave blank to use the value from settings.yaml. Overrides here "
-        "become the default for jobs you create in this session."
+        "Pick a preset or type any LiteLLM model id in the 'custom slug' field "
+        "below each role. Leave both blank to fall back to settings.yaml."
     )
     for role in ("primary", "evaluation", "fact_check", "summary", "storyboard"):
         key = f"default_model_{role}"
         current = st.session_state.get(key, "")
+        # If a saved value doesn't match a preset (e.g. a hand-typed kie.ai slug),
+        # add it to the option list so it stays selected on rerun.
+        opts = [""] + provider_options
+        if current and current not in opts and current != "mock/demo":
+            opts.append(current)
         picked = st.sidebar.selectbox(
             role,
-            options=[""] + provider_options,
-            index=([""] + provider_options).index(current) if current in ([""] + provider_options) else 0,
+            options=opts,
+            index=opts.index(current) if current in opts else 0,
             key=f"sidebar_{key}",
         )
-        st.session_state[key] = "" if picked == "" or picked.startswith("mock/demo") and picked != "mock/demo (offline)" else picked
-        if picked == "mock/demo (offline)":
-            st.session_state[key] = "mock/demo"
+        override = st.sidebar.text_input(
+            f"↳ custom slug for {role} (optional)",
+            value="",
+            placeholder="e.g. kie/anthropic/claude-3-5-sonnet-20241022",
+            key=f"sidebar_override_{key}",
+        )
+        # Priority: custom text > preset > blank. Normalise "mock/demo (offline)".
+        if override.strip():
+            resolved = override.strip()
+        elif picked == "mock/demo (offline)":
+            resolved = "mock/demo"
+        else:
+            resolved = picked
+        st.session_state[key] = resolved
 
     st.sidebar.divider()
     if st.sidebar.checkbox("Force mock provider (AVIATION_FORCE_MOCK)", key="force_mock"):
