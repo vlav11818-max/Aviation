@@ -14,9 +14,17 @@ Model ID                                         Provider / notes
 ``anthropic/claude-3-5-sonnet-latest``           Anthropic direct          — ``ANTHROPIC_API_KEY``
 ``gemini/gemini-1.5-pro``                        Google Gemini             — ``GEMINI_API_KEY``
 ``deepseek/deepseek-chat``                       DeepSeek                  — ``DEEPSEEK_API_KEY``
-``kie/<any-model>``                              kie.ai — ``KIE_API_KEY`` + ``KIE_BASE_URL``
+``kie/<their-model-slug>``                       kie.ai — ``KIE_API_KEY`` + ``KIE_BASE_URL``.
+                                                  Under the hood, ``kie/X`` is rewritten to
+                                                  ``openai/X`` so LiteLLM routes it as an
+                                                  OpenAI-compatible endpoint (kie.ai is
+                                                  OpenAI-schema-compatible). ``<their-model-slug>``
+                                                  is whatever kie.ai calls the model in their
+                                                  dashboard (e.g. ``anthropic/claude-3.5-sonnet``
+                                                  or ``claude-3-5-sonnet-20241022``).
 ``custom/<any-model>``                           Any OpenAI-compatible base URL —
-                                                  ``CUSTOM_API_KEY`` + ``CUSTOM_BASE_URL``
+                                                  ``CUSTOM_API_KEY`` + ``CUSTOM_BASE_URL``.
+                                                  Rewritten to ``openai/<model>`` internally.
 ``mock/demo`` (also just ``mock``)               Offline deterministic mock
 ===============================================  ===========================
 
@@ -199,12 +207,21 @@ async def call_llm(
             model=model,
         )
 
+    # Rewrite our shorthand prefixes to what LiteLLM actually understands.
+    # ``kie/X`` and ``custom/X`` don't exist as first-party providers in
+    # LiteLLM; both route to any OpenAI-compatible endpoint via the
+    # ``openai/`` prefix + explicit ``api_base``.
+    effective_model = model
+    prefix = model.split("/", 1)[0].lower() if "/" in model else ""
+    if prefix in ("kie", "custom"):
+        effective_model = "openai/" + model.split("/", 1)[1]
+
     # Import lazily so an environment without LiteLLM (e.g. a unit test
     # that only exercises the mock branch) does not fail to import this module.
     import litellm  # type: ignore
 
     kwargs: dict[str, Any] = {
-        "model": model,
+        "model": effective_model,
         "messages": messages,
         "temperature": temperature,
         "max_tokens": max_tokens,
