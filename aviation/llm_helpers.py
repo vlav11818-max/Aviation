@@ -38,9 +38,63 @@ logger = logging.getLogger(__name__)
 # APIResponseError / APIRateLimitError / APIConnectionError. Auth errors
 # and 4xx client errors are not retried.
 _TRANSIENT = (APIConnectionError, APIRateLimitError, APIResponseError)
+
+# Class-name fallback (some LiteLLM exceptions leak through without
+# being subclasses of the ones above — e.g. ServiceUnavailableError
+# inherits from openai.APIStatusError which is not APIResponseError).
+_TRANSIENT_NAMES = frozenset({
+    "ServiceUnavailableError",
+    "InternalServerError",
+    "APIStatusError",
+    "APITimeoutError",
+    "Timeout",
+    "TimeoutError",
+    "APIConnectionError",
+    "RateLimitError",
+    "ConflictError",
+    "OverloadedError",
+})
+
+# HTTP status codes we always retry.
+_TRANSIENT_STATUSES = frozenset({408, 425, 429, 500, 502, 503, 504, 529})
+
 _MAX_RETRIES = 5              # 6 total attempts
 _BACKOFF_BASE = 2.0           # seconds
 _BACKOFF_MAX = 45.0           # cap
+
+
+def _is_transient(exc: Exception) -> bool:
+    """True if ``exc`` is worth retrying.
+
+    Matches by class hierarchy first (APIConnectionError etc.), then
+    by class name (catches LiteLLM/openai exception subclasses that
+    slip past our own typing), then by HTTP status / message text
+    (last-resort catches for wrapped provider errors).
+    """
+    if isinstance(exc, _TRANSIENT):
+        return True
+    cls_name = type(exc).__name__
+    if cls_name in _TRANSIENT_NAMES:
+        return True
+    status = getattr(exc, "status_code", None)
+    if status is not None and int(status) in _TRANSIENT_STATUSES:
+        return True
+    text = str(exc).lower()
+    for cue in (
+        "resources are tight",
+        "internal error, please try again",
+        "please try again later",
+        "overloaded",
+        "temporarily unavailable",
+        "service unavailable",
+        "gateway timeout",
+        "bad gateway",
+        "connection reset",
+        "read timeout",
+    ):
+        if cue in text:
+            return True
+    return False
 
 
 _JSON_FENCE = re.compile(r"```(?:json)?\s*(.*?)```", re.S | re.I)
@@ -196,7 +250,10 @@ async def _call(
         except APIAuthError:
             # Bad key — no point retrying.
             raise
-        except _TRANSIENT as exc:
+        except Exception as exc:
+            if not _is_transient(exc):
+                logger.error("LLM call failed on %s: %s", model, exc)
+                raise
             last_exc = exc
             # Honour Retry-After if the provider gave one.
             hint = getattr(exc, "retry_after", None)
@@ -217,9 +274,6 @@ async def _call(
                 model, attempt + 1, _MAX_RETRIES + 1, wait, exc,
             )
             await asyncio.sleep(wait)
-        except Exception as exc:
-            logger.error("LLM call failed on %s: %s", model, exc)
-            raise
     # Loop fell through (shouldn't happen — the last iteration re-raises).
     if last_exc is not None:
         raise last_exc
