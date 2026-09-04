@@ -1,0 +1,167 @@
+INSTRUÇÕES CULTURAIS PARA NARRATIVA — PORTUGUÊS (PT)
+
+═══════════════════════════════════════════════════════════════════════
+LÍNGUA E REGISTRO
+═══════════════════════════════════════════════════════════════════════
+
+Escreve em português contemporâneo acessível. Como o público do YouTube lusófono é diverso — Portugal, Brasil, Angola, Moçambique e outros — por defeito usa o português brasileiro (PT-BR), que tem a maior audiência. Se a história se passa especificamente em Portugal ou num contexto europeu, usa o português europeu (PT-PT). Sê consistente — não mistures variantes no mesmo texto.
+
+Recomendações lexicais:
+- Português brasileiro: linguagem fluida, natural e envolvente. Evita formalidade excessiva («outrossim», «destarte», «não obstante»), mas mantém a correção gramatical.
+- Vocabulário rico e expressivo: o português é uma língua de grande beleza sonora. Usa sinónimos variados, verbos precisos e adjetivos evocativos.
+- Diferenças PT-BR vs PT-PT a considerar:
+  - PT-BR: trem, ônibus, celular, banheiro, café da manhã, legal, giro (bonito)
+  - PT-PT: comboio, autocarro, telemóvel, casa de banho, pequeno-almoço, fixe, giro (bonito)
+  - Mantém a coerência com a variante escolhida.
+- Evita estrangeirismos desnecessários, mas aceita os que já estão integrados na fala quotidiana: «site», «e-mail», «shopping» (PT-BR), «internet».
+- Pronomes: em PT-BR, o uso de «você» é neutro e universal. Em PT-PT, «tu» é informal e «você» pode soar distante ou até rude em certos contextos. Adapta ao contexto da história.
+- Colocação pronominal: PT-BR prefere próclise («me disse», «se sentou»); PT-PT prefere ênclise («disse-me», «sentou-se»). Sê consistente.
+- Gerúndio vs. infinitivo: PT-BR usa gerúndio livremente («estou fazendo»); PT-PT prefere «estar a + infinitivo» («estou a fazer»).
+
+═══════════════════════════════════════════════════════════════════════
+TRADIÇÕES NARRATIVAS E EXPECTATIVAS DO PÚBLICO
+═══════════════════════════════════════════════════════════════════════
+
+O público lusófono do YouTube espera:
+- Emoção e coração. A cultura lusófona valoriza profundamente as emoções. A «saudade» — aquela melancolia doce e nostálgica — é uma marca cultural. Histórias que tocam o coração são mais valorizadas do que aquelas puramente intelectuais.
+- Calor humano. Personagens devem sentir-se reais, com relações familiares e de amizade fortes. O coletivo, a comunidade e os laços pessoais são culturalmente centrais.
+- Fluidez e musicalidade. O português é uma língua musical. A prosa deve fluir com ritmo natural, quase como se cantasse.
+- Narrativas envolventes. O público aprecia histórias que o transportam — descrições vívidas, cenários imersivos, personagens com quem se identificar.
+- Finais emocionalmente satisfatórios. Podem ser felizes, agridoces ou melancólicos, mas devem tocar o coração. Finais puramente cerebrais ou frios são menos apreciados.
+- Autenticidade. Histórias que refletem experiências reais e emoções genuínas ressoam mais do que tramas mirabolantes sem alma.
+
+Ritmo narrativo:
+- O português permite frases mais longas e fluidas do que o inglês. Aproveita essa musicalidade, mas mantém clareza.
+- Alterna entre parágrafos descritivos e diálogos dinâmicos.
+- Parágrafos de 3 a 6 frases para narração oral.
+- Usa reticências (...) para criar suspense e pausa dramática.
+- O travessão (—) para incisões, comentários e mudanças de ritmo.
+
+═══════════════════════════════════════════════════════════════════════
+NOMES DE PERSONAGENS
+═══════════════════════════════════════════════════════════════════════
+
+Para PT-BR (cenário brasileiro):
+- Nomes comuns: Lucas, Pedro, Gabriel, Miguel, Rafael, Ana, Maria, Isabela, Julia, Fernanda, Beatriz, Gustavo, Matheus, Larissa.
+- Apelidos e diminutivos são extremamente comuns e mostram carinho: Pedro → Pedrinho, Ana → Aninha, Carlos → Carlão ou Carlinho, Maria → Mariazinha.
+- Sobrenomes: Silva, Santos, Oliveira, Souza, Lima, Pereira, Costa, Ferreira, Rodrigues, Almeida.
+- A diversidade brasileira reflete-se naturalmente nos nomes: nomes de origem portuguesa, africana, indígena, italiana, japonesa, árabe.
+
+Para PT-PT (cenário português):
+- Nomes comuns: João, António, Francisco, Manuel, Maria, Ana, Teresa, Mariana, Diogo, Tiago, Inês, Beatriz.
+- Apelidos: menos frequentes que no Brasil, mas existem. João → Joãozinho, Ana → Anita.
+- Sobrenomes: Silva, Santos, Ferreira, Pereira, Oliveira, Costa, Rodrigues, Martins.
+
+Evita nomes que soem muito parecidos na mesma história: Lucas/Marcos, Ana/Jana, Bruna/Bruno.
+
+═══════════════════════════════════════════════════════════════════════
+REFERÊNCIAS CULTURAIS E EXPRESSÕES
+═══════════════════════════════════════════════════════════════════════
+
+Expressões idiomáticas (PT-BR):
+- «Dar um jeitinho» (encontrar uma solução criativa), «ficar de boa» (ficar tranquilo), «pagar mico» (passar vergonha), «bater papo» (conversar), «tá ligado?» (entendeu?), «dar uma mancada» (cometer um erro).
+
+Expressões idiomáticas (PT-PT):
+- «Ir com os porcos» (dar-se mal), «meter água» (falhar), «pregar um susto» (assustar), «dar-se ao trabalho» (fazer o esforço), «estar feito ao bife» (estar em apuros).
+
+Expressões universais lusófonas:
+- «Água mole em pedra dura, tanto bate até que fura», «Quem não tem cão, caça com gato», «De grão em grão, a galinha enche o papo», «Nem tudo o que reluz é ouro».
+
+Realidades culturais brasileiras:
+- O churrasco, a praia, o futebol (futebol como paixão nacional), o carnaval, a feijoada, o café, o samba, a novela da noite, o açaí, a caipirinha.
+- A família extensa: avós, tios, primos — relações familiares fortes e presentes no quotidiano.
+- A diversidade regional: o Nordeste, o Sul, São Paulo, Rio de Janeiro, a Amazónia — cada região tem personalidade própria.
+
+Realidades culturais portuguesas:
+- O fado, o bacalhau (mil e uma maneiras), o café (bica em Lisboa, cimbalino no Porto), o pastel de nata, as festas populares, o vinho do Porto, o Alentejo, a saudade como identidade.
+- As aldeias, as festas de santos padroeiros, a sardinha assada, o mar e a tradição marítima.
+
+Feriados e celebrações:
+- Brasil: Carnaval, Páscoa, Dia das Mães, Festas Juninas (junho), Dia da Independência (7 de setembro), Natal, Réveillon.
+- Portugal: Páscoa, 25 de Abril (Revolução dos Cravos), Santos Populares (junho), Natal, Passagem de Ano.
+
+Unidades de medida: sistema métrico — quilómetros, quilogramas, graus Celsius.
+
+═══════════════════════════════════════════════════════════════════════
+CONVENÇÕES DE DIÁLOGO
+═══════════════════════════════════════════════════════════════════════
+
+- Diálogos em português usam travessão:
+  — Onde você vai? — perguntou ela.
+  — Não sei — ele deu de ombros. — Só quero sair um pouco.
+- Verbos de fala: «disse», «perguntou», «respondeu» como base. «Murmurou», «sussurrou», «exclamou» com moderação.
+- Ação como atribuição: Ela cruzou os braços. — Não acredito nisso.
+- Interjeições brasileiras: «Nossa!», «Caramba!», «Que coisa!», «Eita!», «Puxa!», «Meu Deus!»
+- Interjeições portuguesas: «Epá!», «Fogo!», «Caramba!», «Bolas!», «Credo!»
+- Tratamento: «tu» (informal, Brasil Sul e Portugal) vs. «você» (neutro, maioria do Brasil) vs. «o senhor/a senhora» (formal).
+
+═══════════════════════════════════════════════════════════════════════
+HUMOR
+═══════════════════════════════════════════════════════════════════════
+
+- O humor lusófono tende a ser caloroso e autoirónico, baseado em situações do quotidiano.
+- Humor brasileiro: exagerado, expressivo, cheio de energia. Piadas sobre situações do dia a dia, «jeitinho brasileiro», rivalidades regionais (sempre com carinho).
+- Humor português: mais seco e sarcástico, com uma tendência para o autodepreciação nacional e o absurdo sutil.
+- Trocadilhos e jogos de palavras funcionam na escrita, mas são difíceis na narração oral. Prefere humor situacional.
+- Evita humor que possa ser ofensivo para qualquer grupo.
+
+═══════════════════════════════════════════════════════════════════════
+PARTICULARIDADES ESTILÍSTICAS
+═══════════════════════════════════════════════════════════════════════
+
+- A saudade como tom narrativo: a nostalgia doce, a memória do que foi ou do que poderia ter sido. É um sentimento profundamente lusófono que enriquece qualquer narrativa.
+- Descrições sensoriais: o cheiro do café, o som das ondas, o calor do sol, a textura da areia — o português convida à sensorialidade.
+- Oralidade na escrita: o português, especialmente o brasileiro, tem uma tradição de misturar registos oral e escrito na literatura. Isso cria proximidade com o leitor/ouvinte.
+- A natureza como personagem: o mar, a floresta, o sertão, a chuva — a paisagem natural é frequentemente mais do que um cenário, é um reflexo emocional.
+
+═══════════════════════════════════════════════════════════════════════
+NOTAS ESPECÍFICAS PARA NARRAÇÃO VOCAL EM PORTUGUÊS
+═══════════════════════════════════════════════════════════════════════
+
+- Variante padrão: como definido nas seções anteriores, o PT-BR é o padrão. A colocação pronominal, o gerúndio e o vocabulário devem seguir a norma brasileira, a menos que a história esteja explicitamente ambientada em Portugal.
+- Comprimento das frases: português brasileiro permite frases melodiosas mais longas, mas para narração YouTube, mantenha 12–20 palavras por frase em média. Varie entre frases curtas e longas para ritmo.
+- Pontuação e respiração: vírgula para pausa breve (~0,3s), ponto para pausa completa (~0,6s), reticências (…) para pausa dramática, travessão (—) para interrupção ou apartes.
+- Números: escrever por extenso. «Duzentos e cinquenta quilômetros», não «250 km». Atenção à concordância: «duzentas pessoas» (feminino).
+- Abreviações: desenvolver completamente. «Por exemplo» em vez de «p.ex.», «isto é» em vez de «i.e.», «Senhor» em vez de «Sr.»
+- Pronúncia difícil: evitar acúmulo de sibilantes (s, z, x, ch) que podem causar cacofonias. «Os seis sussurros silenciosos» é um trava-língua acidental.
+- Crase: usar corretamente — a crase errada muda o sentido e pode confundir o ouvinte. «Fui à escola» vs. «Fui a escola» — o ouvinte depende do contexto para distinguir.
+- Homófonos: «sessão/seção/cessão», «concerto/conserto», «comprimento/cumprimento» — o contexto deve ser inequívoco para o ouvinte.
+- Travessão para diálogo: em português, o discurso direto usa travessão (—), não aspas. «— Eu não sabia — disse Maria, baixando os olhos.» Este é o formato padrão e deve ser seguido.
+- Gerúndio vs. infinitivo: PT-BR usa gerúndio livremente («estou fazendo»), PT-PT prefere «estar a + infinitivo» («estou a fazer»). Seja consistente com a variante escolhida.
+
+═══════════════════════════════════════════════════════════════════════
+SENSIBILIDADE E TABUS
+═══════════════════════════════════════════════════════════════════════
+
+- Colonialismo: tema delicado tanto para brasileiros quanto para portugueses. A escravidão e suas consequências podem ser contexto histórico, mas tratar com respeito e profundidade, sem romantizar.
+- Desigualdade social: realidade brasileira, mas evitar estereótipos (favela = violência, riqueza = corrupção). Personagens de todas as classes sociais merecem humanidade e complexidade.
+- Religião: o Brasil é profundamente religioso (catolicismo, protestantismo, religiões afro-brasileiras, espiritismo). Tratar todas as crenças com respeito. Religiões afro-brasileiras (candomblé, umbanda) não são «macumba» — evitar termos depreciativos.
+- Regionalismo: o Brasil é continental. Nordeste, Sul, Sudeste, Norte, Centro-Oeste — cada região tem identidade própria. Não reduzir ao eixo Rio-São Paulo. Sotaques regionais podem enriquecer diálogos mas não devem ser caricaturas.
+- Povos indígenas: tratar com respeito e como povos contemporâneos, não como relíquias do passado.
+- Palavrões: «Merda», «porra», «caralho» são extremamente comuns na fala coloquial brasileira, mas devem ser usados com muita parcimônia em narração YouTube. Reservar para diálogos de personagens, nunca na voz narrativa.
+- Violência: contextual e necessária ao enredo. O público brasileiro está familiarizado com temas de violência urbana, mas evitar exploração gratuita.
+
+═══════════════════════════════════════════════════════════════════════
+CLEANUP_PATTERNS:
+═══════════════════════════════════════════════════════════════════════
+# Padrões para remoção de marcadores de capítulos/seções (português)
+(?i)^\s*capítulo\s+\d+
+(?i)^\s*capitulo\s+\d+
+(?i)^\s*capítulo\s+(um|dois|três|quatro|cinco|seis|sete|oito|nove|dez|primeiro|segundo|terceiro)
+(?i)^\s*parte\s+\d+
+(?i)^\s*parte\s+(um|dois|três|quatro|cinco|primeira|segunda|terceira)
+(?i)^\s*seção\s+\d+
+(?i)^\s*secção\s+\d+
+(?i)^\s*ato\s+\d+
+(?i)^\s*ato\s+(um|dois|três|primeiro|segundo|terceiro|i{1,3})
+(?i)^\s*prólogo\s*$
+(?i)^\s*epílogo\s*$
+(?i)^\s*fim\s*\.?\s*$
+(?i)^\s*\*\s*\*\s*\*\s*$
+(?i)^\s*---+\s*$
+(?i)^\s*~~~+\s*$
+(?i)^\s*\[.*capítulo.*\]
+(?i)^\s*\[.*capitulo.*\]
+(?i)^\s*\[.*parte.*\]
+(?i)^\s*\[.*seção.*\]
+(?i)^\s*\[.*continuação.*\]

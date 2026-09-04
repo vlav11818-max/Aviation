@@ -1,0 +1,41 @@
+{
+  "premise": "In a forgotten temple deep in the Cambodian jungle, an archaeologist discovers a series of stone tablets that predict future events with unsettling accuracy. As she decodes them, she realizes the final tablet describes her own death — unless she can alter the course of history.",
+  "setting": {
+    "location": "Angkor region, Cambodia — a hidden temple complex overgrown by centuries of jungle growth",
+    "time_period": "Present day, with flashbacks to the 12th century Khmer Empire",
+    "atmosphere": "Dense tropical humidity, ancient stone corridors lit by filtered sunlight, the constant sound of dripping water and distant bird calls"
+  },
+  "characters": [
+    {
+      "name": "Dr. Lena Voss",
+      "role": "protagonist",
+      "traits": ["determined", "skeptical", "emotionally guarded"],
+      "arc": "Moves from rigid scientific skepticism to accepting that some knowledge transcends rational explanation"
+    },
+    {
+      "name": "Sok Chandra",
+      "role": "guide and local expert",
+      "traits": ["quietly wise", "patient", "deeply spiritual"],
+      "arc": "Reveals layers of knowledge about the temple, becoming a bridge between ancient wisdom and modern science"
+    },
+    {
+      "name": "Dr. Marcus Webb",
+      "role": "rival archaeologist",
+      "traits": ["ambitious", "charming", "morally flexible"],
+      "arc": "Begins as a colleague, revealed as someone willing to exploit the tablets for personal gain"
+    }
+  ],
+  "tone": "dramatic_cinematic",
+  "themes": [
+    "The tension between science and faith",
+    "The weight of forbidden knowledge",
+    "The cost of ambition"
+  ],
+  "key_rules": [
+    "Maintain present tense for main narrative",
+    "Use sensory details for the jungle and temple environment",
+    "Build suspense through the progressive decoding of tablets",
+    "Each tablet revelation raises the stakes"
+  ],
+  "narrative_voice": "Third person limited, following Lena's perspective with an atmospheric, cinematic quality"
+}

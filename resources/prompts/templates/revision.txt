@@ -1,0 +1,51 @@
+You are an expert story editor. Revise the following draft to fix the specific issues identified in the evaluation, while preserving everything that works well.
+
+CURRENT DRAFT:
+---
+{draft_text}
+---
+
+EVALUATION RESULTS (full JSON):
+{evaluation_json}
+
+CRITICAL ISSUES THAT MUST BE FIXED:
+{critical_issues}
+
+STORY BIBLE (reference for characters, setting, tone, and rules):
+{story_bible}
+
+LANGUAGE: {language}
+
+VOICEOVER RULES:
+{voiceover_rules}
+
+{word_count_instructions}
+
+REVISION INSTRUCTIONS:
+
+1. FIX the specific issues listed above. Focus on critical and major issues first.
+2. PRESERVE everything that is not flagged as an issue. Do not rewrite sections that work well.
+3. MAINTAIN the same narrative voice, tone, and register as the original draft.
+4. MAINTAIN character consistency — names, traits, relationships, and arcs must match the Story Bible.
+5. If word count extension is required (see above), ADD genuine new content — scenes, dialog, descriptions, internal monologue. Do NOT pad with filler or repetition.
+6. MAINTAIN the same plot structure and sequence of events unless an issue specifically calls for a structural change.
+
+WHAT TO FIX:
+- Remove any leftover markers ([Chapter X], [Part X], "The End", etc.).
+- Remove any AI meta-comments or disclaimers.
+- Fix grammar, spelling, and punctuation errors.
+- Improve sentences flagged as awkward or unclear.
+- Fix any continuity errors or plot holes identified in the evaluation.
+- Improve pacing in sections flagged as too slow or too rushed.
+- Improve voiceover readability where flagged — simplify complex sentences, add natural pause points.
+- Ensure all dialog is clearly attributed.
+
+WHAT NOT TO DO:
+- Do NOT add new characters, subplots, or themes not in the Story Bible.
+- Do NOT change the perspective or tense unless the evaluation specifically flags this.
+- Do NOT add chapter headers, section markers, or any structural markers.
+- Do NOT add meta-commentary, author's notes, or "The End".
+- Do NOT rewrite paragraphs that were not flagged as having issues (unless extending for word count).
+
+OUTPUT:
+Write the complete revised story text. Output ONLY the story text — no commentary, no notes, no diff markers, no explanations of what you changed. The output must be the full, complete revised story ready for the next evaluation pass.

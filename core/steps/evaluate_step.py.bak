@@ -1,0 +1,389 @@
+"""Four-level story evaluation step with programmatic L1.
+
+L1 Technical evaluation is performed programmatically (no LLM call).
+L2-L4 are evaluated by the LLM. Overall = L1*15% + avg(L2-L4)*85%.
+
+The module-level evaluate_l1_programmatic() is also imported by
+SectionStep for its per-section quality gate.
+
+FIX: Added module-level _state_mgr = StateManager() which was used in
+execute() via _state_mgr.add_evaluation() but was never defined here,
+causing NameError at runtime.
+"""
+
+from __future__ import annotations
+
+import json
+import logging
+import re
+from datetime import datetime, timezone
+from typing import TYPE_CHECKING
+
+from core.events import EventBus, EventType
+from core.exceptions import StepError
+from core.state_manager import StateManager
+from core.steps.base_step import BaseStep
+from models.evaluation import (
+    EvaluationIssue,
+    EvaluationLevel,
+    EvaluationResult,
+    IssueSeverity,
+    LevelResult,
+)
+from models.state import PipelineState
+
+if TYPE_CHECKING:
+    from core.api_client import APIClient
+    from core.prompt_manager import PromptManager
+
+logger = logging.getLogger(__name__)
+
+# FIX: module-level instance used by execute().
+_state_mgr = StateManager()
+
+_PAT_CHAPTER_MARKERS = re.compile(
+    r"^\s*(?:Chapter|Part|Section|Глава|Часть|Розділ|Частина|Kapitel|Teil|"
+    r"Chapitre|Partie|Capítulo|Capitolo|Rozdział|Część|Capitolul|Bölüm|"
+    r"Kısım|Kapitel|Del|Afsnit)\s+",
+    re.IGNORECASE | re.MULTILINE,
+)
+_PAT_META_COMMENTS = re.compile(
+    r"^\s*(?:Note:|Author'?s?\s*note:|Editor'?s?\s*note:|"
+    r"AI\s*note:|Disclaimer:|Content\s*warning:)",
+    re.IGNORECASE | re.MULTILINE,
+)
+_PAT_END_MARKERS = re.compile(
+    r"^\s*(?:The\s+End|Fin|Ende|Конец|Кінець|Fine|Fim|Koniec|Sfârșit|Son|Slut)\s*\.?\s*$",
+    re.IGNORECASE | re.MULTILINE,
+)
+_PAT_STAGE_DIRECTIONS = re.compile(r"\*[^*]{2,80}\*")
+
+_L1_WEIGHT = 0.15
+_LLM_WEIGHT = 0.85
+
+
+def evaluate_l1_programmatic(
+    text: str,
+    target_words: int,
+    word_count_tolerance: float = 0.15,
+) -> LevelResult:
+    """Evaluate L1 Technical criteria programmatically.
+
+    Single source of truth for L1 checks. Called by EvaluateStep
+    (story-level) and SectionStep (per-section quality gate).
+
+    Args:
+        text: Draft or section text to evaluate.
+        target_words: Target word count for this text.
+        word_count_tolerance: Fractional tolerance (0.15 = ±15%).
+            SectionStep passes 0.25 for per-section checks.
+
+    Returns:
+        LevelResult with score (0-10) and list of issues.
+    """
+    issues: list[EvaluationIssue] = []
+    deductions = 0.0
+
+    word_count = len(text.split())
+    lower_bound = int(target_words * (1 - word_count_tolerance))
+    upper_bound = int(target_words * (1 + word_count_tolerance))
+
+    if word_count < lower_bound:
+        deficit_pct = ((target_words - word_count) / target_words) * 100
+        issues.append(EvaluationIssue(
+            level=EvaluationLevel.L1_TECHNICAL, category="word_count",
+            description=f"Word count {word_count} is {deficit_pct:.0f}% below target {target_words} (min {lower_bound})",
+            severity=IssueSeverity.MAJOR if deficit_pct > 25 else IssueSeverity.MINOR,
+        ))
+        deductions += min(2.0, deficit_pct / 10)
+    elif word_count > upper_bound:
+        excess_pct = ((word_count - target_words) / target_words) * 100
+        issues.append(EvaluationIssue(
+            level=EvaluationLevel.L1_TECHNICAL, category="word_count",
+            description=f"Word count {word_count} is {excess_pct:.0f}% above target {target_words} (max {upper_bound})",
+            severity=IssueSeverity.MAJOR if excess_pct > 25 else IssueSeverity.MINOR,
+        ))
+        deductions += min(1.5, excess_pct / 15)
+
+    markers = _PAT_CHAPTER_MARKERS.findall(text)
+    if markers:
+        issues.append(EvaluationIssue(
+            level=EvaluationLevel.L1_TECHNICAL, category="chapter_markers",
+            description=f"Found {len(markers)} chapter/section marker(s) in text",
+            severity=IssueSeverity.MAJOR,
+        ))
+        deductions += min(2.0, len(markers) * 0.5)
+
+    meta = _PAT_META_COMMENTS.findall(text)
+    if meta:
+        issues.append(EvaluationIssue(
+            level=EvaluationLevel.L1_TECHNICAL, category="meta_comments",
+            description=f"Found {len(meta)} AI meta-comment(s) in text",
+            severity=IssueSeverity.CRITICAL,
+        ))
+        deductions += min(3.0, len(meta) * 1.0)
+
+    end_markers = _PAT_END_MARKERS.findall(text)
+    if end_markers:
+        issues.append(EvaluationIssue(
+            level=EvaluationLevel.L1_TECHNICAL, category="end_markers",
+            description="Found 'The End' or similar end marker in text",
+            severity=IssueSeverity.MINOR,
+        ))
+        deductions += 0.5
+
+    stage = _PAT_STAGE_DIRECTIONS.findall(text)
+    if stage:
+        issues.append(EvaluationIssue(
+            level=EvaluationLevel.L1_TECHNICAL, category="stage_directions",
+            description=f"Found {len(stage)} stage direction(s) in asterisks",
+            severity=IssueSeverity.MAJOR,
+        ))
+        deductions += min(2.0, len(stage) * 0.5)
+
+    try:
+        text.encode("utf-8").decode("utf-8")
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        issues.append(EvaluationIssue(
+            level=EvaluationLevel.L1_TECHNICAL, category="encoding",
+            description="Text contains invalid UTF-8 sequences",
+            severity=IssueSeverity.CRITICAL,
+        ))
+        deductions += 2.0
+
+    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
+    if paragraphs:
+        max_para = max(len(p.split()) for p in paragraphs)
+        if max_para > 200:
+            issues.append(EvaluationIssue(
+                level=EvaluationLevel.L1_TECHNICAL, category="paragraph_length",
+                description=f"Longest paragraph is {max_para} words (recommended max ~100 for voiceover)",
+                severity=IssueSeverity.MINOR,
+            ))
+            deductions += 0.5
+
+    return LevelResult(score=round(max(0.0, min(10.0, 10.0 - deductions)), 2), issues=issues)
+
+
+class EvaluateStep(BaseStep):
+    """Evaluate the current draft using the 4-level rubric.
+
+    L1 evaluated programmatically (no API call).
+    L2-L4 evaluated by the LLM. Overall = weighted average.
+    """
+
+    @property
+    def name(self) -> str:
+        return "evaluate"
+
+    @property
+    def description(self) -> str:
+        return "4-level story evaluation (L1 programmatic + L2-L4 LLM)"
+
+    async def execute(
+        self,
+        state: PipelineState,
+        api_client: "APIClient",
+        prompt_manager: "PromptManager",
+        event_bus: EventBus,
+    ) -> PipelineState:
+        """Run evaluation on the latest draft.
+
+        Args:
+            state: Current pipeline state (must have at least one draft).
+            api_client: Unified API client (used for L2-L4).
+            prompt_manager: Template loader/renderer.
+            event_bus: Event bus for GUI communication.
+
+        Returns:
+            Updated state with the evaluation result appended.
+
+        Raises:
+            StepError: If no draft is available or the API call fails.
+        """
+        logger.info("EvaluateStep: evaluating draft for '%s' (attempt %d)", state.topic, state.current_attempt)
+
+        if not state.drafts:
+            raise StepError(f"EvaluateStep: no draft available for '{state.topic}'", step_name=self.name, recoverable=False)
+
+        event_bus.emit(EventType.STEP_STARTED, step=self.name, topic=state.topic, story_id=state.story_id)
+
+        gen = state.generation_config
+        draft_text = state.latest_draft
+
+        l1_result = evaluate_l1_programmatic(draft_text, gen.target_words, word_count_tolerance=0.15)
+        logger.info("EvaluateStep: L1 score=%.2f (%d issues)", l1_result.score, len(l1_result.issues))
+
+        voiceover_reqs = (
+            "Voiceover-optimized: simple sentences, natural pauses via punctuation, "
+            "no chapter headers, no AI meta-comments, no stage directions."
+        )
+        prompt = prompt_manager.render(
+            "evaluation",
+            language=state.language,
+            draft_text=draft_text,
+            target_words=str(gen.target_words),
+            original_topic=state.topic,
+            tone=str(gen.tone),
+            perspective=str(gen.perspective),
+            voiceover_requirements=voiceover_reqs,
+        )
+
+        try:
+            response_text = await api_client.send(
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.3, max_tokens=4096,
+            )
+        except Exception as exc:
+            raise StepError(f"Evaluation API call failed for '{state.topic}': {exc}", step_name=self.name, recoverable=True) from exc
+
+        if not isinstance(response_text, str):
+            response_text = getattr(response_text, "text", str(response_text))
+
+        llm_levels = self._parse_llm_response(response_text, state.topic)
+        l2_result = llm_levels.get("l2", LevelResult(score=0.0, issues=[]))
+        l3_result = llm_levels.get("l3", LevelResult(score=0.0, issues=[]))
+        l4_result = llm_levels.get("l4", LevelResult(score=0.0, issues=[]))
+
+        llm_avg = (l2_result.score + l3_result.score + l4_result.score) / 3.0
+        overall = round((l1_result.score * _L1_WEIGHT) + (llm_avg * _LLM_WEIGHT), 2)
+
+        all_issues = [
+            issue for lr in [l1_result, l2_result, l3_result, l4_result]
+            for issue in lr.issues
+            if issue.severity in (IssueSeverity.CRITICAL, IssueSeverity.MAJOR)
+        ]
+        passed = overall >= gen.min_score
+
+        summary_parts = []
+        if l1_result.score < 8.0:
+            summary_parts.append(f"L1 Technical issues (score {l1_result.score:.1f})")
+        summary_parts.append(f"LLM: L2={l2_result.score:.1f}, L3={l3_result.score:.1f}, L4={l4_result.score:.1f}")
+
+        eval_result = EvaluationResult(
+            l1_technical=l1_result, l2_linguistic=l2_result,
+            l3_content=l3_result, l4_voiceover=l4_result,
+            overall_score=overall, passed=passed,
+            summary=". ".join(summary_parts),
+            critical_issues=all_issues,
+            attempt_number=state.current_attempt,
+            timestamp=datetime.now(timezone.utc).isoformat(),
+        )
+
+        self._save_artifact(
+            state, f"eval_v{state.current_attempt}.json",
+            json.dumps(eval_result.model_dump(), indent=2, ensure_ascii=False),
+        )
+
+        state = _state_mgr.add_evaluation(state, eval_result)
+
+        event_bus.emit(
+            EventType.EVALUATION_RESULT, step=self.name, topic=state.topic,
+            story_id=state.story_id, overall_score=overall, passed=passed,
+            attempt=eval_result.attempt_number, issue_count=eval_result.issue_count,
+        )
+
+        logger.info(
+            "EvaluateStep complete for '%s': L1=%.2f L2=%.2f L3=%.2f L4=%.2f overall=%.2f passed=%s",
+            state.topic, l1_result.score, l2_result.score, l3_result.score, l4_result.score, overall, passed,
+        )
+        return state
+
+    def _evaluate_l1_programmatic(self, text: str, target_words: int) -> LevelResult:
+        """Delegate to module-level evaluate_l1_programmatic().
+
+        Args:
+            text: Draft text to evaluate.
+            target_words: Target word count.
+
+        Returns:
+            LevelResult with score and issues.
+        """
+        return evaluate_l1_programmatic(text, target_words, word_count_tolerance=0.15)
+
+    def _parse_llm_response(self, response_text: str, topic: str) -> dict[str, LevelResult]:
+        """Parse the LLM evaluation response for L2, L3, L4.
+
+        Args:
+            response_text: Raw LLM response (expected JSON).
+            topic: Topic for error messages.
+
+        Returns:
+            Dict with keys "l2", "l3", "l4" mapping to LevelResult.
+        """
+        cleaned = _extract_json(response_text)
+        try:
+            data = json.loads(cleaned)
+        except json.JSONDecodeError as exc:
+            logger.warning("EvaluateStep: response for '%s' not valid JSON: %s — fallback scores", topic, exc)
+            return {k: LevelResult(score=5.0, issues=[]) for k in ("l2", "l3", "l4")}
+        return {
+            "l2": self._parse_level(data, "L2_linguistic", EvaluationLevel.L2_LINGUISTIC),
+            "l3": self._parse_level(data, "L3_content", EvaluationLevel.L3_CONTENT),
+            "l4": self._parse_level(data, "L4_voiceover", EvaluationLevel.L4_VOICEOVER),
+        }
+
+    def _parse_level(self, data: dict, key: str, level: EvaluationLevel) -> LevelResult:
+        """Parse a single evaluation level from the response.
+
+        Args:
+            data: Full evaluation JSON.
+            key: Primary key to look for.
+            level: Evaluation level enum value.
+
+        Returns:
+            LevelResult with score and issues.
+        """
+        level_data = data.get(key) or data.get(key.lower()) or data.get(key.split("_")[0]) or {}
+        if not isinstance(level_data, dict):
+            return LevelResult(score=0.0, issues=[])
+        score = max(0.0, min(10.0, float(level_data.get("score", 0.0))))
+        return LevelResult(score=score, issues=self._parse_issues(level_data.get("issues", []), level))
+
+    @staticmethod
+    def _parse_issues(issues_raw: list, default_level: EvaluationLevel) -> list[EvaluationIssue]:
+        """Parse a list of issue objects from the LLM response.
+
+        Args:
+            issues_raw: List of issue dicts from the LLM.
+            default_level: Default evaluation level for issues.
+
+        Returns:
+            List of EvaluationIssue instances.
+        """
+        issues: list[EvaluationIssue] = []
+        if not isinstance(issues_raw, list):
+            return issues
+        for item in issues_raw:
+            if isinstance(item, str):
+                issues.append(EvaluationIssue(level=default_level, category="general", description=item, severity=IssueSeverity.MINOR))
+            elif isinstance(item, dict):
+                try:
+                    severity = IssueSeverity(str(item.get("severity", "minor")).lower())
+                except ValueError:
+                    severity = IssueSeverity.MINOR
+                issues.append(EvaluationIssue(
+                    level=default_level, category=str(item.get("category", "general")),
+                    description=str(item.get("description", str(item))), severity=severity,
+                    line_reference=str(item.get("line_reference", "")),
+                ))
+        return issues
+
+
+def _extract_json(text: str) -> str:
+    """Strip markdown code fences from LLM output if present.
+
+    Args:
+        text: Raw LLM response text.
+
+    Returns:
+        Cleaned text likely to be valid JSON.
+    """
+    stripped = text.strip()
+    if stripped.startswith("```"):
+        first_newline = stripped.find("\n")
+        if first_newline != -1:
+            stripped = stripped[first_newline + 1:]
+        if stripped.endswith("```"):
+            stripped = stripped[:-3]
+    return stripped.strip()

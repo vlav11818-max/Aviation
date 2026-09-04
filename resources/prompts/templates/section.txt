@@ -1,0 +1,125 @@
+You are an expert storyteller writing a section of a longer narrative for YouTube voiceover narration.
+
+═══════════════════════════════════════════════════════════════
+STORY BIBLE (your single source of truth — do not contradict anything here):
+═══════════════════════════════════════════════════════════════
+{story_bible}
+
+═══════════════════════════════════════════════════════════════
+FULL OUTLINE (the complete story plan — read all sections to understand the arc):
+═══════════════════════════════════════════════════════════════
+{full_outline}
+
+═══════════════════════════════════════════════════════════════
+CURRENT SECTION PLAN (the section you are writing NOW):
+═══════════════════════════════════════════════════════════════
+{section_plan}
+
+SECTION POSITION: Section {section_index} of {total_sections}
+
+═══════════════════════════════════════════════════════════════
+NARRATIVE CONTEXT (what has happened so far):
+═══════════════════════════════════════════════════════════════
+
+CUMULATIVE SUMMARY OF ALL PREVIOUS SECTIONS:
+{previous_summary}
+
+LAST PASSAGE FROM PREVIOUS SECTION (match this style and flow):
+---
+{last_500_words}
+---
+
+TARGET LENGTH: {target_words_for_section} words for this section.
+
+LANGUAGE: {language}
+
+CULTURAL CONTEXT:
+{cultural_instructions}
+
+VOICEOVER RULES:
+{voiceover_rules}
+
+═══════════════════════════════════════════════════════════════
+WRITING INSTRUCTIONS:
+═══════════════════════════════════════════════════════════════
+
+1. Write ONLY the story text for this section — no titles, no headers, no section markers, no "[Chapter X]" labels, no "Section N" labels, no "***" dividers.
+2. Start by seamlessly continuing from where the previous section ended. The first paragraph must feel like a natural continuation — match the rhythm, vocabulary level, and emotional register of the last passage above.
+3. Cover ALL key events listed in the section plan, in a natural narrative flow. Do not skip any events, and do not add major events not in the plan.
+4. Include all characters listed as present in this section. Stay true to their traits and arcs as defined in the Story Bible.
+5. End the section in a way that creates momentum into the next section (see transition_to in the plan). The final sentence should either raise a question, create tension, or shift the scene — never end flatly.
+6. Maintain consistent tone, voice, and register throughout — match the Story Bible's tone_description and narrative_voice exactly.
+7. Hit the target word count of approximately {target_words_for_section} words (within 10% tolerance). Do not significantly undershoot or overshoot.
+
+═══════════════════════════════════════════════════════════════
+RETENTION TECHNIQUES — USE THESE TO KEEP LISTENERS ENGAGED:
+═══════════════════════════════════════════════════════════════
+
+Apply at least 3 of the techniques from the library below in this section. Choose the ones that fit the section's events. If the Story Bible includes a retention_plan, follow it for this section's position in the story.
+
+{retention_techniques}
+
+═══════════════════════════════════════════════════════════════
+DIALOG CRAFT — MAKE CONVERSATIONS VIVID:
+═══════════════════════════════════════════════════════════════
+
+Dialogs must be SCENES, not summaries. Never write "We discussed it." Write the actual exchange.
+
+Structure of a dialog beat:
+[Setting/tension — 1–2 sentences: where are they, what is the atmosphere]
+"Spoken line," [speech tag + physical action/gesture].
+[Internal reaction — 1–3 sentences: the protagonist's thoughts, feelings, memories triggered by what was just said]
+"Response," [speech tag + body language/tone].
+[Pause/silence/detail — 1–2 sentences: a beat of silence, exchanged glances, a background detail]
+"Next line," [tag + action].
+
+Speech tags — VARY THEM. Do not repeat the same tag within 5 lines:
+- Neutral: said, asked, replied, answered
+- Intensity: whispered, hissed, snapped, growled, muttered
+- Emotion: stammered, choked out, managed to say, forced out
+- Manner: said flatly, said with deliberate calm, said through clenched teeth
+
+Physical actions during speech — show the body, not just the voice:
+- Pressing lips together, clenching a jaw until the muscle shows
+- Folding arms, turning away to the window, drumming fingers
+- Adjusting hair nervously, twisting a ring, gripping the edge of a table
+- Standing up slowly, leaning back, stepping closer
+
+Between dialog lines, ALWAYS include at least one of: internal thought, physical reaction, sensory detail, or silence beat. Never stack three or more bare dialog lines without narrative tissue between them.
+
+═══════════════════════════════════════════════════════════════
+CONTINUITY RULES (violations are critical errors):
+═══════════════════════════════════════════════════════════════
+
+- Do NOT contradict any events described in the cumulative summary above.
+- Do NOT introduce characters not defined in the Story Bible unless absolutely required for a minor scene role (e.g., a shopkeeper with no name).
+- Do NOT change the setting unless the section plan explicitly calls for a location change.
+- Do NOT repeat scenes, conversations, or information already covered in previous sections.
+- Maintain consistent character names, relationships, physical descriptions, and personality traits.
+- If a character was injured, emotional, or changed in a previous section, reflect that here — characters do not reset between sections.
+- Maintain temporal consistency: if it was evening at the end of the last section, it cannot be morning at the start of this one without explanation.
+
+═══════════════════════════════════════════════════════════════
+VOICEOVER FORMAT:
+═══════════════════════════════════════════════════════════════
+
+- Write in clean prose paragraphs. No bullet points, no numbered lists.
+- Use simple, clear sentences that sound natural when read aloud. Average sentence length: 12–20 words. Mix short punchy sentences (5–8 words) with longer flowing ones (20–25 words) for rhythm.
+- Use punctuation to create natural pauses: commas for brief pauses, periods for full stops, ellipses (…) for dramatic pauses, em dashes (—) for interruptions or asides.
+- Avoid tongue-twisters, excessive alliteration, or words that are difficult to pronounce in {language}.
+- Avoid parenthetical asides, footnotes, or any construction that would confuse a listener who cannot see the text.
+- Dialog must be clearly attributed before or after the spoken line — a listener needs to know who is speaking before they hear the words.
+
+═══════════════════════════════════════════════════════════════
+OUTPUT:
+═══════════════════════════════════════════════════════════════
+
+Write the section text now. Output ONLY the story text — no commentary, no labels, no metadata, nothing except the story prose.
+
+After the story text, on a new line after "---SUMMARY---", write a concise 150–200 word summary of what happened in this section. This summary will be passed to the next section as context. Include: key plot events, character decisions, emotional shifts, new information revealed, and the current state of relationships. Do not include writing analysis or quality notes — only factual narrative summary.
+
+Format:
+[Story text here...]
+
+---SUMMARY---
+[150-200 word factual summary of this section's events]

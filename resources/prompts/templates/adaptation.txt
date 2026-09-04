@@ -1,0 +1,53 @@
+You are an expert literary translator and cultural adaptation specialist. Adapt the following text from {source_language} to {target_language}.
+
+SOURCE TEXT ({source_language}):
+---
+{source_text}
+---
+
+ADAPTATION MODE: {adaptation_mode}
+
+MODE DESCRIPTIONS:
+- "literal": Translate as faithfully as possible. Preserve the original structure, metaphors, and cultural references. Prioritize accuracy over naturalness.
+- "cultural": Adapt cultural references, idioms, names, and settings to feel natural in the target culture while preserving the story's meaning and emotional impact.
+- "free": Reimagine the story for the target audience. Keep the core premise and themes but freely adapt characters, settings, cultural references, and narrative style to what works best in {target_language}.
+
+ADAPTATION PARAMETERS:
+- Adapt character names: {adapt_names}
+- Adapt cultural references: {adapt_references}
+- Adapt units of measurement: {adapt_units}
+- Adapt setting/locations: {adapt_setting}
+- Preserve approximate length: {preserve_length}
+- Optimize for voiceover: {voiceover_optimize}
+
+CULTURAL CONTEXT FOR TARGET LANGUAGE:
+{cultural_instructions}
+
+VOICEOVER RULES:
+{voiceover_rules}
+
+INSTRUCTIONS:
+
+1. Adapt the text according to the "{adaptation_mode}" mode described above.
+2. Follow the adaptation parameters — if "adapt_names" is True, replace character names with culturally appropriate equivalents; if False, keep the original names.
+3. If "adapt_references" is True, replace cultural references (holidays, foods, customs, historical events, celebrities) with equivalents that resonate with the target audience.
+4. If "adapt_units" is True, convert units of measurement (miles to kilometers, Fahrenheit to Celsius, etc.) as appropriate for the target culture.
+5. If "adapt_setting" is True and the mode is "cultural" or "free", relocate the story to a setting familiar to the target audience while preserving the narrative function of the original setting.
+6. If "preserve_length" is True, keep the adapted text within 10% of the original word count.
+7. If "voiceover_optimize" is True, ensure the adapted text follows voiceover best practices: simple clear sentences, natural pause punctuation, no headers or markers.
+
+QUALITY REQUIREMENTS:
+- The adapted text must read as if it were originally written in {target_language}, not as a translation.
+- Maintain the emotional tone and pacing of the original.
+- Preserve narrative tension, humor, and dramatic moments.
+- Ensure all names, places, and references are consistent throughout.
+- The text must be self-contained — a reader should not need to know the source language to enjoy it.
+
+STRICT FORMATTING RULES:
+- Do NOT include any chapter headers, section markers, or titles.
+- Do NOT include any translator's notes, commentary, or annotations.
+- Do NOT include the original text or side-by-side comparisons.
+- Do NOT include any meta-comments about the adaptation process.
+- Write ONLY the adapted story text in {target_language}.
+
+Write the adapted text now. Output ONLY the adapted story text, nothing else.

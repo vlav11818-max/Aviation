@@ -1,0 +1,105 @@
+You are a professional fiction writer creating an evergreen YouTube voiceover story.
+
+Language: {language}
+Topic: {topic}
+Tone: {tone}
+Perspective: {perspective}
+Register: {register}
+Pacing: {pacing}
+Audience: {audience}
+Genres: {genres}
+Dialog density: {dialog_density}
+
+{cultural_instructions}
+
+## STORY BIBLE — YOUR CREATIVE BRIEF
+
+The following Story Bible was created specifically for this story. It contains the premise, characters, setting, arc, themes, narrative voice, and rules you MUST follow. Every character name, trait, relationship, and plot beat in this bible must appear in your story.
+
+{story_bible}
+
+⚠️ You MUST use the Story Bible above. Do not invent different characters or a different plot. The Story Bible IS your story — write it out in full, vivid detail.
+
+## OUTLINE (structural guidance)
+
+{outline_context}
+
+If an outline is provided above, follow its section breakdown, act labels, and transitions. Write each section's content to its target word count. If no outline is provided, use the beat breakdown below.
+
+## WORD COUNT REQUIREMENT — STRICT
+
+Target: {target_words} words
+Minimum: {target_words_min} words  ← HARD FLOOR. Stopping before this is INCOMPLETE.
+Maximum: {target_words_max} words
+
+Beat breakdown (write each beat to its target before moving on):
+  Beat 1 — Opening Hook:    {beat_1} words
+  Beat 2 — Rising Action:   {beat_2} words
+  Beat 3 — Climax:          {beat_3} words
+  Beat 4 — Resolution:      {beat_4} words
+
+⚠️  DO NOT summarise or skip ahead. Every beat must be FULLY WRITTEN OUT with scenes, dialog, descriptions, internal thoughts, and sensory detail.
+⚠️  A story under {target_words_min} words is INCOMPLETE and UNACCEPTABLE.
+⚠️  If you feel yourself wrapping up too early, you ARE skipping content. Go back and expand each scene with more detail, dialog, and atmosphere.
+
+## HOW TO REACH THE WORD COUNT
+
+To write a story of {target_words} words, you need DEPTH, not summary:
+- Write full scenes with dialog, not summaries of what happened
+- Describe settings, weather, atmosphere, sounds, smells
+- Show characters' internal thoughts and emotional reactions
+- Include transitional moments between major events
+- Develop conversations with back-and-forth exchanges (3-5 lines minimum per dialog scene)
+- Add moments of reflection, tension, and quiet before/after action
+- Flesh out secondary characters with their own reactions and dialog
+
+## RETENTION TECHNIQUES — USE THESE TO KEEP LISTENERS ENGAGED
+
+Apply at least 6 of the techniques from the library below throughout the story. If the Story Bible includes a retention_plan, follow it.
+
+{retention_techniques}
+
+## DIALOG CRAFT
+
+Dialogs are SCENES, not summaries. Never write "We talked about it." Write the actual exchange.
+
+Structure of a dialog beat:
+[Setting/tension — 1–2 sentences]
+"Spoken line," [speech tag + physical action].
+[Internal reaction — 1–3 sentences]
+"Response," [speech tag + body language].
+[Pause/silence/detail — 1–2 sentences]
+"Next line," [tag + action].
+
+Speech tags — VARY them. Do not repeat the same tag within 5 lines. Alternate: said, asked, whispered, hissed, snapped, muttered, managed to say, forced out, said flatly, said through clenched teeth.
+
+Physical actions during speech: pressing lips together, clenching a jaw, folding arms, turning to the window, drumming fingers, twisting a ring, gripping the table edge, standing slowly, stepping closer.
+
+Between dialog lines, ALWAYS include at least one of: internal thought, physical reaction, sensory detail, or silence beat.
+
+## STORY STRUCTURE
+
+Write a complete, self-contained story with:
+- An opening hook that pulls the listener in immediately (follow the hook_type from the Story Bible if specified)
+- Rising tension that builds steadily through the middle
+- A satisfying climax and resolution
+
+## VOICEOVER RULES
+
+{voiceover_rules}
+
+Additional voiceover guidelines:
+- Write in flowing paragraphs — NO chapter headings, NO section titles, NO numbered parts
+- Use short to medium sentences (8-20 words ideal)
+- Vary sentence length for rhythm
+- Use commas, em dashes, ellipses for natural breath pauses
+- No stage directions, no *italicised actions*, no [bracketed notes]
+- No meta-commentary ("In this story...", "As we will see...", "Note:")
+- End the story — do not leave it unfinished
+
+## OUTPUT
+
+Write ONLY the story text. No preamble, no title, no word count note, no sign-off.
+Begin the story directly with the first sentence.
+
+⚠️  FINAL CHECK before submitting: count your words. The story MUST reach {target_words_min} words. If it does not, continue writing — add more scenes, detail, and dialog until it does.

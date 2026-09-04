@@ -1,0 +1,137 @@
+INSTRUCTIONS CULTURELLES POUR LA NARRATION — FRANÇAIS (FR)
+
+═══════════════════════════════════════════════════════════════════════
+LANGUE ET REGISTRE
+═══════════════════════════════════════════════════════════════════════
+
+Écris en français standard contemporain, accessible à un large public YouTube francophone — France, Belgique, Suisse romande, Canada francophone et Afrique francophone. Évite les régionalismes marqués (québécismes, belgicismes, africanismes) sauf si le cadre de l'histoire l'exige.
+
+Recommandations lexicales :
+- Privilégie un style élégant mais accessible. Le français littéraire peut être riche sans être pompeux. Évite le style « dissertation » (« il convient de noter que », « force est de constater ») au profit d'une prose vivante et fluide.
+- Utilise la richesse du vocabulaire français : synonymes précis, nuances entre mots proches. « Regarder », « observer », « contempler », « dévisager », « épier » — chaque verbe crée une image différente.
+- Évite les anglicismes inutiles : « deadline » → « échéance », « challenge » → « défi », « feedback » → « retour ». Les anglicismes intégrés (« week-end », « parking ») sont acceptables.
+- Le passé simple est le temps narratif classique en français littéraire. Pour un ton plus moderne et accessible sur YouTube, le passé composé est acceptable, mais ne mélange pas les deux dans le même récit.
+- Utilise le subjonctif correctement — c'est un marqueur de qualité linguistique en français. « Il fallait qu'il partît » (littéraire) ou « Il fallait qu'il parte » (courant).
+- Respecte les liaisons et enchaînements : le texte doit couler naturellement à l'oral. Évite les hiatus désagréables (voyelle finale + voyelle initiale sans liaison).
+
+═══════════════════════════════════════════════════════════════════════
+TRADITIONS NARRATIVES ET ATTENTES DU PUBLIC
+═══════════════════════════════════════════════════════════════════════
+
+Le public YouTube francophone attend :
+- De l'élégance narrative. Le style compte autant que l'intrigue. Les Français sont éduqués dans une tradition littéraire riche et perçoivent immédiatement un texte mal écrit.
+- Une construction rigoureuse. La « composition française » exige clarté, logique et progression. Une histoire doit avoir une architecture visible : exposition, développement, dénouement.
+- De la subtilité. Le non-dit, le sous-entendu, l'implicite sont des outils puissants. Ne pas tout expliquer — laisser le lecteur deviner.
+- Des personnages psychologiquement vraisemblables. La tradition française de l'analyse psychologique (de Stendhal à Proust) impose des personnages aux motivations complexes et crédibles.
+- De l'esprit et de la finesse. L'humour, l'ironie et les observations incisives sur la nature humaine sont très appréciés.
+- Un style personnel. Le public francophone est sensible à la « voix » de l'auteur — la manière unique dont il manie la langue.
+
+Rythme narratif :
+- Le français littéraire aime l'alternance entre phrases longues et élaborées (pour les descriptions, les réflexions) et phrases courtes et percutantes (pour l'action, les révélations).
+- Paragraphes de 3 à 6 phrases pour la narration orale.
+- Les points de suspension (…) créent le suspense et l'attente.
+- Le tiret cadratin (—) permet des incises et des apartés élégants.
+- Le rythme ternaire est une figure classique française : « Il courut, trébucha, se releva. »
+
+═══════════════════════════════════════════════════════════════════════
+PRÉNOMS ET CONVENTIONS DE NOMMAGE
+═══════════════════════════════════════════════════════════════════════
+
+- Prénoms français courants : Antoine, Pierre, Thomas, Julien, Lucas, Sophie, Marie, Camille, Léa, Emma, Claire, Mathieu, Hugo, Inès, Chloé.
+- Évite les prénoms qui se ressemblent à l'oral : Pierre/Thierry, Marie/Marine, Luc/Luca.
+- Noms de famille : Dupont, Martin, Bernard, Leroy, Moreau, Laurent, Dubois — les classiques fonctionnent toujours.
+- Tutoiement / vouvoiement : le passage du « vous » au « tu » est un moment significatif dans une relation. Le tutoiement entre jeunes est la norme ; le vouvoiement marque le respect, la distance ou la hiérarchie.
+- Titres : « Monsieur », « Madame », « Maître » (pour un avocat), « Docteur » — les titres sont importants dans les interactions formelles.
+- La diversité des origines se reflète naturellement dans les prénoms français contemporains : Karim, Fatima, Mamadou, Linh, Youssef — selon le contexte de l'histoire.
+
+═══════════════════════════════════════════════════════════════════════
+RÉFÉRENCES CULTURELLES ET EXPRESSIONS
+═══════════════════════════════════════════════════════════════════════
+
+- Expressions idiomatiques : « avoir le cafard » (être déprimé), « poser un lapin » (ne pas venir à un rendez-vous), « avoir du pain sur la planche » (avoir beaucoup de travail), « ce n'est pas la mer à boire » (ce n'est pas si difficile), « tourner autour du pot » (ne pas aller droit au but).
+- Proverbes : « Qui vivra verra », « L'habit ne fait pas le moine », « Petit à petit, l'oiseau fait son nid », « Il ne faut pas vendre la peau de l'ours avant de l'avoir tué ».
+- Réalités culturelles : le café-terrasse, la baguette, le marché du dimanche, l'apéritif, le dîner en famille, le 14 Juillet, la rentrée (septembre, un véritable recommencement annuel), le pont (faire le pont = prendre un jour entre un jour férié et le week-end).
+- Fêtes et traditions : Noël (le réveillon du 24, la bûche de Noël), le Nouvel An, l'Épiphanie (la galette des rois), Pâques, la Fête nationale (14 juillet), la Toussaint, la Chandeleur (les crêpes).
+- La gastronomie est culturellement centrale : fromage, vin, pain, pâtisserie. Un repas français a une structure (entrée, plat, fromage, dessert) qui peut servir de métaphore narrative.
+- Paysages : Paris et ses quartiers, la Provence lavande, la Bretagne maritime, les Alpes, les vignobles de Bordeaux, la campagne normande, la Côte d'Azur.
+- Unités de mesure : système métrique — kilomètres, kilogrammes, degrés Celsius. Pas d'exception.
+
+═══════════════════════════════════════════════════════════════════════
+CONVENTIONS DE DIALOGUE
+═══════════════════════════════════════════════════════════════════════
+
+- Le dialogue français utilise les guillemets français « ... » et les tirets pour les répliques :
+  « Où vas-tu ? demanda-t-elle.
+  — Je ne sais pas, répondit-il en haussant les épaules. Quelque part. »
+- Verbes d'incise : « dit-il », « demanda-t-elle », « répondit-il » — avec inversion sujet-verbe. Les verbes expressifs (murmura, s'exclama, chuchota) sont acceptables avec modération.
+- Ponctuation : espace insécable avant « : », « ; », « ? », « ! » en typographie française. Ceci est important pour la qualité visuelle si le texte est aussi lu.
+- Le dialogue français peut être plus littéraire que le dialogue anglais. Les personnages peuvent s'exprimer avec éloquence sans que cela paraisse artificiel.
+
+═══════════════════════════════════════════════════════════════════════
+HUMOUR
+═══════════════════════════════════════════════════════════════════════
+
+- L'humour français est souvent verbal, basé sur l'esprit (le « mot d'esprit »), l'ironie fine et l'observation sociale.
+- L'autodérision et l'humour noir sont appréciés mais doivent rester de bon goût pour YouTube.
+- Le comique de situation : malentendus, quiproquos, situations absurdes du quotidien.
+- L'humour par contraste : un personnage solennel dans une situation ridicule, ou inversement.
+- La satire sociale douce : observations mordantes sur les travers de la société, la bureaucratie, les conventions.
+- Évite l'humour potache ou graveleux — le public francophone YouTube préfère la finesse.
+
+═══════════════════════════════════════════════════════════════════════
+PARTICULARITÉS STYLISTIQUES
+═══════════════════════════════════════════════════════════════════════
+
+- La description sensorielle est fondamentale : odeurs, textures, lumières, sons. Le français excelle dans l'évocation des sens.
+- Le discours indirect libre (style indirect libre) est un outil narratif puissant en français : « Elle regarda par la fenêtre. Pourquoi n'avait-elle rien dit ? C'était pourtant évident. » — Les pensées du personnage se mêlent à la narration sans guillemets.
+- L'art de la chute : une phrase finale qui éclaire tout le texte d'une lumière nouvelle. La tradition de la nouvelle française (Maupassant) accorde une importance capitale à la dernière phrase.
+- La musicalité de la prose : le français est une langue de rythme et de sonorité. Évite les cacophonies (accumulation de sons durs ou identiques) et recherche l'euphonie.
+
+═══════════════════════════════════════════════════════════════════════
+NOTES SPÉCIFIQUES POUR LA NARRATION VOCALE EN FRANÇAIS
+═══════════════════════════════════════════════════════════════════════
+
+- Liaisons: les liaisons obligatoires doivent être respectées dans le texte pour que le TTS les prononce correctement. «Les‿enfants», «un‿homme», «ils‿ont» — assurez-vous que le texte permet des enchaînements naturels.
+- Élision: respecter systématiquement l'élision. «L'homme», «j'arrive», «c'est», «qu'il» — jamais «le homme» ou «je arrive».
+- Longueur des phrases: le français tolère des phrases plus longues que l'anglais grâce à sa prosodie naturelle. Cependant, pour la narration YouTube, visez 12–22 mots par phrase. Les propositions relatives et les incises doivent rester courtes.
+- Ponctuation et respiration: la virgule crée une pause brève (~0,3s), le point une pause complète (~0,6s). Les points de suspension (…) créent une pause dramatique. Le tiret cadratin (—) marque une interruption ou un aparté.
+- Nombres: écrire en toutes lettres. «Deux cent cinquante kilomètres», pas «250 km». Attention aux accords: «deux cents» mais «deux cent vingt».
+- Abréviations: développer intégralement. «C'est-à-dire» au lieu de «c.-à-d.», «par exemple» au lieu de «p. ex.», «Monsieur» au lieu de «M.», «Madame» au lieu de «Mme».
+- Homophones: le français est riche en homophones (vers/vert/verre/ver, mer/mère/maire, sans/sang/cent). Le contexte doit être limpide pour qu'un auditeur ne puisse pas confondre.
+- Registre: éviter le mélange de registres dans la narration. Si le narrateur utilise un français soutenu, ne pas glisser vers le familier sans raison. Les personnages peuvent avoir des registres différents dans leurs dialogues.
+- Guillemets: utiliser les guillemets français (« ») pour le discours direct, avec des tirets cadratins (—) pour les changements de locuteur dans un dialogue continu.
+- Prononciation: éviter les accumulations de sons identiques (cacophonie). «Le rat rit du roi» est difficile à prononcer clairement.
+
+═══════════════════════════════════════════════════════════════════════
+SENSIBILITÉ ET TABOUS
+═══════════════════════════════════════════════════════════════════════
+
+- Colonialisme: sujet délicat pour le public francophone (Algérie, Indochine, Afrique subsaharienne). Peut servir de contexte historique mais traiter avec nuance et sans nostalgie coloniale.
+- Laïcité: la France a une relation particulière avec la religion. Les personnages peuvent être religieux, mais éviter le prosélytisme ou le dénigrement des croyances. La laïcité est une valeur profonde.
+- Régionalisme: Bretagne, Corse, Occitanie, Alsace — les identités régionales sont fortes. Ne pas réduire la France à Paris. Respecter les particularités sans en faire des caricatures.
+- Francophonie: le public YouTube francophone inclut la Belgique, la Suisse, le Québec, l'Afrique francophone. Éviter les expressions trop hexagonales si l'histoire n'est pas explicitement située en France. «Soixante-dix» vs «septante», «petit-déjeuner» vs «déjeuner» — être cohérent avec le contexte.
+- Banlieues: éviter les stéréotypes et les clichés médiatiques. Si un personnage vit en banlieue, le traiter avec la même profondeur que n'importe quel autre personnage.
+- Jurons: «Merde», «putain», «bordel» sont très courants dans la langue parlée mais à utiliser avec parcimonie dans la narration YouTube. Réserver aux dialogues pour caractériser un personnage, jamais dans la voix narrative.
+- Violence: contextuelle et non gratuite. Le public français apprécie la tension psychologique et le suspense moral plus que la violence physique explicite.
+
+═══════════════════════════════════════════════════════════════════════
+CLEANUP_PATTERNS:
+═══════════════════════════════════════════════════════════════════════
+# Motifs pour la suppression des marqueurs de chapitres/sections (français)
+(?i)^\s*chapitre\s+\d+
+(?i)^\s*chapitre\s+(un|deux|trois|quatre|cinq|six|sept|huit|neuf|dix|onze|douze|premier|deuxième|troisième)
+(?i)^\s*partie\s+\d+
+(?i)^\s*partie\s+(un|deux|trois|quatre|cinq|première|deuxième|troisième)
+(?i)^\s*section\s+\d+
+(?i)^\s*acte\s+\d+
+(?i)^\s*acte\s+(un|deux|trois|premier|deuxième|troisième|i{1,3})
+(?i)^\s*prologue\s*$
+(?i)^\s*épilogue\s*$
+(?i)^\s*fin\s*\.?\s*$
+(?i)^\s*\*\s*\*\s*\*\s*$
+(?i)^\s*---+\s*$
+(?i)^\s*~~~+\s*$
+(?i)^\s*\[.*chapitre.*\]
+(?i)^\s*\[.*partie.*\]
+(?i)^\s*\[.*section.*\]
+(?i)^\s*\[.*suite.*\]

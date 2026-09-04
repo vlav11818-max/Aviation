@@ -1,0 +1,78 @@
+{
+    "name": "Circular",
+    "description": "Circular narrative: the ending mirrors, echoes, or returns to the beginning, but with transformed meaning. The story comes full circle — the same situation, place, or image appears at the start and end, but the protagonist (and the listener) now understands it differently. Creates a powerful sense of closure and thematic resonance.",
+    "framework": {
+        "bookend_image": "A specific image, scene, location, or situation that appears at both the beginning and end of the story. It should be vivid and memorable.",
+        "transformation": "The bookend is the same, but the protagonist's relationship to it has fundamentally changed. What felt ordinary now feels meaningful; what felt terrifying now feels manageable; what felt hopeful now feels bittersweet.",
+        "thematic_echo_points": "Throughout the story, plant smaller echoes and recurring motifs that connect to the bookend image. These create a web of meaning that pays off in the final return."
+    },
+    "phases": [
+        {
+            "phase_number": 1,
+            "label": "Opening Bookend — The First Image",
+            "purpose": "Establish the bookend image/scene/situation. The protagonist experiences it from their current, pre-transformation perspective. Plant the emotional and thematic seed.",
+            "proportion": 0.10,
+            "bookend_role": "first_appearance",
+            "guidance": "Make the opening image vivid and specific. The listener should remember it clearly, because they will encounter it again at the end. Establish the protagonist's emotional state — this is the 'before' photo."
+        },
+        {
+            "phase_number": 2,
+            "label": "Departure — Leaving the Circle",
+            "purpose": "The protagonist is pulled away from the opening situation by an event, need, or desire. The journey begins.",
+            "proportion": 0.15,
+            "echo_point": "First thematic echo — a smaller version of the bookend image or theme appears in a new context.",
+            "guidance": "Create momentum. The protagonist moves physically, emotionally, or both. Plant the first echo point — a detail, phrase, or image that subtly connects to the opening."
+        },
+        {
+            "phase_number": 3,
+            "label": "Expansion — The World Opens",
+            "purpose": "The protagonist's world expands. New experiences, characters, and challenges. The story moves farthest from the opening situation.",
+            "proportion": 0.20,
+            "echo_point": "Second thematic echo — the bookend theme appears inverted, challenged, or seen from a different angle.",
+            "guidance": "This is the widest point of the circle — the moment most distant from the beginning. Show growth, conflict, and new understanding. The second echo should make the listener notice the pattern without being heavy-handed."
+        },
+        {
+            "phase_number": 4,
+            "label": "Turning Point — The Pull Back",
+            "purpose": "Something happens that begins pulling the protagonist back toward the starting point. A realization, a loss, a call to return, or a consequence of past choices.",
+            "proportion": 0.15,
+            "echo_point": "Third thematic echo — stronger and more overt. The bookend image or theme resurfaces with emotional weight.",
+            "guidance": "The protagonist begins to understand the connection between where they started and where they are. The circle starts to close. Tension rises as the return feels both inevitable and uncertain."
+        },
+        {
+            "phase_number": 5,
+            "label": "Convergence — Approaching the Origin",
+            "purpose": "The protagonist moves toward the situation, place, or confrontation that mirrors the opening. Build anticipation. The story accelerates toward its conclusion.",
+            "proportion": 0.15,
+            "echo_point": "Fourth thematic echo — the opening image is almost present, but seen through changed eyes.",
+            "guidance": "Maximum narrative momentum. The protagonist is changed — they carry everything they have experienced. The listener should feel the impending return and anticipate the transformed meaning."
+        },
+        {
+            "phase_number": 6,
+            "label": "Climax — The Circle Tested",
+            "purpose": "The climactic confrontation or decision. The protagonist must act, choose, or face something using the wisdom and scars of their journey.",
+            "proportion": 0.15,
+            "guidance": "The climax should embody the story's theme. The protagonist's transformation is tested at the highest possible stakes. The outcome should feel earned by everything that came before."
+        },
+        {
+            "phase_number": 7,
+            "label": "Closing Bookend — The Same, but Different",
+            "purpose": "Return to the opening image, scene, or situation. The protagonist re-experiences it — but everything has changed. The same words, place, or image now carries transformed meaning.",
+            "proportion": 0.10,
+            "bookend_role": "final_return",
+            "guidance": "Mirror the opening as closely as possible in physical detail — same location, same time of day, same sensory details. But the protagonist's inner reality is fundamentally different. The listener should feel the full weight of the journey in the gap between the two bookends. Less is more — let the contrast speak."
+        }
+    ],
+    "echo_point_guidance": {
+        "description": "Thematic echo points are recurring motifs, images, phrases, or situations that connect to the bookend image throughout the story. They create a subliminal sense of circularity.",
+        "examples": [
+            "A recurring phrase spoken by different characters in different contexts",
+            "A physical object that appears at key moments with evolving significance",
+            "A sensory detail (a smell, a sound, a color) that bridges scenes across the story",
+            "A question asked early that is answered differently at the end"
+        ],
+        "placement": "At least one echo point per major section, growing in intensity and overt connection to the bookend as the story progresses."
+    },
+    "section_distribution_guidance": "For N sections: assign 1 section to the opening bookend, 1 to the closing bookend, 1 to the climax, and distribute the remaining sections across Departure, Expansion, Turning Point, and Convergence. Expansion and Turning Point typically need the most sections for longer stories.",
+    "voiceover_notes": "The circular structure is exceptionally powerful for voiceover because it creates a feeling of completeness that satisfies listeners. The opening image must be vivid enough to remember. Echo points should be subtle enough that the listener senses the pattern without it being spelled out. The final bookend should land as an emotional revelation — the same words or image, transformed by context."
+}

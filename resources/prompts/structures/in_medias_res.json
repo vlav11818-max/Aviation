@@ -1,0 +1,82 @@
+{
+    "name": "In Medias Res",
+    "description": "Starts in the middle of the action, then alternates between the present timeline and backstory, gradually revealing how the characters arrived at this moment. The two timelines converge at the climax. Creates immediate tension and narrative mystery.",
+    "timelines": {
+        "present": {
+            "label": "Present Timeline",
+            "description": "The 'now' of the story — begins at a moment of high tension, crisis, or dramatic action. Moves forward chronologically from this point."
+        },
+        "backstory": {
+            "label": "Backstory Timeline",
+            "description": "The 'how we got here' — fills in the events, relationships, and decisions that led to the present crisis. Moves forward chronologically toward the present."
+        }
+    },
+    "phases": [
+        {
+            "phase_number": 1,
+            "label": "Cold Open — In the Middle",
+            "timeline": "present",
+            "purpose": "Drop the listener into a moment of crisis, conflict, or high emotion with no context. Hook them with urgency and mystery: What is happening? Why? Who are these people?",
+            "proportion": 0.10,
+            "guidance": "Start with action, danger, or an emotionally charged moment. Withhold explanation. Let the listener feel disoriented but compelled. Use sensory, visceral language."
+        },
+        {
+            "phase_number": 2,
+            "label": "First Backstory — The Beginning",
+            "timeline": "backstory",
+            "purpose": "Jump back in time to show the protagonist's ordinary life and the first event that set the current crisis in motion. Begin answering the listener's questions.",
+            "proportion": 0.15,
+            "guidance": "The contrast between the intense opening and this calmer beginning creates narrative tension. Plant details that will gain significance later. Establish character and stakes."
+        },
+        {
+            "phase_number": 3,
+            "label": "Present Advances — Rising Stakes",
+            "timeline": "present",
+            "purpose": "Return to the present timeline. The situation escalates. New complications arise. The listener now understands more but still has questions.",
+            "proportion": 0.12,
+            "guidance": "Build on the cold open. Raise the stakes. Introduce or develop present-timeline characters. End with a new question or complication."
+        },
+        {
+            "phase_number": 4,
+            "label": "Backstory Deepens — Key Relationships",
+            "timeline": "backstory",
+            "purpose": "Reveal the key relationships and decisions that shaped the current conflict. Show the protagonist's motivations, alliances, and mistakes.",
+            "proportion": 0.15,
+            "guidance": "Deepen character development. Show the choices — good and bad — that led here. Build emotional investment. Each backstory section should recontextualize something from the present."
+        },
+        {
+            "phase_number": 5,
+            "label": "Present Crisis — Point of No Return",
+            "timeline": "present",
+            "purpose": "The present timeline reaches a critical juncture. The protagonist must make a decision or face a confrontation they cannot avoid.",
+            "proportion": 0.12,
+            "guidance": "Maximum tension. The listener should feel the weight of everything revealed in the backstory. This moment should be inevitable given what we now know."
+        },
+        {
+            "phase_number": 6,
+            "label": "Backstory Convergence — The Trigger",
+            "timeline": "backstory",
+            "purpose": "The final backstory section: the event that directly triggered the present crisis. The backstory timeline catches up to (or nearly reaches) the present.",
+            "proportion": 0.12,
+            "guidance": "This is the 'missing piece' — the revelation that makes everything click. It should reframe the opening scene with new emotional weight."
+        },
+        {
+            "phase_number": 7,
+            "label": "Climax — Timelines Merge",
+            "timeline": "merged",
+            "purpose": "The two timelines converge. Past and present are unified. The protagonist faces the climactic moment with the full weight of their history.",
+            "proportion": 0.14,
+            "guidance": "No more jumping between timelines. The story is now fully in the present. The climax should feel like the inevitable result of everything that came before."
+        },
+        {
+            "phase_number": 8,
+            "label": "Resolution — After the Storm",
+            "timeline": "present",
+            "purpose": "The aftermath. How the protagonist — and the world — has changed. Resolution of the central conflict and emotional threads.",
+            "proportion": 0.10,
+            "guidance": "Echo the opening scene to show transformation. Resolve major threads. End with an image or moment that gives the story resonance and closure."
+        }
+    ],
+    "section_distribution_guidance": "Sections should alternate between present and backstory timelines, marked clearly by the act_label field (e.g., 'Present — Rising Stakes', 'Backstory — The Beginning'). For fewer sections, combine adjacent same-timeline phases. The climax must be a single unified section where timelines merge.",
+    "voiceover_notes": "Timeline transitions must be seamless for a listener who cannot visually see section breaks. Use sensory cues (weather, light, sounds), tense shifts, or brief orienting phrases to signal which timeline the listener is in. Never use explicit labels like '[FLASHBACK]' — weave transitions into the narrative naturally."
+}

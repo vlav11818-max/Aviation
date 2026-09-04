@@ -1,0 +1,92 @@
+VOICEOVER OPTIMIZATION RULES FOR YOUTUBE NARRATION
+═══════════════════════════════════════════════════
+
+These rules apply to ALL text generated for this project. The text will be read aloud by a human narrator or TTS system on YouTube. Listeners cannot see the text — they can only hear it.
+
+SENTENCE STRUCTURE:
+- Keep sentences between 8 and 25 words. Average target: 15 words.
+- Alternate between short, punchy sentences (5–10 words) and longer, flowing ones (18–25 words) to create natural rhythm.
+- Avoid nested subordinate clauses — if a sentence has more than one comma-separated clause, consider splitting it.
+- Place the most important information at the beginning or end of sentences — not buried in the middle.
+- Avoid starting more than two consecutive sentences with the same word or phrase.
+
+PUNCTUATION AS BREATHING:
+- Commas create brief pauses (~0.3s). Use them for natural breathing points.
+- Periods create full stops (~0.6s). End every thought with a period, not a semicolon.
+- Ellipses (…) create dramatic pauses (~1.0s). Use sparingly — maximum once per paragraph — for moments of suspense, revelation, or emotional weight.
+- Em dashes (—) create sharp interruptions or pivots. Use for sudden shifts in thought, interrupted dialog, or dramatic asides.
+- Avoid semicolons entirely — they have no audible equivalent and create awkward phrasing when read aloud.
+- Avoid colons except in dialog attribution ("He said:" is acceptable, but "The three elements:" followed by a list is not).
+
+PARAGRAPH STRUCTURE:
+- Keep paragraphs between 2 and 5 sentences.
+- Each paragraph should have one clear focus: a single action, a single description, a single emotional beat.
+- Use paragraph breaks to create natural section pauses (~1.5s in narration).
+- Transition between paragraphs with temporal, spatial, or emotional bridges — not abrupt topic changes.
+- Avoid single-sentence paragraphs. Minimum 2 sentences per paragraph for comfortable narration pacing.
+
+WORD CHOICE:
+- Prefer common, concrete words over abstract or academic ones.
+- Avoid jargon, technical terms, or specialized vocabulary unless the genre demands it (and then explain it naturally in context).
+- Avoid homophones that could confuse listeners (words that sound alike but mean different things).
+- Avoid words with ambiguous pronunciation in the target language.
+- Prefer words with clear stress patterns — avoid words where the stress placement changes meaning.
+
+WHAT TO AVOID ABSOLUTELY:
+- Chapter headers, section markers, part numbers, or any structural labels ([Chapter 1], Part II, ***).
+- Meta-commentary or narrator self-reference ("As we shall see", "Dear listener", "The author chose").
+- AI artifacts: "Note:", "Author's note:", "Content warning:", "Disclaimer:", "In conclusion".
+- "The End", "Fin", "Ende", or any end marker.
+- Stage directions: [pause], [dramatic music], [whisper], [SOUND EFFECT].
+- Bullet points, numbered lists, tables, or any non-prose formatting.
+- Parenthetical asides — everything must flow linearly. If information is important enough to include, weave it into the narrative.
+- Footnotes, references, or citations.
+- Excessive use of exclamation marks (maximum 2–3 per 1000 words).
+- ALL CAPS for emphasis — use word choice and sentence structure for emphasis instead.
+
+DIALOG RULES:
+- Always attribute dialog before or immediately after the spoken line — never leave a listener guessing who is speaking for more than one line.
+- Use "said" and "asked" as default attribution verbs — they are invisible to listeners. Reserve colorful alternatives ("whispered", "shouted", "muttered") for moments where the delivery matters.
+- Avoid dialog tags that are physically impossible ("he smiled a sentence", "she laughed the words").
+- Keep individual dialog lines short — under 30 words. Long speeches should be broken with action beats or attribution.
+- Vary speech tags — do not use the same tag more than twice within five consecutive dialog exchanges.
+- Between dialog lines, include narrative tissue: internal thoughts, physical reactions, sensory details, or beats of silence. Never stack three or more bare dialog lines without something in between.
+
+NUMBERS AND MEASUREMENTS:
+- Write numbers as words when they appear in narrative ("three hundred" not "300").
+- For precise measurements, use the format natural to the target language and culture.
+- Avoid mathematical notations, percentages, or technical number formats.
+
+NAMES AND PRONUNCIATION:
+- Character names should be easy to pronounce in the target language.
+- Avoid names that sound too similar to each other (e.g., "Maria" and "Marina" in the same story).
+- If a foreign or unusual name is necessary, introduce it with a subtle pronunciation cue woven into the narrative.
+- Place names follow the same rules — prefer places with clear, natural pronunciation.
+
+═══════════════════════════════════════════════════
+EMOTIONAL EXPRESSION — SHOW, DO NOT TELL:
+═══════════════════════════════════════════════════
+
+When characters experience strong emotions, describe SPECIFIC physical sensations rather than abstract feelings. This makes the narration visceral and immediate.
+
+INSTEAD OF ABSTRACT PHRASES, USE CONCRETE REACTIONS:
+- Instead of "I felt terrible" → describe what happened in the body: nausea, trembling, inability to move, tunnel vision
+- Instead of "my heart sank" → describe a specific chest sensation: a weight pressing down, breath catching, ribs tightening
+- Instead of "I was shocked" → show the physical manifestation: frozen mid-step, mouth going dry, hands forgetting what they were doing
+- Instead of "fear washed over me" → describe sensory disruption: sounds becoming muffled, peripheral vision narrowing, taste of copper on the tongue
+- Instead of "I was angry" → show the body's response: jaw clamping shut, fingernails pressing into palms, heat rising up the neck
+
+STALE PHRASES TO REPLACE WITH FRESH ALTERNATIVES:
+- "My heart sank" → find a unique physical sensation for THIS character in THIS moment
+- "A chill ran down my spine" → describe the specific quality of cold and where exactly it strikes
+- "I could not believe my eyes" → describe what the eyes actually saw and how the brain struggled to process it
+- "Time stood still" → describe how perception distorted — sounds stretching, details sharpening, a second lasting an hour
+- "I was speechless" → show the mouth opening and closing, the throat refusing to work, words dissolving before they form
+- "My blood ran cold" → describe the specific sensation: fingers going numb, stomach dropping, skin prickling
+- "Tears streamed down my face" → describe what triggered them, how they felt (hot, stinging), what they tasted like
+
+OPENINGS TO AVOID:
+- Do NOT start stories with weather or landscape descriptions unless the atmosphere directly serves an immediate plot function.
+- Do NOT start with the protagonist waking up — it is the most overused opening in storytelling.
+- Do NOT start with backstory or exposition — drop the listener into a moment of action, tension, or intrigue.
+- Do NOT start with "It all began when..." or "Let me tell you about..." — these signal a slow start.

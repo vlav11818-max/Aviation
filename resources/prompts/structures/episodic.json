@@ -1,0 +1,71 @@
+{
+    "name": "Episodic",
+    "description": "Connected but semi-independent episodes sharing characters and setting, linked by an overarching thread or theme. Each episode tells a self-contained mini-story while advancing the larger narrative. Well-suited for character-driven stories, journey narratives, and anthology-style tales.",
+    "framework": {
+        "overarching_thread": "A unifying element that connects all episodes: a quest, a relationship arc, a mystery being unraveled piece by piece, or a thematic question being explored from different angles.",
+        "episode_independence": "Each episode should be satisfying on its own — with its own conflict, stakes, and resolution — while also contributing to the larger story.",
+        "character_continuity": "The protagonist develops across episodes. Each episode should reveal something new about them or advance their growth."
+    },
+    "phases": [
+        {
+            "phase_number": 1,
+            "label": "Prologue — Setting the Stage",
+            "type": "framing",
+            "purpose": "Establish the protagonist, the overarching situation, and the thread that will connect all episodes. Set up the journey, quest, or central question.",
+            "proportion": 0.10,
+            "guidance": "Introduce the protagonist with a clear desire, need, or mission. Establish the world. Hint at the scope of what is to come. This is not a full episode — it is the launch pad."
+        },
+        {
+            "phase_number": 2,
+            "label": "Episode 1 — First Encounter",
+            "type": "episode",
+            "purpose": "The first standalone episode. Introduces a new situation, character, or challenge. Establishes the episodic pattern.",
+            "proportion": 0.17,
+            "guidance": "This episode sets the template for the story's rhythm. Give it a clear beginning, middle, and end. The protagonist should learn something or gain something that carries forward. Introduce the first piece of the overarching puzzle."
+        },
+        {
+            "phase_number": 3,
+            "label": "Episode 2 — Deepening",
+            "type": "episode",
+            "purpose": "A second episode that deepens the story. Raise the stakes, reveal new facets of the protagonist, or introduce a complication to the overarching thread.",
+            "proportion": 0.17,
+            "guidance": "Vary the tone or type of conflict from Episode 1. If the first was action-oriented, this could be more emotional or cerebral. Show character growth. Advance the overarching thread."
+        },
+        {
+            "phase_number": 4,
+            "label": "Episode 3 — Complication",
+            "type": "episode",
+            "purpose": "The overarching thread thickens. This episode introduces a major complication, reversal, or revelation that connects back to earlier episodes.",
+            "proportion": 0.17,
+            "guidance": "Raise the overarching stakes significantly. Earlier events or characters may recur with new significance. The protagonist faces a harder challenge that tests their growth."
+        },
+        {
+            "phase_number": 5,
+            "label": "Episode 4 — Crisis",
+            "type": "episode",
+            "purpose": "The most intense episode. The overarching conflict reaches a peak within this episode's specific scenario. The protagonist is truly tested.",
+            "proportion": 0.17,
+            "guidance": "This episode should feel like the culmination of what came before. The episodic conflict and the overarching conflict intersect. Maximum emotional and narrative intensity."
+        },
+        {
+            "phase_number": 6,
+            "label": "Epilogue — Threads United",
+            "type": "framing",
+            "purpose": "Resolve the overarching thread. Show how the cumulative experiences across all episodes have transformed the protagonist. Bring closure.",
+            "proportion": 0.12,
+            "guidance": "Connect the dots. Show how each episode contributed to the protagonist's transformation or the resolution of the central question. End with resonance — a final image or insight that unifies the whole."
+        }
+    ],
+    "episode_structure": {
+        "each_episode_contains": [
+            "A specific setting or situation (can be new or recurring)",
+            "A local conflict with its own stakes and resolution",
+            "At least one new or recurring secondary character",
+            "A moment of protagonist development or revelation",
+            "A contribution to the overarching thread (clue, lesson, relationship, or piece of the puzzle)"
+        ],
+        "episode_pacing": "Each episode should have its own mini-arc: setup → conflict → escalation → resolution. The resolution of each episode should raise a question or create momentum for the next."
+    },
+    "section_distribution_guidance": "The prologue and epilogue are typically one section each. Each episode can be one or two sections depending on total word count. For 6 sections: prologue, 4 episodes, epilogue. For 8 sections: prologue, 4 episodes (some spanning 2 sections), epilogue. For 10+ sections: prologue, 5-6 episodes, epilogue.",
+    "voiceover_notes": "Episode transitions should feel natural, not jarring. Use time transitions ('Three days later...'), spatial transitions ('The road led to a village unlike any they had seen'), or thematic bridges. Each episode should open with a fresh hook. The episodic structure is excellent for voiceover because it provides natural variety and regular moments of satisfaction."
+}

@@ -1,0 +1,451 @@
+"""Section-by-section story generation step.
+
+Iterates over each section in the outline. For each section it builds a
+context window (Story Bible + full outline + previous summary + last 500
+words), renders the section.txt template, calls the LLM, creates a Section
+model, extracts or generates a summary for context propagation, auto-saves
+state after each section, and emits SECTION_COMPLETED.
+
+Summary generation uses a three-tier approach:
+1. Inline parsing via ---SUMMARY--- marker (zero extra API cost).
+2. Template-based API call using summary.txt.
+3. Extractive fallback: first + last two sentences.
+
+Per-section quality gate: lightweight L1 check after each section.
+Sections that fail are regenerated up to section_max_retries times.
+
+FIX: state_mgr was used inside _generate_section_with_retry() but was
+never instantiated there — caused NameError crash on line 316.
+Now instantiated at the top of that method. api_client.send() return
+value is now guarded to handle both str and object responses.
+"""
+
+from __future__ import annotations
+
+import logging
+import re
+from typing import Any, TYPE_CHECKING
+
+from core.events import EventBus, EventType
+from core.exceptions import StepError
+from core.state_manager import StateManager
+from core.steps.base_step import BaseStep
+from core.steps.evaluate_step import evaluate_l1_programmatic
+from models.evaluation import IssueSeverity
+from models.section import Section
+from models.state import PipelineState
+
+if TYPE_CHECKING:
+    from core.api_client import APIClient
+    from core.prompt_manager import PromptManager
+
+logger = logging.getLogger(__name__)
+
+_SUMMARY_MAX_TOKENS: int = 512
+_SECTION_WORD_COUNT_TOLERANCE: float = 0.25
+_SECTION_MIN_SCORE: float = 7.0
+
+
+class SectionStep(BaseStep):
+    """Generate story text section-by-section.
+
+    Each section is generated with full context: Story Bible, outline,
+    previous section summary, and the last ~500 words of the preceding section.
+    """
+
+    @property
+    def name(self) -> str:
+        return "section"
+
+    @property
+    def description(self) -> str:
+        return "Generate story text section by section"
+
+    async def execute(
+        self,
+        state: PipelineState,
+        api_client: "APIClient",
+        prompt_manager: "PromptManager",
+        event_bus: EventBus,
+    ) -> PipelineState:
+        """Run section-by-section generation.
+
+        Args:
+            state: Current pipeline state (must have story_bible and outline).
+            api_client: Unified API client.
+            prompt_manager: Template loader/renderer.
+            event_bus: Event bus for GUI communication.
+
+        Returns:
+            Updated state with all sections completed.
+
+        Raises:
+            StepError: If prerequisites are missing or a section fails.
+        """
+        logger.info("SectionStep: generating sections for '%s'", state.topic)
+
+        if state.story_bible is None:
+            raise StepError("SectionStep requires story_bible", step_name=self.name, recoverable=False)
+        if state.outline is None:
+            raise StepError("SectionStep requires outline", step_name=self.name, recoverable=False)
+
+        event_bus.emit(EventType.STEP_STARTED, step=self.name, topic=state.topic, story_id=state.story_id)
+
+        state_mgr = StateManager()
+        total_sections = len(state.outline.sections)
+        gen = state.generation_config
+        quality_check_enabled: bool = getattr(gen, "section_quality_check", True)
+        max_retries: int = max(0, getattr(gen, "section_max_retries", 2))
+
+        for outline_section in state.outline.sections:
+            idx = outline_section.index
+            logger.info("SectionStep: generating section %d/%d for '%s'", idx + 1, total_sections, state.topic)
+
+            section_text, summary = await self._generate_section_with_retry(
+                state=state, outline_section=outline_section, idx=idx,
+                total_sections=total_sections, api_client=api_client,
+                prompt_manager=prompt_manager,
+                quality_check_enabled=quality_check_enabled, max_retries=max_retries,
+            )
+
+            self._save_artifact(state, f"section_{idx}.txt", section_text)
+
+            word_count = len(section_text.split())
+            section = Section(
+                index=idx, title=outline_section.title,
+                target_words=outline_section.target_words,
+                key_events=outline_section.key_events,
+                characters_present=outline_section.characters_present,
+                transition_from=outline_section.transition_from,
+                transition_to=outline_section.transition_to,
+                text=section_text, summary=summary, word_count=word_count,
+            )
+            state = state_mgr.add_section(state, section)
+
+            if state.output_dir:
+                try:
+                    state_mgr.save(state)
+                except Exception as exc:
+                    logger.warning("SectionStep: failed to auto-save state after section %d: %s", idx, exc)
+
+            event_bus.emit(
+                EventType.SECTION_COMPLETED, step=self.name, topic=state.topic,
+                story_id=state.story_id, section_index=idx,
+                total_sections=total_sections, word_count=word_count,
+            )
+            logger.info(
+                "SectionStep: section %d/%d complete (%d words, summary %d words)",
+                idx + 1, total_sections, word_count, len(summary.split()),
+            )
+
+        self._emit_progress(event_bus, state, f"All {total_sections} sections generated")
+        return state
+
+    async def _generate_section_with_retry(
+        self,
+        state: PipelineState,
+        outline_section: Any,
+        idx: int,
+        total_sections: int,
+        api_client: "APIClient",
+        prompt_manager: "PromptManager",
+        quality_check_enabled: bool,
+        max_retries: int,
+    ) -> tuple[str, str]:
+        """Generate a section, optionally retrying on quality gate failure.
+
+        Args:
+            state: Current pipeline state.
+            outline_section: Outline section descriptor.
+            idx: Zero-based section index.
+            total_sections: Total number of sections.
+            api_client: Unified API client.
+            prompt_manager: Template loader/renderer.
+            quality_check_enabled: Whether to run the quality gate.
+            max_retries: Maximum additional attempts after quality failure.
+
+        Returns:
+            Tuple of (section_text, summary).
+
+        Raises:
+            StepError: If the API call fails.
+        """
+        # FIX: state_mgr must be instantiated here — it was missing,
+        # causing NameError on state_mgr.update_cost().
+        state_mgr = StateManager()
+
+        best_text: str = ""
+        best_summary: str = ""
+        best_score: float = -1.0
+        total_attempts = max_retries + 1
+
+        for attempt in range(total_attempts):
+            if attempt > 0:
+                logger.info(
+                    "SectionStep: retrying section %d for '%s' (attempt %d/%d)",
+                    idx, state.topic, attempt + 1, total_attempts,
+                )
+
+            prompt = prompt_manager.render(
+                "section",
+                language=state.language,
+                story_bible=state.story_bible.model_dump_json(indent=2),
+                full_outline=state.outline.model_dump_json(indent=2),
+                section_plan=outline_section.model_dump_json(indent=2),
+                section_index=str(idx),
+                total_sections=str(total_sections),
+                previous_summary=self._get_previous_summary(state, idx),
+                last_500_words=self._get_last_words(state),
+                target_words_for_section=str(outline_section.target_words),
+                voiceover_rules=self._build_voiceover_rules(state),
+            )
+
+            try:
+                result = await api_client.send(
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0.8,
+                    max_tokens=max(2048, outline_section.target_words * 2),
+                )
+            except Exception as exc:
+                raise StepError(
+                    f"Section {idx} API call failed for '{state.topic}': {exc}",
+                    step_name=self.name, recoverable=False,
+                ) from exc
+
+            # Guard against object responses.
+            if isinstance(result, str):
+                raw_response = result
+            else:
+                raw_response = getattr(result, "text", str(result))
+                tokens_in = getattr(result, "tokens_in", 0)
+                tokens_out = getattr(result, "tokens_out", 0)
+                cost = getattr(result, "cost", 0.0)
+                if tokens_in or tokens_out:
+                    state = state_mgr.update_cost(state, tokens_in, tokens_out, cost)
+
+            section_text, summary = self._parse_inline_summary(raw_response)
+            if not summary:
+                section_text = raw_response
+                logger.debug("SectionStep: no inline summary for section %d, using API fallback", idx)
+                summary = await self._generate_summary(
+                    api_client, prompt_manager, section_text,
+                    state.language, idx, total_sections, state.story_bible,
+                )
+
+            if not quality_check_enabled:
+                return section_text, summary
+
+            quality_result = self._check_section_quality(section_text, outline_section.target_words, idx)
+            if quality_result > best_score:
+                best_score = quality_result
+                best_text = section_text
+                best_summary = summary
+
+            if self._section_passes_quality_gate(section_text, outline_section.target_words, idx):
+                logger.debug("SectionStep: section %d passed quality gate (score=%.2f)", idx, quality_result)
+                return section_text, summary
+
+            if attempt < total_attempts - 1:
+                logger.warning("SectionStep: section %d quality FAILED (score=%.2f) — retrying", idx, quality_result)
+            else:
+                logger.warning(
+                    "SectionStep: section %d exhausted %d attempts — using best (score=%.2f)",
+                    idx, total_attempts, best_score,
+                )
+
+        return best_text, best_summary
+
+    def _check_section_quality(self, section_text: str, target_words: int, section_idx: int) -> float:
+        """Run programmatic L1 check on a section and return its score.
+
+        Args:
+            section_text: Generated section text.
+            target_words: Target word count for this section.
+            section_idx: Zero-based section index (for logging).
+
+        Returns:
+            L1 score in the range 0.0-10.0.
+        """
+        result = evaluate_l1_programmatic(section_text, target_words, _SECTION_WORD_COUNT_TOLERANCE)
+        if result.issues:
+            summary = "; ".join(f"{i.category}({i.severity})" for i in result.issues)
+            logger.debug("SectionStep: section %d L1: score=%.2f, issues=[%s]", section_idx, result.score, summary)
+        return result.score
+
+    def _section_passes_quality_gate(self, section_text: str, target_words: int, section_idx: int) -> bool:
+        """Return True if the section passes all quality gate criteria.
+
+        Args:
+            section_text: Generated section text.
+            target_words: Target word count for this section.
+            section_idx: Zero-based section index (for logging).
+
+        Returns:
+            True if the section passes, False if it should be regenerated.
+        """
+        result = evaluate_l1_programmatic(section_text, target_words, _SECTION_WORD_COUNT_TOLERANCE)
+        has_critical = any(i.severity == IssueSeverity.CRITICAL for i in result.issues)
+        if has_critical:
+            logger.debug("SectionStep: section %d has CRITICAL issues", section_idx)
+            return False
+        if result.score < _SECTION_MIN_SCORE:
+            logger.debug("SectionStep: section %d score %.2f < %.2f", section_idx, result.score, _SECTION_MIN_SCORE)
+            return False
+        return True
+
+    @staticmethod
+    def _parse_inline_summary(raw_text: str) -> tuple[str, str]:
+        """Parse inline summary from ---SUMMARY--- marker.
+
+        Args:
+            raw_text: Full LLM response including potential summary.
+
+        Returns:
+            Tuple of (story_text, summary). If no marker found, summary is empty string.
+        """
+        marker = "---SUMMARY---"
+        idx = raw_text.find(marker)
+        if idx == -1:
+            for alt in ("--- SUMMARY ---", "---summary---", "---Summary---",
+                        "--- Summary ---", "---SUMMARY ---", "--- SUMMARY---"):
+                idx = raw_text.find(alt)
+                if idx != -1:
+                    marker = alt
+                    break
+        if idx == -1:
+            return raw_text.strip(), ""
+        story_text = raw_text[:idx].strip()
+        summary = raw_text[idx + len(marker):].strip()
+        word_count = len(summary.split())
+        if summary and (word_count < 20 or word_count > 600):
+            logger.warning("SectionStep: inline summary unusual length (%d words)", word_count)
+        return story_text, summary
+
+    async def _generate_summary(
+        self,
+        api_client: "APIClient",
+        prompt_manager: "PromptManager",
+        section_text: str,
+        language: str,
+        section_index: int,
+        total_sections: int,
+        story_bible: Any,
+    ) -> str:
+        """Generate a brief summary of a section for context propagation.
+
+        Args:
+            api_client: Unified API client.
+            prompt_manager: Prompt manager for template rendering.
+            section_text: Full text of the section.
+            language: Two-letter language code.
+            section_index: Zero-based section index.
+            total_sections: Total number of sections.
+            story_bible: Story Bible model.
+
+        Returns:
+            Summary string (150-200 words target).
+        """
+        story_bible_brief = ""
+        if story_bible is not None:
+            try:
+                story_bible_brief = story_bible.model_dump_json(indent=2)
+            except Exception:
+                story_bible_brief = str(story_bible)
+        try:
+            summary_prompt = prompt_manager.render(
+                "summary", language=language, section_text=section_text,
+                story_bible_brief=story_bible_brief,
+                section_index=str(section_index + 1), total_sections=str(total_sections),
+            )
+        except Exception as exc:
+            logger.warning("SectionStep: summary template unavailable: %s — using inline prompt", exc)
+            summary_prompt = (
+                f"Summarize the following story section in 150-200 words. "
+                f"Focus on key plot developments, character actions, and emotional tone. "
+                f"Write in {language}.\n\nSection text:\n{section_text}"
+            )
+        try:
+            summary = await api_client.send(
+                messages=[{"role": "user", "content": summary_prompt}],
+                temperature=0.3, max_tokens=_SUMMARY_MAX_TOKENS,
+            )
+            if not isinstance(summary, str):
+                summary = getattr(summary, "text", str(summary))
+            return summary.strip()
+        except Exception as exc:
+            logger.warning("SectionStep: summary API failed for section %d: %s — extractive fallback", section_index, exc)
+            return self._extractive_summary(section_text)
+
+    @staticmethod
+    def _extractive_summary(text: str) -> str:
+        """Create an extractive summary from section text.
+
+        Args:
+            text: Section text.
+
+        Returns:
+            Extractive summary string.
+        """
+        sentences = re.split(r'(?<=[.!?])\s+', text.strip())
+        if len(sentences) <= 4:
+            return text.strip()
+        return " ".join(sentences[:2]) + " [...] " + " ".join(sentences[-2:])
+
+    @staticmethod
+    def _get_previous_summary(state: PipelineState, section_index: int) -> str:
+        """Return the previous section's summary or empty string.
+
+        Args:
+            state: Current pipeline state.
+            section_index: Index of the section being generated.
+
+        Returns:
+            Summary of the previous section, or empty string.
+        """
+        if section_index > 0 and state.section_summaries:
+            prev_idx = min(section_index - 1, len(state.section_summaries) - 1)
+            if prev_idx >= 0:
+                return state.section_summaries[prev_idx]
+        return ""
+
+    @staticmethod
+    def _get_last_words(state: PipelineState, count: int = 500) -> str:
+        """Return the last N words of the most recently completed section.
+
+        Args:
+            state: Current pipeline state.
+            count: Number of words to return.
+
+        Returns:
+            Trailing text or empty string if no sections yet.
+        """
+        if state.sections_completed:
+            last_text = state.sections_completed[-1].text
+            if last_text:
+                words = last_text.split()
+                return " ".join(words[-count:])
+        return ""
+
+    @staticmethod
+    def _build_voiceover_rules(state: PipelineState) -> str:
+        """Build voiceover-specific instructions from generation config.
+
+        Args:
+            state: Current pipeline state.
+
+        Returns:
+            String with voiceover guidance.
+        """
+        gen = state.generation_config
+        rules: list[str] = []
+        if gen.voiceover_optimized:
+            rules.append("Write text optimized for voiceover/TTS narration.")
+        if gen.avoid_complex_sentences:
+            rules.append("Use simple, clear sentences. Avoid nested clauses.")
+        if gen.no_headers:
+            rules.append("Do NOT include chapter headers, section markers, or titles in the text.")
+        if gen.no_meta_comments:
+            rules.append("Do NOT include meta-comments, author's notes, or AI commentary.")
+        if gen.pause_markers:
+            rules.append("Use natural punctuation to create pauses: commas, periods, ellipses, em dashes.")
+        return "\n".join(rules) if rules else "Write naturally for voiceover."

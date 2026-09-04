@@ -1,0 +1,38 @@
+# Aviation Content Factory — runtime dependencies
+# Python 3.11+
+
+# Multi-provider LLM router (replaces the hand-written adapters)
+litellm>=1.55.0
+
+# Web UI
+streamlit>=1.40.0
+
+# PDF ingestion for real-incident RAG mode
+pymupdf>=1.24.0
+pdfplumber>=0.11.0
+
+# Data validation & serialization
+pydantic>=2.5.0
+pyyaml>=6.0
+
+# Text/token utilities
+tiktoken>=0.7.0
+langdetect>=1.0.9
+
+# Async + retry
+aiohttp>=3.10.0
+tenacity>=8.2.0
+anyio>=4.4.0
+
+# SSML export
+lxml>=5.0.0
+
+# Storyboard CSV / small tabular helpers
+pandas>=2.2.0
+
+# Env loading
+python-dotenv>=1.0.0
+
+# Legacy desktop GUI (kept so main_legacy_ctk.py still runs on a machine
+# that has a display; not required for the Streamlit app or the pipeline).
+customtkinter>=5.2.0

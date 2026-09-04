@@ -1,0 +1,53 @@
+{
+    "name": "Three Act",
+    "description": "Classic three-act narrative structure: setup, confrontation, and resolution. The most widely used story structure in Western storytelling, adapted from Aristotle's beginning-middle-end through Syd Field's screenplay paradigm.",
+    "acts": [
+        {
+            "act_number": 1,
+            "label": "Act I — Setup",
+            "purpose": "Introduce the protagonist, the world, the status quo, and the inciting incident that disrupts it. Establish tone, stakes, and the central question of the story.",
+            "proportion": 0.25,
+            "key_turning_point": "Inciting Incident — the event that disrupts the protagonist's ordinary life and sets the main conflict in motion. Must occur within the first 15% of the story.",
+            "pacing": "Measured but engaging. Hook the listener immediately, then build the world and characters efficiently. Every detail should serve the story — no wasted exposition.",
+            "section_guidance": {
+                "opening": "Start with a hook: action, mystery, striking image, or provocative situation. Avoid slow world-building preambles.",
+                "development": "Introduce protagonist with a clear desire or need. Show their ordinary world — but hint at what's wrong or missing. Introduce key supporting characters.",
+                "turning_point": "The inciting incident forces the protagonist to respond. By the end of Act I, the protagonist must be committed (willingly or not) to the central conflict."
+            }
+        },
+        {
+            "act_number": 2,
+            "label": "Act II — Confrontation",
+            "purpose": "The protagonist pursues their goal against escalating obstacles. Raise the stakes, deepen relationships, reveal complications, and build toward the crisis.",
+            "proportion": 0.50,
+            "key_turning_point": "Midpoint — a major revelation, reversal, or escalation that shifts the protagonist from reactive to proactive (or vice versa). Raises stakes significantly.",
+            "pacing": "Rising tension with moments of relief. Alternate between action and reflection. Each section should end with a new complication or question that propels the story forward.",
+            "section_guidance": {
+                "first_half": "Rising action — protagonist faces initial obstacles, makes allies and enemies, tries approaches that partially succeed and partially fail. Build toward the midpoint.",
+                "midpoint": "A significant shift: new information changes everything, a betrayal occurs, the true stakes are revealed, or the protagonist's approach must fundamentally change.",
+                "second_half": "Escalating complications — obstacles grow harder, allies may be lost, the protagonist's flaws are tested. Build toward the darkest moment before the climax.",
+                "crisis": "The 'all is lost' moment — the protagonist faces their greatest fear or worst outcome. This sets up the climactic decision."
+            }
+        },
+        {
+            "act_number": 3,
+            "label": "Act III — Resolution",
+            "purpose": "The climax and its aftermath. The protagonist confronts the central conflict, makes a defining choice, and the consequences play out. Resolve all major story threads.",
+            "proportion": 0.25,
+            "key_turning_point": "Climax — the decisive confrontation or choice that resolves the central conflict. Must be the most intense and emotionally charged moment of the story.",
+            "pacing": "Accelerating toward the climax, then decelerating for the denouement. The climax should feel inevitable yet surprising. The resolution should feel earned.",
+            "section_guidance": {
+                "buildup": "The protagonist commits to their final plan or confrontation. Tension at maximum.",
+                "climax": "The central conflict is resolved through the protagonist's action, choice, or transformation. This is the emotional peak of the story.",
+                "denouement": "Brief aftermath showing the new status quo. Resolve secondary threads. End with resonance — an image, line, or moment that encapsulates the story's meaning."
+            }
+        }
+    ],
+    "total_proportions": {
+        "act_1": 0.25,
+        "act_2": 0.50,
+        "act_3": 0.25
+    },
+    "section_distribution_guidance": "For a story with N sections: assign roughly 25% of sections to Act I, 50% to Act II, and 25% to Act III. For example, with 6 sections: 1-2 in Act I, 3-4 in Act II, 5-6 in Act III. With 8 sections: 2 in Act I, 4 in Act II, 2 in Act III.",
+    "voiceover_notes": "Act I must hook the listener within the first paragraph. Act II transitions should end sections on cliffhangers or questions that compel continued listening. Act III should deliver emotional payoff — do not rush the climax or skip the denouement."
+}
