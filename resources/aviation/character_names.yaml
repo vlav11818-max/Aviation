@@ -1,0 +1,537 @@
+names:
+- first_name: Joseph
+  last_name: Brown
+  ethnicity: Anglo-American
+  role_hint: Airport Manager
+- first_name: Sarah
+  last_name: Phillips
+  ethnicity: Anglo-American
+  role_hint: Purser
+- first_name: Thomas
+  last_name: White
+  ethnicity: Anglo-American
+  role_hint: Dispatcher
+- first_name: Stephanie
+  last_name: Hayes
+  ethnicity: Anglo-American
+  role_hint: First Officer
+- first_name: Eric
+  last_name: Jones
+  ethnicity: Anglo-American
+  role_hint: Captain
+- first_name: Jennifer
+  last_name: Nelson
+  ethnicity: Anglo-American
+  role_hint: Purser
+- first_name: Brandon
+  last_name: Brown
+  ethnicity: Anglo-American
+  role_hint: Investigator
+- first_name: Susan
+  last_name: Hayes
+  ethnicity: Anglo-American
+  role_hint: Ground Crew
+- first_name: Mark
+  last_name: Coleman
+  ethnicity: Anglo-American
+  role_hint: Eyewitness
+- first_name: Sarah
+  last_name: Smith
+  ethnicity: Anglo-American
+  role_hint: Cabin Crew
+- first_name: Christopher
+  last_name: Barnes
+  ethnicity: Anglo-American
+  role_hint: ATC Controller
+- first_name: Sarah
+  last_name: Allen
+  ethnicity: Anglo-American
+  role_hint: Purser
+- first_name: Jason
+  last_name: White
+  ethnicity: Anglo-American
+  role_hint: First Officer
+- first_name: Sandra
+  last_name: Jackson
+  ethnicity: Anglo-American
+  role_hint: ATC Controller
+- first_name: Edward
+  last_name: Parker
+  ethnicity: Anglo-American
+  role_hint: Cabin Crew
+- first_name: Patricia
+  last_name: Powell
+  ethnicity: Anglo-American
+  role_hint: Investigator
+- first_name: Joseph
+  last_name: Watson
+  ethnicity: Anglo-American
+  role_hint: First Officer
+- first_name: Angela
+  last_name: Morris
+  ethnicity: Anglo-American
+  role_hint: Flight Engineer
+- first_name: Jeffrey
+  last_name: Rivera
+  ethnicity: Anglo-American
+  role_hint: Purser
+- first_name: Amanda
+  last_name: Anderson
+  ethnicity: Anglo-American
+  role_hint: Captain
+- first_name: Mark
+  last_name: Morris
+  ethnicity: Anglo-American
+  role_hint: First Officer
+- first_name: Samantha
+  last_name: Mitchell
+  ethnicity: Anglo-American
+  role_hint: Flight Engineer
+- first_name: Richard
+  last_name: Watson
+  ethnicity: Anglo-American
+  role_hint: Passenger
+- first_name: Emily
+  last_name: Peterson
+  ethnicity: Anglo-American
+  role_hint: Flight Attendant
+- first_name: Jeffrey
+  last_name: Ward
+  ethnicity: Anglo-American
+  role_hint: Purser
+- first_name: Michelle
+  last_name: Evans
+  ethnicity: Anglo-American
+  role_hint: Airport Manager
+- first_name: William
+  last_name: King
+  ethnicity: Anglo-American
+  role_hint: Investigator
+- first_name: Stephanie
+  last_name: Phillips
+  ethnicity: Anglo-American
+  role_hint: Flight Attendant
+- first_name: Stephen
+  last_name: Watson
+  ethnicity: Anglo-American
+  role_hint: Passenger
+- first_name: Heather
+  last_name: Sullivan
+  ethnicity: Anglo-American
+  role_hint: Purser
+- first_name: Brian
+  last_name: Wilson
+  ethnicity: Anglo-American
+  role_hint: Purser
+- first_name: Christina
+  last_name: Jones
+  ethnicity: Anglo-American
+  role_hint: Cabin Crew
+- first_name: Brian
+  last_name: Price
+  ethnicity: Anglo-American
+  role_hint: Passenger
+- first_name: Heather
+  last_name: Morgan
+  ethnicity: Anglo-American
+  role_hint: Chief Pilot
+- first_name: Brian
+  last_name: Nelson
+  ethnicity: Anglo-American
+  role_hint: Dispatcher
+- first_name: Kimberly
+  last_name: Kelly
+  ethnicity: Anglo-American
+  role_hint: Chief Pilot
+- first_name: Stephen
+  last_name: Hall
+  ethnicity: Anglo-American
+  role_hint: Passenger
+- first_name: Elizabeth
+  last_name: Phillips
+  ethnicity: Anglo-American
+  role_hint: Airport Manager
+- first_name: Paul
+  last_name: Sanders
+  ethnicity: Anglo-American
+  role_hint: Ground Crew
+- first_name: Katherine
+  last_name: Sanders
+  ethnicity: Anglo-American
+  role_hint: Ground Crew
+- first_name: Jeffrey
+  last_name: Carter
+  ethnicity: Anglo-American
+  role_hint: Flight Attendant
+- first_name: Amy
+  last_name: Simmons
+  ethnicity: Anglo-American
+  role_hint: First Officer
+- first_name: Michael
+  last_name: Harris
+  ethnicity: Anglo-American
+  role_hint: Flight Attendant
+- first_name: Laura
+  last_name: Young
+  ethnicity: Anglo-American
+  role_hint: Cabin Crew
+- first_name: Eric
+  last_name: Anderson
+  ethnicity: Anglo-American
+  role_hint: Ground Crew
+- first_name: Sandra
+  last_name: Long
+  ethnicity: Anglo-American
+  role_hint: Investigator
+- first_name: Paul
+  last_name: Reed
+  ethnicity: Anglo-American
+  role_hint: Flight Engineer
+- first_name: Mary
+  last_name: Harris
+  ethnicity: Anglo-American
+  role_hint: Dispatcher
+- first_name: Andrew
+  last_name: Richardson
+  ethnicity: Anglo-American
+  role_hint: First Officer
+- first_name: Karen
+  last_name: Ross
+  ethnicity: Anglo-American
+  role_hint: Flight Attendant
+- first_name: Alexander
+  last_name: Taylor
+  ethnicity: British
+  role_hint: Airport Manager
+- first_name: Ivy
+  last_name: Ashworth
+  ethnicity: British
+  role_hint: Cabin Crew
+- first_name: Charlie
+  last_name: Ashworth
+  ethnicity: British
+  role_hint: Chief Pilot
+- first_name: Mia
+  last_name: Campbell
+  ethnicity: British
+  role_hint: Flight Engineer
+- first_name: Declan
+  last_name: Ashworth
+  ethnicity: British
+  role_hint: Eyewitness
+- first_name: Lily
+  last_name: Fletcher
+  ethnicity: British
+  role_hint: ATC Controller
+- first_name: Charlie
+  last_name: Taylor
+  ethnicity: British
+  role_hint: Eyewitness
+- first_name: Rosie
+  last_name: Kingsley
+  ethnicity: British
+  role_hint: Captain
+- first_name: Noah
+  last_name: Cameron
+  ethnicity: British
+  role_hint: Chief Pilot
+- first_name: Ella
+  last_name: Middleton
+  ethnicity: British
+  role_hint: Captain
+- first_name: Freddie
+  last_name: Watson
+  ethnicity: British
+  role_hint: First Officer
+- first_name: Willow
+  last_name: Thompson
+  ethnicity: British
+  role_hint: Cabin Crew
+- first_name: Ewan
+  last_name: Morgan
+  ethnicity: British
+  role_hint: Flight Attendant
+- first_name: Saoirse
+  last_name: Beaumont
+  ethnicity: British
+  role_hint: Investigator
+- first_name: Charlie
+  last_name: Sinclair
+  ethnicity: British
+  role_hint: Investigator
+- first_name: Iona
+  last_name: Murphy
+  ethnicity: British
+  role_hint: Purser
+- first_name: Ewan
+  last_name: Ashcroft
+  ethnicity: British
+  role_hint: Airport Manager
+- first_name: Ella
+  last_name: O'Brien
+  ethnicity: British
+  role_hint: Dispatcher
+- first_name: Declan
+  last_name: Cameron
+  ethnicity: British
+  role_hint: Mechanic
+- first_name: Alice
+  last_name: Doyle
+  ethnicity: British
+  role_hint: First Officer
+- first_name: Freddie
+  last_name: Pemberton
+  ethnicity: British
+  role_hint: First Officer
+- first_name: Rosie
+  last_name: Davies
+  ethnicity: British
+  role_hint: Eyewitness
+- first_name: Ewan
+  last_name: Pemberton
+  ethnicity: British
+  role_hint: Eyewitness
+- first_name: Freya
+  last_name: Taylor
+  ethnicity: British
+  role_hint: First Officer
+- first_name: Ronan
+  last_name: Roberts
+  ethnicity: British
+  role_hint: Purser
+- first_name: Ava
+  last_name: Evans
+  ethnicity: British
+  role_hint: Flight Engineer
+- first_name: Henry
+  last_name: Thompson
+  ethnicity: British
+  role_hint: Investigator
+- first_name: Freya
+  last_name: Blackwood
+  ethnicity: British
+  role_hint: Dispatcher
+- first_name: Harrison
+  last_name: Cavendish
+  ethnicity: British
+  role_hint: Investigator
+- first_name: Isabella
+  last_name: Beaumont
+  ethnicity: British
+  role_hint: Purser
+- first_name: Santiago
+  last_name: Díaz
+  ethnicity: Hispanic
+  role_hint: Purser María,Hernández,,Hispanic,Dispatcher
+- first_name: Emiliano
+  last_name: Rivera
+  ethnicity: Hispanic
+  role_hint: Ground Crew
+- first_name: Elena
+  last_name: Cruz
+  ethnicity: Hispanic
+  role_hint: Flight Engineer
+- first_name: Carlos
+  last_name: Castillo
+  ethnicity: Hispanic
+  role_hint: Dispatcher
+- first_name: Carolina
+  last_name: Hernández
+  ethnicity: Hispanic
+  role_hint: Captain
+- first_name: Mateo
+  last_name: Mendoza
+  ethnicity: Hispanic
+  role_hint: ATC Controller
+- first_name: Renata
+  last_name: Hernández
+  ethnicity: Hispanic
+  role_hint: Purser
+- first_name: Fernando
+  last_name: Pérez
+  ethnicity: Hispanic
+  role_hint: Investigator
+- first_name: Gabriela
+  last_name: López
+  ethnicity: Hispanic
+  role_hint: Ground Crew
+- first_name: Luis
+  last_name: Ramírez
+  ethnicity: Hispanic
+  role_hint: Mechanic
+- first_name: Valentina
+  last_name: Martínez
+  ethnicity: Hispanic
+  role_hint: Mechanic
+- first_name: Javier
+  last_name: Rodríguez
+  ethnicity: Hispanic
+  role_hint: Dispatcher
+- first_name: Adriana
+  last_name: García
+  ethnicity: Hispanic
+  role_hint: First Officer
+- first_name: Alejandro
+  last_name: González
+  ethnicity: Hispanic
+  role_hint: Ground Crew
+- first_name: Gabriela
+  last_name: Morales
+  ethnicity: Hispanic
+  role_hint: Purser
+- first_name: Mateo
+  last_name: Rodríguez
+  ethnicity: Hispanic
+  role_hint: Flight Attendant
+- first_name: Elena
+  last_name: García
+  ethnicity: Hispanic
+  role_hint: Ground Crew
+- first_name: Rafael
+  last_name: Cruz
+  ethnicity: Hispanic
+  role_hint: Passenger
+- first_name: Elena
+  last_name: Ruiz
+  ethnicity: Hispanic
+  role_hint: Airport Manager
+- first_name: Mohammed
+  last_name: Al-Rashid
+  ethnicity: Arab
+  role_hint: First Officer
+- first_name: Fatima
+  last_name: Hassan
+  ethnicity: Arab
+  role_hint: Eyewitness
+- first_name: Omar
+  last_name: Farouk
+  ethnicity: Arab
+  role_hint: First Officer
+- first_name: Layla
+  last_name: Mansour
+  ethnicity: Arab
+  role_hint: Dispatcher
+- first_name: Khalid
+  last_name: Ibrahim
+  ethnicity: Arab
+  role_hint: Flight Engineer
+- first_name: Aisha
+  last_name: Nasser
+  ethnicity: Arab
+  role_hint: Purser
+- first_name: Youssef
+  last_name: Haddad
+  ethnicity: Arab
+  role_hint: Ground Crew
+- first_name: Nour
+  last_name: Saleh
+  ethnicity: Arab
+  role_hint: First Officer
+- first_name: Karim
+  last_name: Bakr
+  ethnicity: Arab
+  role_hint: Chief Pilot
+- first_name: Zainab
+  last_name: Qureshi
+  ethnicity: Arab
+  role_hint: Eyewitness
+- first_name: Marco
+  last_name: Ferretti
+  ethnicity: Italian-American
+  role_hint: Captain
+- first_name: Sofia
+  last_name: DiMarco
+  ethnicity: Italian-American
+  role_hint: Flight Attendant
+- first_name: Anthony
+  last_name: Russo
+  ethnicity: Italian-American
+  role_hint: Investigator
+- first_name: Isabella
+  last_name: Romano
+  ethnicity: Italian-American
+  role_hint: Purser
+- first_name: Giovanni
+  last_name: Costa
+  ethnicity: Italian-American
+  role_hint: First Officer
+- first_name: Sean
+  last_name: O'Sullivan
+  ethnicity: Irish-American
+  role_hint: Captain
+- first_name: Colleen
+  last_name: McCarthy
+  ethnicity: Irish-American
+  role_hint: ATC Controller
+- first_name: Patrick
+  last_name: Kelly
+  ethnicity: Irish-American
+  role_hint: Chief Pilot
+- first_name: Bridget
+  last_name: Murphy
+  ethnicity: Irish-American
+  role_hint: Investigator
+- first_name: Adam
+  last_name: Nowak
+  ethnicity: Polish-American
+  role_hint: First Officer
+- first_name: Katarzyna
+  last_name: Kowalski
+  ethnicity: Polish-American
+  role_hint: Purser
+- first_name: Nikolai
+  last_name: Petrov
+  ethnicity: Slavic-American
+  role_hint: Mechanic
+- first_name: Milena
+  last_name: Novak
+  ethnicity: Slavic-American
+  role_hint: Dispatcher
+- first_name: David
+  last_name: Goldstein
+  ethnicity: Jewish-American
+  role_hint: Captain
+- first_name: Rachel
+  last_name: Cohen
+  ethnicity: Jewish-American
+  role_hint: Investigator
+- first_name: Benjamin
+  last_name: Rosenberg
+  ethnicity: Jewish-American
+  role_hint: Airport Manager
+- first_name: Erik
+  last_name: Lindquist
+  ethnicity: Scandinavian-American
+  role_hint: Ground Crew
+- first_name: Astrid
+  last_name: Bergman
+  ethnicity: Scandinavian-American
+  role_hint: Flight Engineer
+- first_name: Lars
+  last_name: Andersen
+  ethnicity: Scandinavian-American
+  role_hint: Chief Pilot
+- first_name: Nikos
+  last_name: Papadopoulos
+  ethnicity: Greek-American
+  role_hint: Passenger
+- first_name: Eleni
+  last_name: Christos
+  ethnicity: Greek-American
+  role_hint: Cabin Crew
+- first_name: Marcus
+  last_name: Washington
+  ethnicity: African-American
+  role_hint: Captain
+- first_name: Aaliyah
+  last_name: Jefferson
+  ethnicity: African-American
+  role_hint: First Officer DeShawn,Franklin,,African-American,ATC Controller
+- first_name: Nia
+  last_name: Robinson
+  ethnicity: African-American
+  role_hint: Flight Attendant
+- first_name: Malik
+  last_name: Coleman
+  ethnicity: African-American
+  role_hint: Dispatcher

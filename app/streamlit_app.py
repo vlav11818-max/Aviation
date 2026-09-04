@@ -26,7 +26,10 @@ from dotenv import load_dotenv
 
 from aviation.orchestrator import CancelledError, new_job, run_job
 from aviation.persistence import delete_job, list_jobs, load_job, save_job
+from aviation.resources import filter_incidents, load_incidents
 from aviation.state import AviationJob, JobSettings, JobStatus
+from aviation.axes import AXES, SubGenre
+from aviation.structures import SPECS, all_structures
 from core.history import HistoryStore
 from core.settings import Settings
 from models.aviation_bible import Mode, NarrativeStructure
@@ -173,12 +176,39 @@ def _sidebar_settings() -> None:
 
 def page_queue() -> None:
     st.header("Queue a new incident")
+
+    # Optional: pick a seed from the catalog before opening the form.
+    st.markdown("### Optional: pick a seed incident from the catalog (real mode)")
+    seeds = load_incidents()
+    seed_labels = ["(none — provide your own PDF or invent a fictional story)"] + [
+        f"{inc.name}  ·  {inc.sub_genre_primary}  ·  {inc.monetization_risk}"
+        for inc in seeds
+    ]
+    picked_seed_label = st.selectbox(
+        "Seed catalog", options=seed_labels, index=0, key="form_seed_pick",
+    )
+    picked_seed = None
+    if picked_seed_label != seed_labels[0]:
+        picked_seed = seeds[seed_labels.index(picked_seed_label) - 1]
+        with st.expander("Seed details", expanded=False):
+            st.write(f"**Date:** {picked_seed.date}")
+            st.write(f"**Aircraft:** {picked_seed.aircraft}")
+            st.write(f"**Location:** {picked_seed.location}")
+            st.write(f"**Failure:** {picked_seed.failure_type}")
+            st.write(f"**Outcome:** {picked_seed.outcome}")
+            st.write(f"**Causation:** {picked_seed.causation_type}")
+            st.write(f"**Risk:** {picked_seed.monetization_risk}")
+            if picked_seed.dramatic_details:
+                st.markdown("**Dramatic details:**")
+                for d in picked_seed.dramatic_details:
+                    st.write(f"- {d}")
+
     with st.form("new_job", clear_on_submit=False):
         col1, col2 = st.columns(2)
         with col1:
             topic = st.text_input(
                 "Topic / working title",
-                value=st.session_state.get("form_topic", ""),
+                value=st.session_state.get("form_topic", picked_seed.name if picked_seed else ""),
                 placeholder="e.g. Cascading hydraulic failure over the North Atlantic",
             )
             mode = st.radio(
@@ -186,7 +216,7 @@ def page_queue() -> None:
                 options=[Mode.REAL.value, Mode.FICTIONAL.value],
                 horizontal=True,
                 key="form_mode",
-                index=1,
+                index=0 if picked_seed else 1,
             )
             target_words = st.slider(
                 "Target word count", min_value=3000, max_value=20000,
@@ -209,7 +239,7 @@ def page_queue() -> None:
             )
 
         pdfs = st.file_uploader(
-            "Source PDFs (real mode only)",
+            "Source PDFs (real mode only — leave empty to use the seed catalog)",
             type=["pdf", "txt", "md"],
             accept_multiple_files=True,
         )
@@ -393,16 +423,102 @@ def page_global_history() -> None:
     summary = hist.summary()
     st.write(f"**Completed incidents:** {summary.completed_incidents}")
     st.write(f"**Next structure (forced rotation):** `{hist.next_structure().value}`")
+
     st.subheader("Structures used")
     if summary.structures_used:
         st.code("\n".join(f"{i + 1}. {s}" for i, s in enumerate(summary.structures_used)))
     else:
         st.caption("None yet.")
-    st.subheader("Registered elements (fictional uniqueness)")
+
+    st.subheader("Axis cooldowns (recent values)")
+    st.caption(
+        "Values that appear in the recent-history window for their axis are "
+        "on cooldown — the Planner will not reuse them until they age out."
+    )
+    for axis_name, spec in AXES.items():
+        recent = summary.axis_recent_values.get(axis_name, [])
+        with st.expander(
+            f"{axis_name}  (cooldown = {spec.cooldown}, recent = {len(recent)})",
+            expanded=False,
+        ):
+            if recent:
+                for i, v in enumerate(recent):
+                    st.write(f"{i + 1}. {v}")
+            else:
+                st.caption("nothing recorded yet")
+
+    st.subheader("Registered fictional elements (uniqueness)")
     for kind, values in summary.elements_by_kind.items():
         if values:
             with st.expander(f"{kind} ({len(values)})"):
                 st.code("\n".join(values))
+
+
+def page_structures() -> None:
+    st.header("Narrative structures")
+    st.caption(
+        "Six documented structures with target quarterly quotas. The Planner "
+        "picks one per story; the Global History Manager rotates through them."
+    )
+    for spec in all_structures():
+        with st.expander(
+            f"{spec.display_name}  ·  quota {spec.quarterly_quota}/quarter",
+            expanded=False,
+        ):
+            st.markdown(f"**{spec.tagline}**")
+            st.write(spec.beat_summary)
+            if spec.when_to_use:
+                st.markdown("**When to use:**")
+                for item in spec.when_to_use:
+                    st.write(f"- {item}")
+            if spec.when_not_to_use:
+                st.markdown("**When NOT to use:**")
+                for item in spec.when_not_to_use:
+                    st.write(f"- {item}")
+
+
+def page_seed_catalog() -> None:
+    st.header("Seed incident catalog")
+    incidents = load_incidents()
+    st.caption(f"{len(incidents)} pre-vetted incidents across all sub-genres.")
+    # Filter widgets.
+    col1, col2 = st.columns(2)
+    with col1:
+        sub_genre = st.selectbox(
+            "Filter by sub-genre",
+            options=["(all)"] + sorted({i.sub_genre_primary for i in incidents if i.sub_genre_primary}),
+        )
+    with col2:
+        max_risk = st.selectbox("Max monetization risk", options=["LOW", "MED", "HIGH"], index=2)
+    filtered = filter_incidents(
+        sub_genre=None if sub_genre == "(all)" else sub_genre,
+        max_risk=max_risk,
+    )
+    st.write(f"**{len(filtered)}** incidents match your filter.")
+    for inc in filtered:
+        with st.expander(f"{inc.name}  ·  {inc.sub_genre_primary}  ·  {inc.monetization_risk}"):
+            st.write(f"**Date:** {inc.date}")
+            st.write(f"**Aircraft:** {inc.aircraft}")
+            st.write(f"**Location:** {inc.location}")
+            st.write(f"**Failure:** {inc.failure_type}")
+            st.write(f"**Outcome:** {inc.outcome}")
+            st.write(f"**Causation:** {inc.causation_type}")
+            st.write(f"**Casualties:** {inc.casualties}")
+            if inc.dramatic_details:
+                st.markdown("**Dramatic details:**")
+                for d in inc.dramatic_details:
+                    st.write(f"- {d}")
+            if inc.sources:
+                st.markdown("**Sources:**")
+                for s in inc.sources:
+                    st.write(f"- {s}")
+            if inc.translation_status == "partial":
+                st.info(
+                    "Some narrative fields still contain Russian text from the "
+                    "original brief. The Planner handles mixed languages fine, "
+                    "but you can hand-translate any incident by editing "
+                    "`resources/aviation/incidents.yaml`."
+                )
 
 
 # ── router ────────────────────────────────────────────────────────────
@@ -413,6 +529,8 @@ PAGES = {
     "Live progress": page_progress,
     "History": page_history,
     "Global history": page_global_history,
+    "Seed catalog": page_seed_catalog,
+    "Structures": page_structures,
 }
 
 

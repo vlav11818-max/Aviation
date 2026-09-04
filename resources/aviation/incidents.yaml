@@ -1,0 +1,1232 @@
+incidents:
+- name: US Airways 1549 — "Miracle on the Hudson"
+  section: MIRACLE LANDINGS / IMPOSSIBLE SAVES
+  date: 15 January 2009
+  aircraft: Airbus A320-214 (N106US)
+  location: Hudson River, New York City
+  failure_type: Dual engine bird strike (Canada geese) на высоте ~2,800 ft через 3 min after takeoff of LGA
+  outcome: successful landing на воду (ditching) в реке Гудзон
+  casualties: 0 fatalities of 155 onboard; несколько serious injuries
+  dramatic_details:
+  - 'Cпокойная фраза Sullenberger в ATC: "we''re gonna be in the Hudson" — до сих пор используется as эталон CRM'
+  - От бёрд страйка до touchdown воды прошло about 3.5 min
+  - first officer Skiles до the last пытался restart engines along QRH
+  - Sully дважды went along салону после landing, проверяя, all ли вышли
+  - Ferry captain Vince Lombardi первым подошёл — гражданские суда rescued passengers быстрее МЧС
+  sub_genre_primary: Miracle emergency landing
+  sub_genre_secondary: ''
+  causation_type: Bird-Strike
+  aircraft_type: Narrow-body commercial
+  setting_layer2: Winter storm zone
+  setting_geographic: Hudson River, urban New York
+  monetization_risk: LOW
+  twist_potential: Каждый passenger получил через год письмо с приглашением на воссоединение, ставшее ежегодным ритуалом
+  sources:
+  - NTSB Report AAR-10/03
+  - Aviation Safety Network — asndb / N106US
+  - Sullenberger memoir "Highest Duty"
+  translation_status: partial
+- name: Air Canada 143 — "Gimli Glider"
+  section: MIRACLE LANDINGS / IMPOSSIBLE SAVES
+  date: 23 July 1983
+  aircraft: Boeing 767-233 (C-GAUN)
+  location: Gimli, Manitoba, Canada
+  failure_type: Fuel exhaustion на FL410 — при refueling confused фунты and килограммы (Канада only переходила на метрическую систему)
+  outcome: Dead-stick landing на бывшем военном the airfield, превращённом в трек для гонок
+  casualties: 0 of 69; несколько minor injuries during evacuation
+  dramatic_details:
+  - Первым failed левый engine, через ~2 min — правый; электрика fell на резервный RAT (ram air turbine)
+  - captain Bob Pearson был опытным планеристом — использовал forward slip, rarely применяемый на airliners, so that сбросить высоту
+  - На landing runway шли гонки семейного автоклуба Winnipeg Sports Car Club — люди стояли прямо на runway
+  - nose gear не выпустилась completely — aircraft скользил на носу, that помогло затормозить
+  - Ф/О Maurice Quintal вспомнил про Gimli of своей военной службы — гражданские карты этот airfield already не показывали
+  sub_genre_primary: Miracle emergency landing
+  sub_genre_secondary: ''
+  causation_type: Fuel + Human-Factor
+  aircraft_type: Wide-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Rural Manitoba, abandoned airfield
+  monetization_risk: LOW
+  twist_potential: The same airframe went on to fly 25 years под прозвищем "Gimli Glider"; was retired в 2008, sold в пустыню Мохаве
+  sources:
+  - 'Wikipedia: Gimli Glider (детально)'
+  - Admiral Cloudberg archive
+  - CBC archives
+  translation_status: partial
+- name: Air Transat 236 — Azores Glider
+  section: MIRACLE LANDINGS / IMPOSSIBLE SAVES
+  date: 24 August 2001
+  aircraft: Airbus A330-243 (C-GITS)
+  location: Lajes Airbase, Azores, Atlantic
+  failure_type: leak fuel из-за неправильно установленного hydraulic насоса при maintenance; crew перекачал остаток fuel в течь
+  outcome: Планировали 120 км без engines, landing на Лажесе; шины burst, 8 of 10 сдулись
+  casualties: 0 of 306; 16 serious injuries during evacuation
+  dramatic_details:
+  - world record планирования гражданского реактивного aircraft — 19 min without thrust
+  - crew поначалу считал testimony fuel ошибочными; when включили cross-feed, ускорили the leak
+  - Португальские F-16 сопровождали approach, but не потребовались
+  - passengers молились вслух в салоне; cabin crew раздавали инструкции along позе для brace
+  - captain Robert Piché — бывший преступник (наркоконтрабанда в 1980-х), после отсидки стал пилотом
+  sub_genre_primary: Miracle emergency landing
+  sub_genre_secondary: ''
+  causation_type: Fuel + Maintenance
+  aircraft_type: Wide-body commercial
+  setting_layer2: Islands & oceanic
+  setting_geographic: Azores, mid-Atlantic
+  monetization_risk: LOW
+  twist_potential: 'Прошлое captain делает арку redemption; фильм "Piché: entre ciel et terre" (2010)'
+  sources:
+  - Portuguese GPIAA final report
+  - Admiral Cloudberg
+  - Aviation Safety Network
+  translation_status: partial
+- name: British Airways 9 — "Speedbird 9"
+  section: MIRACLE LANDINGS / IMPOSSIBLE SAVES
+  date: 24 June 1982
+  aircraft: Boeing 747-236B (G-BDXH "City of Edinburgh")
+  location: Ночной полёт над Индонезией, Индийский океан
+  failure_type: all 4 engine flamed out из-за вулканического ash (извержение Galunggung); ash плавился в турбинах and налипал на лопатки
+  outcome: 14 min without thrust, спуск до 12,000 ft, engines последовательно restarted; landing в Джакарте с повреждённым лобовым стеклом
+  casualties: 0 of 263
+  dramatic_details:
+  - legendary объявление captain Eric Moody пассажирам — паззажирам сказали "small problem — all four engines have stopped" в максимально уравновешенной манере
+  - passengers видели зелёное свечение (St. Elmo's fire) вокруг engines до failure
+  - windshield было настолько исцарапано пеплом, that were on approach визуально сбоку через боковое окно
+  - then никто не знал о риске вулканического ash для реактивных engines — событие изменило регуляции
+  - crew не идентифицировал volcano; ATC долго не верили, that all 4 движка failed
+  sub_genre_primary: Miracle emergency landing
+  sub_genre_secondary: Weather disaster & near-miss
+  causation_type: Weather (volcanic) + Mechanical
+  aircraft_type: Wide-body commercial
+  setting_layer2: Volcanic region
+  setting_geographic: Indian Ocean near Indonesia
+  monetization_risk: LOW
+  twist_potential: Событие породило VAAC (Volcanic Ash Advisory Centers) worldwide
+  sources:
+  - UK AAIB Bulletin 8/82
+  - Mentour Pilot detailed video
+  - Eric Moody interviews
+  translation_status: partial
+- name: TACA 110 — "Miracle on the Levee"
+  section: MIRACLE LANDINGS / IMPOSSIBLE SAVES
+  date: 24 May 1988
+  aircraft: Boeing 737-300 (N75356) — почти новый, месяцы в эксплуатации
+  location: Дамба возле NASA Michoud, New Orleans, Louisiana
+  failure_type: Двойной flameout после прохождения thunderstorm с градом при the descent на idle power; на 16,500 ft both CFM56 залило водой
+  outcome: Dead-stick landing на узкой травяной дамбе; после ремонта aircraft улетел с 6,000-футовой заводской "полосы"
+  casualties: 0 of 45; лёгкие травмы
+  dramatic_details:
+  - captain Carlos Dárdano — 29 years, flew с одним глазом (lost в civil war в Сальвадоре)
+  - APU restarted электрику, движки зафлеймовались again, but не давали больше idle thrust
+  - Дардано выбрал дамбу шириной с wing aircraft возле промышленной зоны
+  - 'Пассажирка вспоминала: думала, that already сели в the airport — так мягко получилось'
+  - The incident rewrote the standards сертификации engines along устойчивости к воде and граду
+  sub_genre_primary: Miracle emergency landing
+  sub_genre_secondary: ''
+  causation_type: Weather (hail/storm) + Mechanical
+  aircraft_type: Narrow-body commercial
+  setting_layer2: Tropical storm / typhoon
+  setting_geographic: Gulf coast Louisiana, industrial
+  monetization_risk: LOW
+  twist_potential: The same airframe flew в Southwest Airlines до 2016 years; was scrapped only через 28 years
+  sources:
+  - NTSB Docket FTW88IA109
+  - 'FAA Lessons Learned: N75356'
+  - Admiral Cloudberg archive
+  translation_status: partial
+- name: United 232 — Sioux City
+  section: MIRACLE LANDINGS / IMPOSSIBLE SAVES
+  date: 19 July 1989
+  aircraft: McDonnell Douglas DC-10-10 (N1819U)
+  location: Sioux Gateway Airport, Iowa
+  failure_type: uncontained failure engine №2 (хвостовой) — fan disc ruptured, осколки перебили all три hydraulic systems одновременно (событие с вероятностью 1:1,000,000,000)
+  outcome: Управление одной тягой two оставшихся движков; жёсткая landing, aircraft развалился на несколько частей
+  casualties: 111 fatalities of 296; 185 survivors (включая младенца, which was found alive в шкафу для багажа)
+  dramatic_details:
+  - captain Al Haynes and check pilot Denny Fitch (случайный passenger) управляли asymmetric thrust — Fitch стоял на коленях между кресел, работая с throttles
+  - crew не мог поворачивать, снижать or менять конфигурацию нормально — only просить у Sioux City "runway побольше"
+  - ATC-диалог с Кевином Бахманом стал классикой — эталон профессионализма под давлением
+  - В симуляторах после происшествия ни один crew не was able to повторить landing 232-го
+  - Fitch died от рака мозга в 2012; Haynes died в 2019 — both до конца lives говорили о происшествии
+  sub_genre_primary: Miracle emergency landing
+  sub_genre_secondary: Mechanical failure recreation
+  causation_type: Mechanical + Structural
+  aircraft_type: Wide-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Rural Iowa, Sioux City
+  monetization_risk: LOW
+  twist_potential: 185 of 296 выжили в crash, где along всем моделям должны были погибнуть all — CRM and удача
+  sources:
+  - NTSB Report AAR-90/06
+  - Denny Fitch documentaries
+  - Al Haynes NASA lecture (public domain)
+  translation_status: partial
+- name: Qantas 32 — Uncontained A380
+  section: MIRACLE LANDINGS / IMPOSSIBLE SAVES
+  date: 4 November 2010
+  aircraft: Airbus A380-842 (VH-OQA "Nancy-Bird Walton")
+  location: Batam Island, Indonesia (после взлёта из Сингапура)
+  failure_type: Uncontained failure Rolls-Royce Trent 900 №2 — треснул intermediate pressure turbine disc из-за брака масляной трубки; шрапнель прошила wing
+  outcome: crew 2 h разбирался с 130+ ECAM сообщениями; landing в Changi, шины перегреты, fuel течёт
+  casualties: 0 of 469
+  dramatic_details:
+  - 'captain Richard de Crespigny описал звук: громче любого симулятора, "obvious engine failure" — but это оказалось намного хуже'
+  - Осколки пробили wing, разорвали электрику, fuel, гидравлику — almost каждая система дала сбой
+  - В кабине было 5 пилотов (тренировочный flight), that помогло справиться с нагрузкой
+  - engine №1 после landing не глушился 3 h — заливали водой снаружи
+  - wreckage fell на дома в Batam, Индонезия — никто не пострадал
+  sub_genre_primary: Miracle emergency landing
+  sub_genre_secondary: Mechanical failure recreation
+  causation_type: Mechanical (uncontained engine)
+  aircraft_type: Wide-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Batam / Singapore, urban debris field
+  monetization_risk: LOW
+  twist_potential: Redundancy A380 (4 движка, дублированная hydraulics) буквально спасла lives; книга de Crespigny "QF32"
+  sources:
+  - ATSB Report AO-2010-089
+  - FAA Lessons Learned
+  - 'Admiral Cloudberg: "A Matter of Millimeters"'
+  translation_status: partial
+- name: British Airways 5390 — "Captain Sucked Out"
+  section: MIRACLE LANDINGS / IMPOSSIBLE SAVES
+  date: 10 June 1990
+  aircraft: BAC One-Eleven 528FL (G-BJRT)
+  location: Над Оксфордширом, Англия
+  failure_type: Взорвалось левое windshield на 17,300 ft из-за неправильных болтов при замене (использовали слишком мелкие); captain Tim Lancaster partially высосало наружу
+  outcome: Ф/О Alastair Atchison посадил aircraft в Southampton; стюард Nigel Ogden держал Ланкастера за ноги 20 min
+  casualties: 0 of 87; captain survived с обморожениями and переломами
+  dramatic_details:
+  - windshield установил инженер, использовавший болты на 0.66 мм меньше требуемого диаметра — на глаз
+  - Тело Ланкастера прижало к fuselage; crew думал, that он мёртв, but продолжал держать
+  - Ф/О пилотировал через кричащий wind, не слыша ATC
+  - captain вернулся к полётам через 5 месяцев
+  - incident лёг в основу the first сезона "Air Crash Investigation"
+  sub_genre_primary: Cabin crisis
+  sub_genre_secondary: Miracle emergency landing
+  causation_type: Maintenance + Structural
+  aircraft_type: Narrow-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Southern England, high altitude
+  monetization_risk: LOW
+  twist_potential: Physical horror — people висит снаружи 20 min and выживает
+  sources:
+  - UK AAIB Report 1/92
+  - BBC archives
+  - ACI Season 1 Episode
+  translation_status: partial
+- name: Aloha Airlines 243 — "Convertible 737"
+  section: MIRACLE LANDINGS / IMPOSSIBLE SAVES
+  date: 28 April 1988
+  aircraft: Boeing 737-297 (N73711)
+  location: Над Гавайями, посадка в Kahului, Maui
+  failure_type: Explosive decompression — 5.5 метров верхней части fuselage сорвало из-за металлической усталости and коррозии (частые короткие рейсы над солёной атмосферой)
+  outcome: crew посадил aircraft с открытым верхом за 13 min
+  casualties: 1 погибшая (flight attendant CB Lansing, высосало), 65 раненых of 95
+  dramatic_details:
+  - passengers видели небо and пилотов сквозь дыру в потолке
+  - captain Robert Schornstheimer с ф/о Madeline Tompkins сажали aircraft без лобовой перегородки — воздушный поток чуть не выдувал их
+  - 89,000 циклов landing на этом борту — рекорд для типа
+  - Один of движков позже failed на подходе — сажали фактически на одном
+  - incident запустил новую программу — Aging Aircraft Program
+  sub_genre_primary: Miracle emergency landing
+  sub_genre_secondary: Cabin crisis
+  causation_type: Structural + Maintenance (metal fatigue)
+  aircraft_type: Narrow-body commercial
+  setting_layer2: Islands & oceanic
+  setting_geographic: Hawaii inter-island
+  monetization_risk: LOW
+  twist_potential: Визуальный шок — 737 без верхней части fuselage в воздухе
+  sources:
+  - NTSB Report AAR-89/03
+  - Boeing service history
+  - ACI recreation
+  translation_status: partial
+- name: LOT Flight 16 — Gear-up 787 landing
+  section: MIRACLE LANDINGS / IMPOSSIBLE SAVES
+  date: 1 November 2011
+  aircraft: 'Boeing 767-35DER (SP-LPC) — прим.: это был 767, не 787'
+  location: Warsaw Chopin Airport
+  failure_type: Полный failure гидравлической системы центральной шины; landing gear не выпустились; при manual gravity extension предохранитель был выдвинут (случайно)
+  outcome: landing на брюхо в Варшаве, aircraft сгруппирован along осевой линии полосы
+  casualties: 0 of 231
+  dramatic_details:
+  - captain Tadeusz Wrona (Wrona = "ворона" along-польски) стал национальным героем
+  - crew кружил над Варшавой ~1 h, вырабатывая fuel
+  - landing была настолько идеальной, that aircraft stopped along центру полосы без fire
+  - Один passenger снимал происходящее на камеру — стал документальным материалом
+  - 'Wrona: планирист-любитель, вернулся к полётам через несколько месяцев'
+  sub_genre_primary: Miracle emergency landing
+  sub_genre_secondary: ''
+  causation_type: Mechanical + Human-Factor (breaker)
+  aircraft_type: Wide-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Warsaw, urban approach
+  monetization_risk: LOW
+  twist_potential: Национальный герой + "ворона" в фамилии
+  sources:
+  - Polish PKBWL report
+  - Reuters coverage
+  - LOT press releases
+  translation_status: partial
+- name: Air Astana 1388 — "Flying the Unflyable Plane"
+  section: MIRACLE LANDINGS / IMPOSSIBLE SAVES
+  date: 11 November 2018
+  aircraft: Embraer ERJ-190LR (P4-KCJ)
+  location: Beja Airbase, Portugal (диверт с Alverca)
+  failure_type: Инженеры OGMA неправильно установили тросы элеронов после ТО — соединения перевёрнуты; крен работал наоборот
+  outcome: 90-минутный кошмар со случайными переворотами and пикированиями; landing на военной базе с помощью F-16
+  casualties: 0 of 6 (перегоночный flight)
+  dramatic_details:
+  - aircraft несколько раз переворачивался на спину; crew выдерживал большие перегрузки
+  - crew запросил визуальный flight на восток, so that найти условия для landing
+  - Два португальских F-16 сопровождали and наводили; crew просил F-16 отойти — сработал TCAS
+  - first approach прерван — aircraft слишком дикий; сели со second попытки
+  - investigation показало, that service bulletin Embraer требовал снимать both троса одновременно, that нарушало принцип защиты от ошибки
+  sub_genre_primary: Miracle emergency landing
+  sub_genre_secondary: Mechanical failure recreation
+  causation_type: Maintenance (mis-installed control cables)
+  aircraft_type: Regional jet
+  setting_layer2: Coastal / ocean approach
+  setting_geographic: Portuguese coast, Beja
+  monetization_risk: LOW
+  twist_potential: Военный эскорт F-16 добавляет визуал; rarely освещённая история в западных YouTube
+  sources:
+  - Portuguese GPIAAF final report
+  - Admiral Cloudberg archive
+  - Fear of Landing
+  translation_status: partial
+- name: British Airways 38 — Heathrow Threshold
+  section: DISASTER-LESSONS / TECHNICAL FAILURES
+  date: 17 January 2008
+  aircraft: Boeing 777-236ER (G-YMMM)
+  location: Heathrow Airport, London
+  failure_type: Ice crystals в топливе заблокировали Fuel-Oil Heat Exchangers both движков Rolls-Royce Trent 800 — потеря thrust на финальной прямой на 720 ft
+  outcome: Аварийная landing не долетев ~270 метров до полосы; landing gear сложились, airframe разрушен, but интактен
+  casualties: 0 of 152, 1 серьёзная травма (passenger с переломом ноги)
+  dramatic_details:
+  - first hull-loss Boeing 777 в истории (после 13 years службы типа)
+  - crew (captain Peter Burkill, ф/о John Coward) имел ~30 sec от failure thrust до земли
+  - Coward, летевший при заходе, raised nose — минимизировал жёсткость удара
+  - 'Условия flight of Пекина: температура fuel достигала –34°C'
+  - FAA / EASA потребовали изменить конструкцию FOHE после incident
+  sub_genre_primary: Miracle emergency landing
+  sub_genre_secondary: ''
+  causation_type: Fuel (ice) + Mechanical
+  aircraft_type: Wide-body commercial
+  setting_layer2: Winter storm zone
+  setting_geographic: London Heathrow threshold
+  monetization_risk: LOW
+  twist_potential: Условия совпали идеально — цепочка редчайших факторов; технический triller
+  sources:
+  - UK AAIB Report 1/2010
+  - Admiral Cloudberg
+  - Peter Burkill memoir
+  translation_status: partial
+- name: JAL 123 — Deadliest Single-Aircraft Disaster
+  section: DISASTER-LESSONS / TECHNICAL FAILURES
+  date: 12 August 1985
+  aircraft: Boeing 747SR-46 (JA8119)
+  location: Гора Осутака, префектура Гумма, Япония
+  failure_type: Взорвалась задняя гермопереборка (неправильный ремонт Boeing 7 years назад — одинарный ряд заклёпок вместо двойного); хвостовой обтекатель сорвало, all 4 hydraulic systems разорваны
+  outcome: 32 min неуправляемого flight only через тягу engines; struck в горы
+  casualties: 520 fatalities of 524; 4 survivors (all женщины and девочки)
+  dramatic_details:
+  - Некоторые passengers писали прощальные записки семьям — 8 записок были найдены на месте
+  - crew (captain Masami Takahama) боролся 32 min — редкий case, when crew настолько долго удерживает разрушенный aircraft
+  - Японская армия отклонила предложение США о немедленной помощи; спасатели прибыли only утром
+  - Одна of survivors, Yumi Ochiai, была бортпроводницей, летевшей пассажиром
+  - Инженер Boeing, ответственный за ремонт, покончил с собой; президент JAL ушёл в отставку
+  sub_genre_primary: Mechanical failure recreation
+  sub_genre_secondary: Search & rescue operation
+  causation_type: Structural + Maintenance
+  aircraft_type: Wide-body commercial
+  setting_layer2: Mountain airport
+  setting_geographic: Mount Osutaka, Japan mountains
+  monetization_risk: MED
+  twist_potential: Задержка спасателей — могли выжить больше; культурно-политическая драма Японии
+  sources:
+  - Japan MLIT AAIC report
+  - 'Admiral Cloudberg: "Chronicle of a Tragedy"'
+  - BBC documentary "Flight 123"
+  translation_status: partial
+- name: Tenerife — Deadliest Aviation Accident
+  section: DISASTER-LESSONS / TECHNICAL FAILURES
+  date: 27 March 1977
+  aircraft: KLM 747-206B (PH-BUF) + Pan Am 747-121 (N736PA)
+  location: Los Rodeos Airport, Тенерифе, Канары
+  failure_type: KLM начал разбег на runway без разрешения ATC; struck в Pan Am, which still выруливал along той же runway в in fog
+  outcome: both aircraft сгорели; KLM completely, Pan Am partially
+  casualties: 583 fatalities (all на KLM + большинство на Pan Am); 61 survivors с Pan Am
+  dramatic_details:
+  - both airframe диверсировали сюда после теракта в Las Palmas; airfield был перегружен
+  - captain KLM Jacob van Zanten — the most уважаемый пилот компании, лицо рекламных плакатов
+  - Ф/О said van Zanten про Pan Am впереди — тот проигнорировал
+  - Радиопомехи (одновременная передача) сделали неоднозначным ответ ATC про clearance
+  - incident дал старт CRM (Crew Resource Management) as дисциплине во всей отрасли
+  sub_genre_primary: Human-factor tragedy
+  sub_genre_secondary: ''
+  causation_type: Human-Factor (CRM, ATC, fog)
+  aircraft_type: Wide-body commercial
+  setting_layer2: Islands & oceanic
+  setting_geographic: Tenerife Los Rodeos, foggy runway
+  monetization_risk: MED
+  twist_potential: Символическая ирония — лицо KLM убило 583 человека; переписало учебники along авиации
+  sources:
+  - Spanish Comisión de Investigación de Accidentes report
+  - Admiral Cloudberg
+  - Multiple documentaries
+  translation_status: partial
+- name: Air France 447 — AF447 Mid-Atlantic
+  section: DISASTER-LESSONS / TECHNICAL FAILURES
+  date: 1 June 2009
+  aircraft: Airbus A330-203 (F-GZCP)
+  location: Атлантический океан, ~1,000 км от Бразилии
+  failure_type: icing датчиков Pitot; отключение the autopilot в турбулентности; ф/о Bonin потянул стик на себя and держал в stall всю дорогу вниз (3.5 min падения)
+  outcome: struck в океан на скорости ~11,000 fpm; wreckage and чёрные ящики найдены only через 2 years
+  casualties: 228 fatalities (all)
+  dramatic_details:
+  - 'CVR раскрыл: captain Dubois был в отдыхе, вернулся в кабину — понимания ситуации не было ни у кого'
+  - 'Bonin: "But I''ve been at maxi nose-up for a while!" — за секунды до удара'
+  - Alternate law скрыл индикацию stall; система молчала when угол атаки был чрезмерным
+  - 4 years поисков в глубоководье; чёрные ящики were found на глубине 3,900 метров
+  - incident changed тренинги along stall recovery and pitot heater design во всей отрасли
+  sub_genre_primary: Human-factor tragedy
+  sub_genre_secondary: Mechanical failure recreation
+  causation_type: Weather (pitot icing) + Human-Factor + Mechanical
+  aircraft_type: Wide-body commercial
+  setting_layer2: North Atlantic
+  setting_geographic: Mid-Atlantic ITCZ, Rio-CDG route
+  monetization_risk: MED
+  twist_potential: Классический пример deep-dive анализа; тренд на "startle effect" исследования
+  sources:
+  - BEA Final Report (July 2012)
+  - Admiral Cloudberg (лучший обзор в жанре)
+  - Wall Street Journal deep-dive
+  translation_status: partial
+- name: Helios 522 — The Ghost Flight
+  section: DISASTER-LESSONS / TECHNICAL FAILURES
+  date: 14 August 2005
+  aircraft: Boeing 737-31S (5B-DBY "Olympia")
+  location: Grammatiko, Греция
+  failure_type: Инженер оставил pressurization в manual после inspection; crew не заметил на checklist; на высоте люди lost сознание от гипоксии; aircraft летел на автопилоте до сгорания fuel
+  outcome: aircraft struck в горы у Афин после 3 h flight; F-16 сопровождали пустой airframe
+  casualties: 121 погибший (all)
+  dramatic_details:
+  - Пилоты F-16 через окна видели captain без сознания and одного человека в кабине (cabin crew Andreas Prodromou, у which была лицензия частного пилота)
+  - Prodromou пытался передать mayday, but радио было настроено на Larnaca, а не Athens
+  - Кислородные маски passengers работали ~12 min — недостаточно для manual descent никем
+  - autopilot держал круги над Афинами almost h
+  - 'Дело: обычный alarm (тот же звук) означал два разных состояния — takeoff config + cabin altitude — crew принял за первое'
+  sub_genre_primary: Aviation mystery
+  sub_genre_secondary: ''
+  causation_type: Maintenance + Human-Factor (pressurization)
+  aircraft_type: Narrow-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Athens area, high altitude ghost flight
+  monetization_risk: LOW
+  twist_potential: Visual horror — samolet-призрак с мёртвыми людьми, F-16 nearby; готовое кино
+  sources:
+  - Greek AAIASB Report 11/2006
+  - Admiral Cloudberg
+  - Multiple docs incl. "Ghost Plane" ACI
+  translation_status: partial
+- name: Alaska Airlines 261 — The Jackscrew
+  section: DISASTER-LESSONS / TECHNICAL FAILURES
+  date: 31 January 2000
+  aircraft: McDonnell Douglas MD-83 (N963AS)
+  location: Тихий океан у Anacapa Island, Калифорния
+  failure_type: completely изношенная резьба acme nut на горизонтальном стабилизаторе (недостаточная смазка при ТО годами); стабилизатор ушёл в крайнее положение
+  outcome: crew боролся ~10 min в перевёрнутом flight; struck в океан
+  casualties: 88 fatalities (all)
+  dramatic_details:
+  - 'CVR: crew перебрал варианты and понимал, that стабилизатор runaway'
+  - Разговор в кабине был чрезвычайно профессиональным — Ted Thompson and Bill Tansky, both опытные
+  - Alaska Airlines сокращала интервалы смазки — экономический engine the disaster
+  - Alaska Airlines Employees приняли гораздо больше культурных изменений после аварии — до сих пор пример для safety culture
+  - investigation выявило системные проблемы с MRO надзором в компании
+  sub_genre_primary: Mechanical failure recreation
+  sub_genre_secondary: Human-factor tragedy
+  causation_type: Maintenance (jackscrew)
+  aircraft_type: Narrow-body commercial
+  setting_layer2: Coastal / ocean approach
+  setting_geographic: Pacific coast off California
+  monetization_risk: MED
+  twist_potential: Инженерная детектив-история про износ стабилизатора; культурные последствия для авиакомпании
+  sources:
+  - NTSB Report AAR-02/01
+  - Admiral Cloudberg
+  - Frontline documentary
+  translation_status: partial
+- name: Turkish Airlines 981 — DC-10 Cargo Door
+  section: DISASTER-LESSONS / TECHNICAL FAILURES
+  date: 3 March 1974
+  aircraft: McDonnell Douglas DC-10-10 (TC-JAV)
+  location: Лес Ermenonville, Франция
+  failure_type: Неправильно защёлкнутая задняя грузовая дверь распахнулась на 12,000 ft; explosive decompression срезала контрольные тросы; пол салона провалился
+  outcome: aircraft struck в лес через 77 sec после failure
+  casualties: 346 fatalities (all)
+  dramatic_details:
+  - Дверь была известной проблемой DC-10 — McDonnell Douglas знали, but провалили редизайн
+  - Аналогичный incident случился на American 96 в 1972; уроки не выучили
+  - 6 рядов кресел вылетели через дыру в фюзеляже; их were found отдельно от главного места крушения
+  - На момент — deadliest crash в истории (до Тенерифе)
+  - Заложил основу для судебных дел о product liability в авиации
+  sub_genre_primary: Mechanical failure recreation
+  sub_genre_secondary: ''
+  causation_type: Structural + Maintenance (cargo door)
+  aircraft_type: Wide-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Ermenonville forest, near Paris
+  monetization_risk: MED
+  twist_potential: Corporate cover-up angle; предсказуемая disaster
+  sources:
+  - French BEA report
+  - Paul Eddy "Destination Disaster" (book)
+  - Admiral Cloudberg
+  translation_status: partial
+- name: American Airlines 191 — Chicago DC-10
+  section: DISASTER-LESSONS / TECHNICAL FAILURES
+  date: 25 May 1979
+  aircraft: McDonnell Douglas DC-10-10 (N110AA)
+  location: Chicago O'Hare (сразу после взлёта)
+  failure_type: engine №1 сорвался с пилона (эконом-технология ТО с погрузчиком) во время ротации; пилон срезал гидравлические линии and slats на левом крыле
+  outcome: Крен, срыв, крушение за 31 секунду takeoff
+  casualties: 273 fatalities (all onboard + 2 на земле)
+  dramatic_details:
+  - the most смертоносная disaster в истории США до 9/11
+  - crew everything сделал along регламенту — but regulation не учитывал асимметричный stall после потери slats
+  - FAA приземлил all DC-10 в мире на 5 недель — беспрецедентная мера
+  - incident дал старт "black box" анализу gear-related shortcuts на maintenance
+  - Видео takeoff and the disaster снял любитель — стало историческим документом
+  sub_genre_primary: Mechanical failure recreation
+  sub_genre_secondary: ''
+  causation_type: Maintenance (engine mount) + Mechanical
+  aircraft_type: Wide-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Chicago O'Hare, runway-adjacent trailer park
+  monetization_risk: MED
+  twist_potential: crew делал правильно, but не мог знать — трагедия неведения
+  sources:
+  - NTSB Report AAR-79-17
+  - Admiral Cloudberg
+  - ACI recreation
+  translation_status: partial
+- name: Delta 191 — Microburst at DFW
+  section: DISASTER-LESSONS / TECHNICAL FAILURES
+  date: 2 August 1985
+  aircraft: Lockheed L-1011 TriStar (N726DA)
+  location: Dallas/Fort Worth
+  failure_type: went грозу на финале; попали в микропорыв (windshear) на 800 ft; lost скорость and высоту
+  outcome: struck в шоссе, автомобиль, then в резервуары с водой; сломался пополам
+  casualties: 137 fatalities (включая водителя авто), 27 survivors
+  dramatic_details:
+  - incident вместе с Pan Am 759 запустил разработку airborne windshear detection systems
+  - Один passenger, сидевший в хвосте, отделался царапинами — его секция уцелела
+  - crew не был обучен recovery от microburst — не было программ
+  - Радиолокатор ATC показывал грозу; никто не думал, that она даст порыв такой силы
+  - 14 месяцев the investigation — детальнейший analysis метео-факторов
+  sub_genre_primary: Weather disaster & near-miss
+  sub_genre_secondary: Human-factor tragedy
+  causation_type: Weather (microburst)
+  aircraft_type: Wide-body commercial
+  setting_layer2: Tropical storm / typhoon
+  setting_geographic: Dallas-Fort Worth summer thunderstorm
+  monetization_risk: LOW
+  twist_potential: weather вне контроля crew; тренинги along windshear пошли после
+  sources:
+  - NTSB Report AAR-86-05
+  - Fujita microburst research
+  - FAA windshear training legacy
+  translation_status: partial
+- name: Swissair 111 — Fire over Halifax
+  section: DISASTER-LESSONS / TECHNICAL FAILURES
+  date: 2 September 1998
+  aircraft: McDonnell Douglas MD-11 (HB-IWF)
+  location: Атлантика возле Peggy's Cove, Nova Scotia
+  failure_type: Возгорание проводки IFE (Kapton wire arcing) над потолком в кабине; огонь распространился быстрее, чем crew принял решение diverting
+  outcome: struck в океан во время попытки экстренной landing в Halifax; чёрные ящики отключились задолго до удара
+  casualties: 229 fatalities (all)
+  dramatic_details:
+  - crew рассматривал диверт в Halifax, but сначала хотел сбросить fuel — потерян драгоценные min
+  - Огонь плавил приборы and авионику быстрее, чем crew успевал реагировать
+  - CVR and FDR stopped за 6 min до удара — питание системы отказало
+  - Никогда не устанавливаемая then цифровая MMEL стала обязательной после
+  - Кабина плавилась вокруг пилотов; они не могли видеть приборы
+  sub_genre_primary: Cabin crisis
+  sub_genre_secondary: Mechanical failure recreation
+  causation_type: Fire + Mechanical (wiring)
+  aircraft_type: Wide-body commercial
+  setting_layer2: North Atlantic
+  setting_geographic: Off Halifax Nova Scotia
+  monetization_risk: MED
+  twist_potential: Время as антагонист — 15 min между fire indication and impact
+  sources:
+  - TSB Canada Report A98H0003
+  - Admiral Cloudberg
+  - ACI recreation
+  translation_status: partial
+- name: ValuJet 592 — Everglades Oxygen Generators
+  section: HUMAN FACTOR TRAGEDIES
+  date: 11 May 1996
+  aircraft: McDonnell Douglas DC-9-32 (N904VJ)
+  location: Everglades, Флорида (после взлёта из Miami)
+  failure_type: Оксигенераторы в грузовом отсеке (небезопасно погружённый груз от maintenance contractor SabreTech) активировались; выделили тепло 260°C+; fire в грузовом отсеке
+  outcome: Огонь прожёг пол; управление потеряно; крутое пикирование в болото
+  casualties: 110 fatalities (all)
+  dramatic_details:
+  - Оксигенераторы должны были иметь safety caps — их не было; SabreTech записал "empty" на коробках
+  - passengers кричали, крики слышны в CVR — редкий case, when до конца сохранилось эмоциональное содержание
+  - wreckage погрузились в болото на глубину — тела извлекали неделями в тяжёлых условиях
+  - ValuJet as компания погибла после — стала частью AirTran
+  - first серьёзный уголовный процесс против maintenance contractor в истории США
+  sub_genre_primary: Cabin crisis
+  sub_genre_secondary: Mechanical failure recreation
+  causation_type: Fire + Maintenance (oxygen generators)
+  aircraft_type: Narrow-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Florida Everglades
+  monetization_risk: MED
+  twist_potential: Corporate accountability drama; changed regulations hazmat перевозок
+  sources:
+  - NTSB Report AAR-97/06
+  - Admiral Cloudberg
+  - '"The Lessons of ValuJet" (Atlantic article, William Langewiesche)'
+  translation_status: partial
+- name: Eastern 401 — Everglades L-1011
+  section: HUMAN FACTOR TRAGEDIES
+  date: 29 December 1972
+  aircraft: Lockheed L-1011 TriStar (N310EA)
+  location: Флоридский Everglades
+  failure_type: Перегоревшая лампочка индикатора landing gear заняла внимание всего crew; кто-то случайно shut down autopilot; aircraft незаметно descended
+  outcome: struck в болото на кркйзерной скорости
+  casualties: 101 погибший, 75 survivors of 176
+  dramatic_details:
+  - crew 4 min обсуждал лампочку — никто не следил за высотой
+  - Легенды о "призраке" ф/о Repo, якобы появлявшемся на других самолётах Eastern (использованных запчастей с 401)
+  - Классический пример potentially fatal automation confusion — задолго до термина
+  - Первая крупная disaster L-1011
+  - Породил термин "cockpit distraction" and целую область исследований
+  sub_genre_primary: Human-factor tragedy
+  sub_genre_secondary: Aviation mystery
+  causation_type: Human-Factor (distraction)
+  aircraft_type: Wide-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Florida Everglades, night approach
+  monetization_risk: LOW
+  twist_potential: Городская legend про призраков — уникальный overlay истории
+  sources:
+  - NTSB Report AAR-73-14
+  - John Fuller "The Ghost of Flight 401" (книга)
+  - Admiral Cloudberg
+  translation_status: partial
+- name: Asiana 214 — SFO Runway 28L
+  section: HUMAN FACTOR TRAGEDIES
+  date: 6 July 2013
+  aircraft: Boeing 777-28EER (HL7742)
+  location: San Francisco International
+  failure_type: Ручной approach при отключенной ILS (glideslope закрыт); crew не заметил drop скорости из-за автомата thrust в непонятом режиме; удар о морскую дамбу
+  outcome: tail оторвался, aircraft крутанулся, caught fire
+  casualties: 3 fatalities (two подростков сбило спасательной машиной the airport на земле), 187 раненых of 307
+  dramatic_details:
+  - Instructor pilot (Lee Kang-guk) впервые сажал 777 без ILS; трейнер сам не был опытным
+  - crew заметил проблему за 3 секунды до удара
+  - Automation confusion — режим FLCH SPD не поддерживал скорость, crew думал that поддерживает
+  - Тела two fatalities were found на земле после эвакуации; одну сбила пожарная машина
+  - first fatal 777 в истории после 18 years службы типа
+  sub_genre_primary: Human-factor tragedy
+  sub_genre_secondary: ''
+  causation_type: Human-Factor (automation confusion, CRM)
+  aircraft_type: Wide-body commercial
+  setting_layer2: Trans-Pacific
+  setting_geographic: SFO Runway 28L, Bay approach
+  monetization_risk: LOW
+  twist_potential: Automation paradox; культурные факторы (иерархия в кабине)
+  sources:
+  - NTSB Report AAR-14-01
+  - Admiral Cloudberg
+  - Wall Street Journal analysis
+  translation_status: partial
+- name: Colgan 3407 — Buffalo Icing Stall
+  section: HUMAN FACTOR TRAGEDIES
+  date: 12 February 2009
+  aircraft: Bombardier Dash 8 Q400 (N200WQ)
+  location: Clarence Center, New York
+  failure_type: При подходе включился stick shaker; captain Marvin Renslow потянул control column ON himself вместо push down; глубокий stall
+  outcome: struck в жилой дом
+  casualties: 50 fatalities (49 onboard + 1 на земле)
+  dramatic_details:
+  - crew прилетел с недосыпом (жили в других штатах, добирались через ночь); нарушены regulations отдыха
+  - captain провалил несколько чек-райдов ранее — не reported при найме
+  - incident запустил Colgan Air Rule (1500-hour rule для регионалов в США)
+  - CVR показывал болтовню про личное вместо sterile cockpit ниже 10,000 ft
+  - Renslow не отработал stall recovery в тренировках — реагировал наизнанку
+  sub_genre_primary: Human-factor tragedy
+  sub_genre_secondary: ''
+  causation_type: Weather (icing) + Human-Factor (stick pusher response)
+  aircraft_type: Turboprop commercial
+  setting_layer2: Winter storm zone
+  setting_geographic: Clarence Center, Buffalo NY residential
+  monetization_risk: LOW
+  twist_potential: Регуляционный поворотный момент США; regional aviation drama
+  sources:
+  - NTSB Report AAR-10-01
+  - Congressional testimony 2010
+  - Admiral Cloudberg
+  translation_status: partial
+- name: Comair 5191 — Wrong Runway at Lexington
+  section: HUMAN FACTOR TRAGEDIES
+  date: 27 August 2006
+  aircraft: Bombardier CRJ-100ER (N431CA)
+  location: Blue Grass Airport, Kentucky
+  failure_type: crew вырулил на короткую runway 26 (3,500 ft) вместо длинной 22; ATC не проверил
+  outcome: Не хватило разгона; struck в деревья за концом полосы
+  casualties: 49 of 50; survived only ф/о James Polehinke (парализован)
+  dramatic_details:
+  - Полоса не имела разметки центральной линии — недавний ремонт
+  - Один диспетчер в вышке в 6 утра — федеральное требование two было нарушено
+  - ATC был в другой части башни, оформлял бумажные документы
+  - crew болтал про личное во время выруливания (нарушение sterile cockpit)
+  - Polehinke не помнил ничего с момента incident — CVR раскрыл ошибку
+  sub_genre_primary: Human-factor tragedy
+  sub_genre_secondary: ''
+  causation_type: Human-Factor (wrong runway)
+  aircraft_type: Regional jet
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Lexington Bluegrass, pre-dawn
+  monetization_risk: LOW
+  twist_potential: Single survivor (F/O), не помнит; вопрос личной ответственности
+  sources:
+  - NTSB Report AAR-07-05
+  - Admiral Cloudberg
+  - Lexington Herald-Leader coverage
+  translation_status: partial
+- name: Northwest 255 — Detroit Config Failure
+  section: HUMAN FACTOR TRAGEDIES
+  date: 16 August 1987
+  aircraft: McDonnell Douglas MD-82 (N312RC)
+  location: Detroit Metropolitan Airport
+  failure_type: crew пропустил конфигурационный checklist; takeoff без flaps/slats; takeoff warning не сработал (отключён breaker)
+  outcome: Не смогли набрать высоту; struck в фонарный столб, эстакаду, здания
+  casualties: 156 fatalities (all onboard, кроме Cecelia Cichan, 4 years), + 2 на земле
+  dramatic_details:
+  - Cecelia Cichan — единственная выжившая, её were found под обломками через полчаса
+  - Она lost родителей and брата в крушении; воспитала тётя; долгие годы избегала прессы
+  - В 2013 сняла документальный фильм "Sole Survivor" вместе с другими одинокими выжившими
+  - Breaker takeoff warning был отключён unknown кем and when — так and не установили
+  - incident — учебный пример along важности checklist discipline
+  sub_genre_primary: Human-factor tragedy
+  sub_genre_secondary: Search & rescue operation
+  causation_type: Human-Factor (checklist skip) + Mechanical (warning inhibited)
+  aircraft_type: Narrow-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Detroit Metro takeoff, urban
+  monetization_risk: LOW
+  twist_potential: Sole survivor — сильная arc для отдельного эпизода про Cecelia
+  sources:
+  - NTSB Report AAR-88-05
+  - '"Sole Survivor" documentary (2013)'
+  - Admiral Cloudberg
+  translation_status: partial
+- name: United 173 — Portland Fuel Exhaustion
+  section: HUMAN FACTOR TRAGEDIES
+  date: 28 December 1978
+  aircraft: McDonnell Douglas DC-8-61 (N8082U)
+  location: Portland, Oregon (в жилой район, не долетев до аэропорта)
+  failure_type: Проблема с индикацией landing gear; captain кружил h, обсуждая; проигнорировал предупреждения ф/о and бортинженера про fuel
+  outcome: all 4 engine flamed out на подходе; landing на пригород
+  casualties: 10 fatalities of 189
+  dramatic_details:
+  - Классический "captain's authority" case — captain игнорировал junior members
+  - ЭТО disaster официально запустила CRM training в United, then всей отрасли
+  - Ф/О said "we're going to lose an engine" — captain не отреагировал
+  - everything fuel ушло за 1 h беспокойного круга
+  - Небольшое количество fatalities — thanks to "ridge glide" через пригород, а не в дома
+  sub_genre_primary: Human-factor tragedy
+  sub_genre_secondary: ''
+  causation_type: Fuel + Human-Factor (fixation)
+  aircraft_type: Wide-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Portland Oregon suburbs
+  monetization_risk: LOW
+  twist_potential: Официальное рождение CRM — историческая веха
+  sources:
+  - NTSB Report AAR-79-07
+  - Admiral Cloudberg
+  - CRM origin history papers
+  translation_status: partial
+- name: Air Canada 621 — Toronto Botched Landing
+  section: SOLE SURVIVOR / RESCUE-SURVIVAL
+  date: 5 July 1970
+  aircraft: McDonnell Douglas DC-8-63 (CF-TIW)
+  location: Brampton, Ontario
+  failure_type: Ф/О случайно активировал ground spoilers в воздухе (200 ft) along установленной привычке; captain не was able to восстановить
+  outcome: Ускорение, крен, движок №4 отвалился; struck в поле
+  casualties: 109 fatalities (all)
+  dramatic_details:
+  - Ф/О был опытный на 727; ошибочно применил attitude 727 к DC-8
+  - first flight этого airframe был на следующий день после отмены полётов
+  - Крушение видели фермеры — wreckage размётаны на большой площади
+  - incident showed важность type-specific ground spoiler procedures
+  - Одна of самых катастроф в истории Канады
+  sub_genre_primary: Human-factor tragedy
+  sub_genre_secondary: ''
+  causation_type: Human-Factor (spoiler deploy)
+  aircraft_type: Narrow-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Rural farmland near Toronto Pearson
+  monetization_risk: LOW
+  twist_potential: Type transition as cause; менее известная в англоязычном мире
+  sources:
+  - Canadian Ministry of Transport report
+  - Admiral Cloudberg
+  translation_status: partial
+- name: LANSA 508 — Juliane Koepcke Fell From Sky
+  section: SOLE SURVIVOR / RESCUE-SURVIVAL
+  date: 24 December 1971 (Christmas Eve)
+  aircraft: Lockheed L-188 Electra (OB-R-941)
+  location: Peruvian Amazon rainforest
+  failure_type: lightning попала в топливный бак в грозе; aircraft развалился на ~10,000 ft
+  outcome: only один выживший of 92
+  casualties: 91 погибший; 17-летняя Juliane Koepcke — sole survivor
+  dramatic_details:
+  - 'Джулиана fell со своим nearby кресел (пристёгнутая) через тропический полог — предположения: crown canopy + updraught + spinning seat замедлили drop'
+  - 'Проснулась в джунглях: сломанная ключица, разрыв связок колена, глаз опух; одна сандалия'
+  - 11 дней шла along ручью (метод, которому учил отец-зоолог); ела леденцы of wreckage
+  - Личинки в открытой ране на плече — выковыривала пальцами
+  - Дошла до хижины лесорубов; те очистили её раны and вывезли
+  sub_genre_primary: Search & rescue operation
+  sub_genre_secondary: Miracle emergency landing
+  causation_type: Weather (lightning) + Mechanical (structural break-up)
+  aircraft_type: Turboprop commercial
+  setting_layer2: Amazon overflight
+  setting_geographic: Peruvian Amazon jungle
+  monetization_risk: LOW
+  twist_potential: Отец Джулианы работал с Werner Herzog в Amazon; Herzog снял документальный фильм "Wings of Hope" (2000)
+  sources:
+  - Juliane Koepcke "When I Fell from the Sky" (memoir)
+  - Herzog "Wings of Hope" documentary
+  - BBC coverage
+  translation_status: partial
+- name: Vesna Vulović — JAT 367 Longest Fall Survived
+  section: SOLE SURVIVOR / RESCUE-SURVIVAL
+  date: 26 January 1972
+  aircraft: McDonnell Douglas DC-9 (YU-AHT)
+  location: Srbská Kamenice, Чехословакия
+  failure_type: Взрыв бомбы в багажном отделении (предположительно usta_shi террористы); aircraft разлетелся на 33,300 ft
+  outcome: flight attendant Vesna Vulović (22) выжила, упав с 10 км
+  casualties: 27 fatalities; Vulović sole survivor
+  dramatic_details:
+  - Guinness World Record — longest survived fall без парашюта (10,160 м)
+  - Vulović помнила only момент takeoff; крушение and месяцы после — амнезия
+  - Часть fuselage touched down на снежный склон and покатилась; это спасло её
+  - Восстанавливалась 16 месяцев; вернулась в JAT (не летала, but работала)
+  - Позже стала активистом против Милошевича; умерла в 2016
+  sub_genre_primary: Search & rescue operation
+  sub_genre_secondary: ''
+  causation_type: Security (bomb)
+  aircraft_type: Narrow-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Srbská Kamenice, Czechoslovakia mountains
+  monetization_risk: MED
+  twist_potential: world record + политическая биография после
+  sources:
+  - Guinness Book of Records
+  - Yugoslav investigation (спорная)
+  - Numerous obituaries 2016
+  translation_status: partial
+- name: Andes Flight 571 — Uruguayan Rugby Team
+  section: SOLE SURVIVOR / RESCUE-SURVIVAL
+  date: 13 October 1972
+  aircraft: Fairchild FH-227D (T-571) — Fuerza Aérea Uruguaya
+  location: Cordillera de los Andes, Аргентина
+  failure_type: collision с горой из-за навигационной ошибки в облаках
+  outcome: the survivors провели 72 дня в снегу на 3,600 м высоты; 2 of них перешли через хребет в Чили
+  casualties: 29 fatalities (of 45); 16 survivors
+  dramatic_details:
+  - Выживали, поедая тела fatalities — коллективное решение через молитву
+  - Nando Parrado and Roberto Canessa 10 дней шли через горы в летней одежде — Parrado вёл
+  - Лавина через 16 дней убила still 8 survivors, лежавших в фюзеляже
+  - Услышали along радио, that поиски прекращены — then решили идти сами
+  - Книга "Alive" (Piers Paul Read, 1974); фильмы 1993 (Ethan Hawke) and 2023 ("Society of the Snow", Bayona, Оскар nominated)
+  sub_genre_primary: Search & rescue operation
+  sub_genre_secondary: ''
+  causation_type: Human-Factor (navigation) + Weather
+  aircraft_type: Turboprop commercial
+  setting_layer2: Andes crossing
+  setting_geographic: Andes glacier, Argentina-Chile border
+  monetization_risk: MED
+  twist_potential: Culturally massive; the most известный survival story XX века
+  sources:
+  - Piers Paul Read "Alive"
+  - Nando Parrado "Miracle in the Andes"
+  - Multiple films
+  translation_status: partial
+- name: Yemenia 626 — Bahia Bakari Sole Survivor
+  section: SOLE SURVIVOR / RESCUE-SURVIVAL
+  date: 30 June 2009
+  aircraft: Airbus A310-324 (7O-ADJ)
+  location: Индийский океан у Комор
+  failure_type: crew не следовал стандартной approach procedure; potential stall на подходе к Moroni
+  outcome: 12-летняя Bahia Bakari выжила, плыла 13 h в океане
+  casualties: 152 fatalities; Bahia sole survivor
+  dramatic_details:
+  - Bahia летела с матерью, which погибла
+  - Не умела плавать; держалась за обломок fuselage
+  - Ночь в океане с телами вокруг; её were found рыбаки
+  - Её отец в Париже узнал о выживании only через день along TV
+  - Yemenia была в чёрном списке безопасности ЕС — французы протестовали против flight
+  sub_genre_primary: Search & rescue operation
+  sub_genre_secondary: ''
+  causation_type: Human-Factor (approach)
+  aircraft_type: Wide-body commercial
+  setting_layer2: Islands & oceanic
+  setting_geographic: Indian Ocean near Comoros
+  monetization_risk: MED
+  twist_potential: Ребёнок; сила выживания
+  sources:
+  - French BEA report
+  - Bakari "Moi Bahia, la miraculée" (memoir)
+  - Numerous news coverage
+  translation_status: partial
+- name: Cecelia Cichan — Northwest 255 (см. Раздел 3)
+  section: DELIBERATE ACTS / SECURITY
+  date: ''
+  aircraft: ''
+  location: ''
+  failure_type: ''
+  outcome: ''
+  casualties: ''
+  dramatic_details: []
+  sub_genre_primary: ''
+  sub_genre_secondary: ''
+  causation_type: ''
+  aircraft_type: ''
+  setting_layer2: ''
+  setting_geographic: ''
+  monetization_risk: ''
+  twist_potential: ''
+  sources: []
+  translation_status: clean
+- name: Germanwings 9525 — Deliberate Crash
+  section: DELIBERATE ACTS / SECURITY
+  date: 24 March 2015
+  aircraft: Airbus A320-211 (D-AIPX)
+  location: Prads-Haute-Bléone, Французские Альпы
+  failure_type: Ф/О Andreas Lubitz заперся в кабине после выхода captain в туалет; запрограммировал спуск в горы
+  outcome: Crash на 700 км/ч
+  casualties: 150 fatalities
+  dramatic_details:
+  - 'CVR: captain Patrick Sondenheimer стучал в дверь, пытался прорубить; крики passengers в последние секунды'
+  - Lubitz лечился от депрессии тайно; предыдущие суицидальные мысли врачам известны
+  - Дверь кабины после 9/11 усилена — стала защитой от собственных пилотов
+  - incident запустил "two-in-cockpit" regulations в европейских авиакомпаниях (позже отменены)
+  - Немецкая психология and confidentiality medical records в центре дебатов
+  sub_genre_primary: Aviation mystery
+  sub_genre_secondary: ''
+  causation_type: Security (pilot deliberate act)
+  aircraft_type: Narrow-body commercial
+  setting_layer2: Mountain airport
+  setting_geographic: French Alps, Massif des Trois-Évêchés
+  monetization_risk: HIGH
+  twist_potential: Post-9/11 unintended consequence; mental health в авиации
+  sources:
+  - French BEA final report
+  - Le Monde coverage
+  - Wikipedia
+  translation_status: partial
+- name: EgyptAir 990 — Batouti Deliberate
+  section: DELIBERATE ACTS / SECURITY
+  date: 31 October 1999
+  aircraft: Boeing 767-366ER (SU-GAP)
+  location: Атлантический океан у Nantucket
+  failure_type: Ф/О Gameel Al-Batouti shut down autopilot and направил aircraft в пикирование, повторяя религиозную фразу; captain вернулся, попытался восстановить, but Batouti выключил engines
+  outcome: Крушение в океане
+  casualties: 217 fatalities (all)
+  dramatic_details:
+  - 'CVR: Batouti повторяет "Tawakalt ala Allah" ("I rely on God")'
+  - NTSB заключил deliberate act; Египет оспорил, ссылаясь на технические причины
+  - Batouti имел проблемы на работе; предполагался дисциплинарный вопрос
+  - Родственники египетского crew настаивали на технической версии; политически чувствительно
+  - Один of первых случаев с суицидом-массовым убийством пилотом (до GermanWings)
+  sub_genre_primary: Aviation mystery
+  sub_genre_secondary: ''
+  causation_type: Security (probable pilot deliberate act — contested)
+  aircraft_type: Wide-body commercial
+  setting_layer2: North Atlantic
+  setting_geographic: Atlantic near Nantucket
+  monetization_risk: HIGH
+  twist_potential: Гео-политический конфликт интерпретаций
+  sources:
+  - NTSB Report AAR-02/02
+  - ECAA response paper
+  - New Yorker coverage
+  translation_status: partial
+- name: Ethiopian 961 — Hijack, Ditch, Beach
+  section: DELIBERATE ACTS / SECURITY
+  date: 23 November 1996
+  aircraft: Boeing 767-260ER (ET-AIZ)
+  location: Индийский океан у Grande Comore
+  failure_type: Три захватчика требовали лететь в Австралию; crew кружил, fuel кончалось; попытались посадить на воду возле пляжа
+  outcome: Ditching у берега; кончик wing зацепился за воду, aircraft кувыркнулся, развалился
+  casualties: 125 fatalities of 175; 50 survivors
+  dramatic_details:
+  - Один of немногих ditching commercial jets, где кто-то survived
+  - Крушение снято французским туристом на пляже — стало вирусным still до Youtube
+  - Захватчики отказывались верить, that fuel кончается; думали, that пилоты лгут
+  - captain Leul Abate — герой Эфиопии, survived; ранее already переживал 2 захвата
+  - Многие погибли, because надули жилеты до эвакуации and застряли в салоне
+  sub_genre_primary: Search & rescue operation
+  sub_genre_secondary: Aviation mystery
+  causation_type: Security (hijack) + Fuel exhaustion
+  aircraft_type: Wide-body commercial
+  setting_layer2: Islands & oceanic
+  setting_geographic: Indian Ocean beach near Comoros
+  monetization_risk: HIGH
+  twist_potential: legendary видео с пляжа; необычная эвакуация
+  sources:
+  - Ethiopian CAA investigation
+  - 'Video: Andaimo Chappuis footage'
+  - Abate interviews
+  translation_status: partial
+- name: MH370 — Ultimate Mystery
+  section: WEATHER / ENVIRONMENTAL EXTREMES
+  date: 8 March 2014
+  aircraft: Boeing 777-2H6ER (9M-MRO)
+  location: Неизвестно (южный Индийский океан по satellite pings)
+  failure_type: unknown; транспондер отключён; отклонение от route; финальные "handshakes" со спутником Inmarsat указывают на юг
+  outcome: Один of крупнейших searches в истории; найдены only отдельные wreckage на побережьях Восточной Африки
+  casualties: 239 предположительно fatalities
+  dramatic_details:
+  - 'Финальная передача от captain Zaharie Ahmad Shah: "Good night, Malaysian three seven zero"'
+  - 'wreckage: flaperon на Реюньоне (2015), другие фрагменты в Мозамбике, Танзании, Мадагаскаре'
+  - 'Основные гипотезы: pilot suicide, hijacking, cabin fire, decompression; ни одна не подтверждена'
+  - Zaharie имел домашний авиасимулятор с сохранённым маршрутом на юг Индийского океана
+  - 3 отдельных ATSB search and Ocean Infinity search не were found главные wreckage
+  sub_genre_primary: Aviation mystery
+  sub_genre_secondary: ''
+  causation_type: Unknown
+  aircraft_type: Wide-body commercial
+  setting_layer2: Trans-Pacific
+  setting_geographic: Southern Indian Ocean, KL-Beijing route
+  monetization_risk: HIGH
+  twist_potential: Незакрытая тайна; постоянные новые "теории"; интерактивность с аудиторией
+  sources:
+  - Malaysian ICAO Annex 13 Report (2018)
+  - Jeff Wise "The Plane That Wasn't There"
+  - Ari Schulman "The Vanishing"
+  translation_status: partial
+- name: Southern Airways 242 — Hail Storm
+  section: WEATHER / ENVIRONMENTAL EXTREMES
+  date: 4 April 1977
+  aircraft: McDonnell Douglas DC-9-31 (N1335U)
+  location: Highway 92 near New Hope, Georgia
+  failure_type: went через severe тандерсторм в кластере грозовых ячеек; крупный hail разрушил both engine
+  outcome: crew попытался сесть на шоссе; aircraft struck в АЗС and здания
+  casualties: 62 fatalities onboard + 9 на земле; 22 survivors
+  dramatic_details:
+  - Радиоактивная информация о погоде от ATC была устаревшей; crew не знал реальной серьёзности
+  - 'CVR: crew пытался restart engines, вспоминая процедуры'
+  - Часть survivors была в хвостовой секции, отделившейся до огня
+  - incident дал старт NEXRAD and модернизации метеосервисов для авиации
+  - Похожая проблема водного/градового engine ingestion — TACA 110 через 11 years решил её лучше
+  sub_genre_primary: Weather disaster & near-miss
+  sub_genre_secondary: Mechanical failure recreation
+  causation_type: Weather (hail) + Mechanical (dual engine damage)
+  aircraft_type: Narrow-body commercial
+  setting_layer2: Tropical storm / typhoon
+  setting_geographic: Rural Georgia highway, thunderstorm
+  monetization_risk: MED
+  twist_potential: Meteorological infrastructure changed along итогам
+  sources:
+  - NTSB Report AAR-78-03
+  - Admiral Cloudberg
+  - Local Georgia news archives
+  translation_status: partial
+- name: XL Airways Germany 888T — Perpignan Stall
+  section: CARGO / MILITARY / GA
+  date: 27 November 2008
+  aircraft: Airbus A320-232 (D-AXLA)
+  location: Средиземное море, у Perpignan
+  failure_type: Некоммерческий acceptance flight; crew проводил low-speed test; угол атаки замёрзший датчик; A320 в alternate law срывалось в stall
+  outcome: Плоский stall, крушение в море
+  casualties: 7 fatalities (all)
+  dramatic_details:
+  - Тестовый flight делался коммерческим экипажем без должной подготовки к тестам
+  - Датчики AOA заклинило после мойки aircraft — вода замёрзла на высоте
+  - Похожий сценарий у AF447 через 7 месяцев (совпадение or предвестник)
+  - Малоизвестный incident, важный для деп-дайв анализа
+  sub_genre_primary: Mechanical failure recreation
+  sub_genre_secondary: Human-factor tragedy
+  causation_type: Weather (frozen sensors) + Human-Factor (unauthorized test flight)
+  aircraft_type: Narrow-body commercial
+  setting_layer2: Coastal / ocean approach
+  setting_geographic: Mediterranean off Perpignan France
+  monetization_risk: LOW
+  twist_potential: Тестовые полёты rarely обсуждаются; связь с AF447
+  sources:
+  - French BEA Report
+  - Admiral Cloudberg
+  translation_status: partial
+- name: UPS 6 — Dubai Lithium Battery Inferno
+  section: CARGO / MILITARY / GA
+  date: 3 September 2010
+  aircraft: Boeing 747-44AF (N571UP)
+  location: Nad Al Sheba, недалеко от Дубая
+  failure_type: Возгорание в грузовом отсеке — тепловая цепная реакция среди 81,000 литиевых батарей в грузе; smoke в кабине; failure управления
+  outcome: crew не was able to вернуться; крушение
+  casualties: 2 fatalities (Douglas Lampe, Matthew Bell)
+  dramatic_details:
+  - Через 4 min после fire warning контроль над aircraft был almost утрачен
+  - Кислородная подача captain внезапно shut down без предупреждения
+  - crew не мог видеть приборы из-за smoke — пытался посадить в Шардже вслепую
+  - incident дал старт запрету литиевых батарей as cargo на пассажирских рейсах
+  - Батареи не были задекларированы as hazmat в манифесте
+  sub_genre_primary: Cabin crisis
+  sub_genre_secondary: Mechanical failure recreation
+  causation_type: Fire (lithium battery cargo) + Maintenance (packaging regs)
+  aircraft_type: Cargo aircraft
+  setting_layer2: Sahara / desert
+  setting_geographic: Dubai UAE, desert approach
+  monetization_risk: LOW
+  twist_potential: Актуальность (батареи в каждом ноутбуке); регуляции changed после
+  sources:
+  - GCAA Final Report (July 2013)
+  - 'Admiral Cloudberg: "Alone in the Inferno"'
+  - FAA Safety Alerts
+  translation_status: partial
+- name: Payne Stewart Learjet — Ghost Flight to South Dakota
+  section: ADDITIONAL HIGH-POTENTIAL INCIDENTS
+  date: 25 October 1999
+  aircraft: Learjet 35 (N47BA)
+  location: Aberdeen, South Dakota (crashed in field)
+  failure_type: decompression после отрыва от FL390; all onboard lost сознание; autopilot вёл на север до сгорания fuel
+  outcome: aircraft кружил над США под сопровождением F-16, then fell
+  casualties: 6 fatalities, включая гольфиста Payne Stewart
+  dramatic_details:
+  - 'F-16 of Air National Guard подходили and видели: окна замёрзли, crew без движения'
+  - ATC отслеживал aircraft-призрак несколько h через 6 штатов
+  - Стюарт был чемпионом US Open за 4 месяца до of death
+  - Причина decompression не установлена окончательно
+  - Публичный характер жертвы усилил тестирование Learjet pressurization
+  sub_genre_primary: Aviation mystery
+  sub_genre_secondary: General aviation drama
+  causation_type: Mechanical (rapid decompression, cause disputed)
+  aircraft_type: Business jet
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: US midwest ghost flight, South Dakota crash
+  monetization_risk: LOW
+  twist_potential: Знаменитая жертва; аналогия с Helios 522 (ghost flight)
+  sources:
+  - NTSB Report AAB-00/01
+  - ESPN documentaries
+  - USAF interceptor accounts
+  translation_status: partial
+- name: Concorde AF 4590 — Only Fatal Concorde
+  section: ADDITIONAL HIGH-POTENTIAL INCIDENTS
+  date: 25 July 2000
+  aircraft: Aérospatiale-BAC Concorde 101 (F-BTSC)
+  location: Gonesse, около CDG, Париж
+  failure_type: Металлическая полоса, оставшаяся на runway от Continental DC-10, порвала шину; кусок шины пробил топливный бак; fire; engines №1 and №2 lost тягу
+  outcome: Крушение в отель через 100 sec after takeoff
+  casualties: 113 fatalities (109 onboard + 4 на земле)
+  dramatic_details:
+  - all passengers — немецкие туристы, летящие круизом
+  - takeoff снят прохожими; кадр Concorde с огромным огненным факелом — легендарен
+  - Concorde flew commercially only for 3 more years after
+  - Continental Airlines позже был осуждён во Франции за incident (уголовное дело)
+  - Символический конец эры supersonic passenger travel
+  sub_genre_primary: Mechanical failure recreation
+  sub_genre_secondary: ''
+  causation_type: Mechanical (tire burst, tank rupture) + Human-Factor (FOD, MTOW)
+  aircraft_type: Wide-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Paris CDG runway, adjacent hotel
+  monetization_risk: MED
+  twist_potential: Символизм — the most fast в мире aircraft убит куском мусора
+  sources:
+  - BEA Report f-sc000725
+  - Admiral Cloudberg
+  - BBC documentary
+  translation_status: partial
+- name: Qantas 72 — ADIRU Rollercoaster
+  section: ADDITIONAL HIGH-POTENTIAL INCIDENTS
+  date: 7 October 2008
+  aircraft: Airbus A330-303 (VH-QPA)
+  location: Индийский океан у Learmonth, Западная Австралия
+  failure_type: ADIRU №1 передавал ложные данные; управление flight computer резко пикнуло вниз дважды
+  outcome: Emergency landing в Learmonth
+  casualties: 0 fatalities; 119 раненых (passengers and crew без пристёгнутых ремней flew along салону)
+  dramatic_details:
+  - passengers получили серьёзные травмы — сломанные шеи, переломы позвоночника
+  - autopilot резко "clicked off" and пикировал ~650 ft за секунды
+  - Причина ADIRU malfunction так and не установлена — единичный case на всём типе
+  - second "clock-off" пикирование через 70 sec — crew already удерживал
+  - Учебный пример для проектирования fail-safe automation
+  sub_genre_primary: Mechanical failure recreation
+  sub_genre_secondary: ''
+  causation_type: Mechanical (ADIRU automation fault)
+  aircraft_type: Wide-body commercial
+  setting_layer2: N/A (нет прямого маппинга в Layer 2 ОСЬ 4)
+  setting_geographic: Off Perth Western Australia coast
+  monetization_risk: LOW
+  twist_potential: Единичный failure, невоспроизводим; conspiracy-friendly
+  sources:
+  - ATSB Report AO-2008-070
+  - Admiral Cloudberg
+  - SMH coverage
+  translation_status: partial
+- name: China Airlines 006 — Pacific Free Fall
+  section: ADDITIONAL HIGH-POTENTIAL INCIDENTS
+  date: 19 February 1985
+  aircraft: Boeing 747SP-09 (N4522V)
+  location: Тихий океан, ~300 миль от Сан-Франциско
+  failure_type: failure engine №4; crew lost пространственную ориентацию; крен and drop с FL410 до 9,500 ft (~30,000 ft)
+  outcome: Восстановление; landing в SFO с погнутыми крыльями
+  casualties: 0 fatalities; 2 серьёзных of 274
+  dramatic_details:
+  - G-force при recovery — 5g, погнуло крылья, вырвало горизонтальный стабилизатор partially
+  - crew сначала работал only с автопилотом, не отключая; лёг на бок, then вниз
+  - FAR 25 требования along перегрузке проверены — Boeing разработал stronger inspection
+  - crew went rehab and вернулся; никто of них не был снят с должностей (спорно)
+  - passengers вспоминали, that вещи were falling с потолка обратно на пол — фиктивная невесомость
+  sub_genre_primary: Miracle emergency landing
+  sub_genre_secondary: Mechanical failure recreation
+  causation_type: Mechanical (engine flameout) + Human-Factor (autopilot mgmt)
+  aircraft_type: Wide-body commercial
+  setting_layer2: Trans-Pacific
+  setting_geographic: Mid-Pacific SFO-TPE route
+  monetization_risk: MED
+  twist_potential: 30,000 ft свободного падения and recovery — редчайший case выживания
+  sources:
+  - NTSB Report AAR-86-03
+  - Admiral Cloudberg
+  - Boeing analysis papers
+  translation_status: partial
+- name: Singapore Airlines 006 — Wrong Runway Taipei
+  section: ADDITIONAL HIGH-POTENTIAL INCIDENTS
+  date: 31 October 2000
+  aircraft: Boeing 747-412 (9V-SPK)
+  location: Chiang Kai-shek Airport (Taipei), Taiwan
+  failure_type: Тайфун Xangsane; плохая видимость; crew вырулил на закрытую runway 05R (в реконструкции) вместо 05L; takeoff в бетонные препятствия
+  outcome: collision с construction equipment; fire
+  casualties: 83 fatalities of 179
+  dramatic_details:
+  - crew не увидел плохо освещённые сигналы про closed runway
+  - 'weather: liviaty rain, wind gusts до 40 knots'
+  - Первая fatal SIA crash за 27 years службы
+  - Схожа с Comair 5191 (along причине) and Tenerife (along конфигурации)
+  - incident дал старт улучшению runway markings and taxi charts повсеместно
+  sub_genre_primary: Human-factor tragedy
+  sub_genre_secondary: Weather disaster & near-miss
+  causation_type: Human-Factor (wrong runway) + Weather (typhoon)
+  aircraft_type: Wide-body commercial
+  setting_layer2: Tropical storm / typhoon
+  setting_geographic: Taipei Chiang Kai-shek, typhoon night
+  monetization_risk: MED
+  twist_potential: Тайфун as антураж; поздняя ночь; редкая fatal SIA
+  sources:
+  - ASC Taiwan Report ASC-AAR-02-04-001
+  - Admiral Cloudberg
+  - SIA statements
+  translation_status: partial

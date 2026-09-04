@@ -14,7 +14,7 @@ providers just by setting an environment variable.
 
 | File | Purpose |
 |------|---------|
-| `01_tts_script.txt` | Clean narration + ElevenLabs `<break>` SSML (0.8 s between paragraphs, 1.5 s after cliffhangers). |
+| `01_tts_script.txt` | Clean narration + ElevenLabs `<break>` SSML (0.8 s between paragraphs, 1.5 s after cliffhangers) + optional ElevenLabs **v3 audio tags** injected at prosody cues (`[whispers]` / `[urgent]` / `[pause]`). The v3 tags are ignored by v2 renderers, so one file works with either model. |
 | `02_youtube_metadata.md` | 3–5 title options · hook · ⚠ fictionalization notice · ⏱ chapter timestamps (at 150 wpm) · 📚 sources · 🖋 100–150-word personal note · 20–30 SEO tags. |
 | `03_storyboard.csv` (+ pipe & JSON variants) | `Timestamp \| Text Segment \| Image Generation Prompt` — one row per ~5 s. AI-image prompts only, no B-roll suggestions. |
 | `00_manuscript.md` | Full source-of-truth manuscript. |
@@ -22,19 +22,29 @@ providers just by setting an environment variable.
 
 ## Two modes
 
-* **Real Incident (RAG)** — upload NTSB / AAIB / BEA / TSB PDFs. The
-  ingest agent walks the report in ~18k-char chunks, extracts
-  structured facts (aircraft, timeline, CVR, cause chain, findings),
-  and feeds them into every downstream prompt. The Fact-Checker agent
-  cross-verifies each chapter's technical claims against the extracted
-  facts — a chapter with any HIGH-severity issue is sent back to the
-  Editor.
-* **Fictional** — invent a realistic incident from the topic. The
+* **Real Incident (RAG)** — either upload NTSB / AAIB / BEA / TSB
+  PDFs (the ingest agent walks them in ~18k-char chunks and extracts
+  structured facts), **or** pick a seed from the built-in catalog of
+  **46 pre-vetted real incidents** (US Airways 1549, Gimli Glider,
+  BA9, TACA 110, United 232, and 41 more — each with sub-genre,
+  causation type, monetization-risk marker, dramatic details, and
+  sources). The Fact-Checker agent cross-verifies each chapter's
+  technical claims against the extracted facts — a HIGH-severity
+  issue sends the chapter back to the Editor.
+* **Fictional** — invent a realistic incident from a topic. The
   **Global History Manager** guarantees no reused airlines / tail
   numbers / flight numbers / crew names / cities across your batch,
-  and rotates the narrative structure (In Media Res → Three-Act →
-  Rashomon → Reverse-Chronological → Frame Story) so successive
-  stories don't sound the same.
+  applies per-axis **cooldowns** to 8+ rotation axes (sub-genre 2,
+  aircraft 5, setting 4, protagonist 6, incident 8, twist 10,
+  resolution 6, hook 3-in-10, narrator voice 4, character first name
+  15, fictional airline 8, narrative structure 2), enforces the
+  **parameter-tuple uniqueness rule** (the triple `{sub_genre,
+  aircraft, setting}` must never repeat), and rotates through **6
+  narrative structures** (Three-Act / Kishōtenketsu / In Media Res +
+  Flashback / Rashomon / Investigation-First / Documentary Braid).
+  Fictional stories draw their airline / character names from
+  pre-vetted pools (45 airlines by region + 134 character names
+  tagged by ethnicity and role hint).
 
 ## Architecture
 
@@ -138,16 +148,20 @@ Manager, so uniqueness and rotation stay consistent across the batch.
 aviation/                # The aviation-specific pipeline
 ├── state.py             # AviationJob + JobSettings (Pydantic v2)
 ├── persistence.py       # data/jobs/<id>.json atomic checkpoints
-├── orchestrator.py      # run_job() — the whole graph
+├── orchestrator.py      # run_job() — the whole graph, axis picking, seed catalog
 ├── agents.py            # Seven agents, one function each
-├── prompts.py           # All prompts (real & fictional)
+├── prompts.py           # All prompts + AVIATION_STYLE_RULES + BLACKLIST_RULES + RETENTION_TIPS
+├── axes.py              # 8 rotation axes + enums + quarterly quotas
+├── structures.py        # 6 narrative structures with per-structure LLM prompts
+├── similarity.py        # Title/opening embedding + noun-overlap checks
+├── resources.py         # Seed catalog + name pool + airline pool loaders
 ├── llm_helpers.py       # llm_text / llm_json wrappers
-├── deliverables.py      # SSML / YouTube MD / Storyboard CSV
+├── deliverables.py      # SSML (v2 + v3 tags) / YouTube MD / Storyboard CSV
 ├── text.py              # count_words / segmenter / TTS strip
-└── tests/               # 34 unit tests
+└── tests/               # 74 unit tests
 core/
 ├── llm/                 # LiteLLM router + offline mock provider
-├── history.py           # Global History Manager (SQLite)
+├── history.py           # Global History Manager (SQLite, all 8 axes + seed tracking + tuple uniqueness)
 ├── pdf_ingest.py        # PyMuPDF + pdfplumber
 ├── api_client.py        # LiteLLM-backed unified client (facade)
 └── … (utilities kept from the AI Story Generator base)
@@ -155,8 +169,14 @@ models/
 ├── aviation_bible.py    # AviationStoryBible + ExtractedFacts + …
 └── … (generic story models kept from the base project)
 app/
-└── streamlit_app.py     # Control panel
-resources/               # Prompt-template fallbacks (used by legacy runner)
+└── streamlit_app.py     # Control panel (Queue · Live · History · Global history · Seed catalog · Structures)
+resources/aviation/
+├── incidents.yaml       # 46 pre-vetted real aviation incidents
+├── character_names.yaml # 134 fictional names tagged by ethnicity + role
+└── fictional_airlines.yaml  # 45 fictional airline names by region
+scripts/
+├── parse_incidents.py    # Re-parse the original .docx → yaml (if the source changes)
+└── translate_incidents.py # LLM-driven translation of any incidents left partial (needs a real key)
 settings.yaml            # Roles → models, retry, rate-limits, pricing
 ```
 

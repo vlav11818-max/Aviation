@@ -47,6 +47,37 @@ AVIATION VOICE & TECHNICAL RULES:
 - Do not use present-tense narration to fabricate a real crew's
   private thoughts. In real mode, keep interiority to what the
   report can support (checklists said, decisions made, radio calls).
+- Numbers rule for TTS: write dramatic numbers as words ('thirty-seven
+  thousand feet'), keep technical designators as digits ('Flight 447').
+- Dialogue attribution is mandatory — TTS without attribution loses
+  who is speaking. Every quoted line gets a 'said X' / 'the captain
+  answered' clause.
+"""
+
+# Evergreen bans from Layer 5. Always injected into planner + writer prompts.
+BLACKLIST_RULES = """\
+HARD BLACKLIST (never violate):
+- Never use real names of pilots / ATC / passengers from the last
+  25 years. Real names of historical figures (1900-2000, e.g. Chuck
+  Yeager, Kelly Johnson) are fine if the story does not portray
+  them negatively.
+- Never use real airline names for the incidents. Use fictional
+  airline names from the pool the Planner is given.
+- Never use active real-world flight numbers. Avoid 447, 232, 800 —
+  they are all associated with real catastrophes.
+- Never use registrations of real aircraft.
+- Never use real ATC controller names.
+- Never dramatise passenger injury or death in graphic sensory
+  detail. Casualty statements stay in the narrator's voice, sober
+  and specific.
+- Never sexualise a rescue scene or post-crash situation.
+- Never glorify pilot-suicide-by-plane (Germanwings, MH370-theory).
+  Investigation-frame is acceptable; dramatisation is not.
+- Never dramatise conspiracy theories about active investigations.
+- Never carry deliberately anti-airline messaging. 'The system
+  failed' is fine; 'Boeing is evil' is not.
+- Never explain hijacking / security-bypass techniques in operational
+  detail, even for historical incidents.
 """
 
 
@@ -167,23 +198,53 @@ def planner_prompt(
     facts: ExtractedFacts | None,
     forbidden_elements: dict[str, list[str]],
     fictionalization_notice: str,
+    axis_selection: dict[str, str] | None = None,
+    seed_summary: str = "",
+    airline_pool_hint: list[str] | None = None,
+    name_pool_hint: list[str] | None = None,
 ) -> str:
     total_chapters = max(6, min(18, target_words // max(600, chapter_target)))
     forbidden_str = _format_forbidden(forbidden_elements) if mode == Mode.FICTIONAL else ""
+    axes_block = ""
+    if axis_selection:
+        rows = "\n".join(f"- {k}: {v}" for k, v in axis_selection.items() if v)
+        axes_block = (
+            "\nAXIS SELECTION (already picked by the Global History Manager — "
+            "the story MUST embody these):\n" + rows + "\n"
+        )
+    seed_block = f"\nSEED INCIDENT (grounding, use its dramatic details):\n{seed_summary}\n" if seed_summary else ""
+    airline_hint = ""
+    if airline_pool_hint:
+        airline_hint = (
+            "\nFICTIONAL AIRLINE POOL (pick ONE for the operator field; do not "
+            "invent new names outside this pool):\n"
+            + "\n".join(f"  - {a}" for a in airline_pool_hint) + "\n"
+        )
+    name_hint = ""
+    if name_pool_hint:
+        name_hint = (
+            "\nCHARACTER NAME POOL (pick from these for crew; keep diversity):\n"
+            + "\n".join(f"  - {n}" for n in name_pool_hint) + "\n"
+        )
     return (
         "__STEP__=concept\n"
         "You are a senior narrative designer for a long-form aviation "
         "channel. You are building a StoryBible for one incident.\n\n"
         f"WORKING TOPIC: {topic}\n\n"
-        f"{_crew_hint(mode, facts)}\n\n"
-        f"NARRATIVE STRUCTURE: {structure.value}\n"
+        f"{_crew_hint(mode, facts)}\n"
+        f"{seed_block}"
+        f"{axes_block}"
+        f"\nNARRATIVE STRUCTURE: {structure.value}\n"
         f"{STRUCTURE_GUIDANCE.get(structure, '')}\n\n"
         f"TARGET LENGTH: ~{target_words:,} words spanning ~{total_chapters} "
         f"chapters of ~{chapter_target} words each.\n\n"
         f"{AVIATION_STYLE_RULES}\n"
+        f"{BLACKLIST_RULES}\n"
         f"{RETENTION_TIPS}\n"
-        f"{forbidden_str}\n"
-        "Return ONLY a JSON object matching this schema:\n"
+        f"{forbidden_str}"
+        f"{airline_hint}"
+        f"{name_hint}"
+        "\nReturn ONLY a JSON object matching this schema:\n"
         "{\n"
         '  "working_title": "…",\n'
         '  "logline": "…",\n'
@@ -268,6 +329,7 @@ def writer_prompt(
         f"You are writing CHAPTER {chapter_index + 1}: {chapter_title!r} of a "
         "long-form aviation-incident script for YouTube narration.\n\n"
         f"{AVIATION_STYLE_RULES}\n"
+        f"{BLACKLIST_RULES}\n"
         f"{RETENTION_TIPS}\n\n"
         f"STORY BIBLE (do not contradict):\n{bible.model_dump_json(indent=2)}\n"
         f"{facts_block}\n"

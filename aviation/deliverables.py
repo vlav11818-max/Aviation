@@ -34,7 +34,6 @@ from models.aviation_bible import AviationStoryBible, Mode
 # ── ElevenLabs SSML ──────────────────────────────────────────────────
 
 # Words / phrases that mark a beat where we want an extra-long pause.
-# Regex fragments (case-insensitive).
 _CLIFFHANGER_MARKERS = re.compile(
     r"\b(?:mayday|impact|silence|black(?:ed)?\s*out|crashed?|"
     r"stall(?:ed|ing)?|fire\s*warning|master\s*caution|then\s*(?:—|-)|"
@@ -42,33 +41,72 @@ _CLIFFHANGER_MARKERS = re.compile(
     re.I,
 )
 
+# Cues for the v3 audio-tag heuristic.
+_URGENT_CUES = re.compile(
+    r"\b(?:mayday|shouted|screamed|roared|barked|snapped|yelled|"
+    r"master\s*caution|master\s*warning|pull\s*up|impact|"
+    r"emergency|declare\s+an?\s*emergency)\b",
+    re.I,
+)
+_WHISPER_CUES = re.compile(
+    r"\b(?:whispered|murmured|breathed|barely audible|hushed|silently)\b",
+    re.I,
+)
+_PAUSE_BEFORE_CUES = re.compile(
+    r"\b(?:for a long moment|the silence|nobody spoke|no one answered|"
+    r"neither of them moved|held her breath)\b",
+    re.I,
+)
+
 # End-of-paragraph regex for inserting standard breaks.
 _PARA_SPLIT = re.compile(r"\n\s*\n")
 
 
-def to_elevenlabs_ssml(text: str, paragraph_ms: int = 800, cliff_ms: int = 1500) -> str:
+def _inject_v3_tags(paragraph: str) -> str:
+    """Optionally prepend one v3 audio tag to a paragraph.
+
+    We're deliberately conservative: at most ONE tag per paragraph
+    (per Layer 4's rule), chosen from a priority order.
+    """
+    if _WHISPER_CUES.search(paragraph):
+        return f"[whispers] {paragraph}"
+    if _URGENT_CUES.search(paragraph):
+        return f"[urgent] {paragraph}"
+    if _PAUSE_BEFORE_CUES.search(paragraph):
+        return f"[pause] {paragraph}"
+    return paragraph
+
+
+def to_elevenlabs_ssml(
+    text: str,
+    paragraph_ms: int = 800,
+    cliff_ms: int = 1500,
+    v3_tags: bool = True,
+) -> str:
     """Return ElevenLabs-flavoured SSML for the clean narration ``text``.
 
-    ElevenLabs accepts a *subset* of SSML; the safe forms are
-    ``<break time="…s"/>``. Nothing else is guaranteed to render. This
-    exporter emits only ``<break/>`` tags on:
+    ElevenLabs' long-form Multilingual v2 accepts a *subset* of SSML;
+    the safe forms are ``<break time="…s"/>``. This exporter emits:
 
-    * ``<break time="{cliff_ms}ms"/>`` — end of a paragraph that
-      contains a cliffhanger marker (mayday / impact / crash / stall /
-      fire warning …), before the paragraph break.
-    * ``<break time="{paragraph_ms}ms"/>`` — end of every other
-      paragraph.
+    * ``<break time="{cliff_ms}ms"/>`` — after a paragraph containing
+      a cliffhanger marker (mayday / impact / crash / stall /
+      fire warning / master caution / "and then nothing" …).
+    * ``<break time="{paragraph_ms}ms"/>`` — after every other paragraph.
 
-    The output is a UTF-8 text file, one paragraph per line, ready to
-    paste into ElevenLabs' long-form projects.
+    When ``v3_tags=True`` (the default) each paragraph is scanned for
+    prosody cues and *optionally* prefixed with ONE ElevenLabs v3
+    audio tag (``[whispers]`` / ``[urgent]`` / ``[pause]``). The tags
+    are ignored by v2 renderers, so the file also plays cleanly under
+    Multilingual v2 — but users who route the final file through v3
+    for the tense sections get free prosody.
     """
     clean = strip_for_tts(text)
     paragraphs = [p.strip() for p in _PARA_SPLIT.split(clean) if p.strip()]
     lines: list[str] = []
     for para in paragraphs:
-        # Emit the paragraph.
+        if v3_tags:
+            para = _inject_v3_tags(para)
         lines.append(para)
-        # Choose break duration.
         ms = cliff_ms if _CLIFFHANGER_MARKERS.search(para) else paragraph_ms
         lines.append(f'<break time="{ms/1000:.1f}s" />')
     return "\n\n".join(lines).strip() + "\n"

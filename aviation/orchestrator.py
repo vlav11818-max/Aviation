@@ -37,7 +37,20 @@ from typing import Any
 
 from aviation import agents as A
 from aviation import deliverables as D
+from aviation.axes import (
+    AXES,
+    HookPattern,
+    PROTAGONIST_ARCHETYPES,
+    SubGenre,
+    AircraftClass,
+    Setting as SettingAxis,
+    IncidentType,
+    TwistType,
+    Resolution as ResolutionAxis,
+    EmotionalBeat,
+)
 from aviation.persistence import save_job
+from aviation.resources import IncidentSeed, filter_incidents, load_airlines, sample_airline, sample_names
 from aviation.state import AviationJob, ChapterDraft, JobStatus, JobSettings
 from aviation.text import (
     count_words,
@@ -144,12 +157,16 @@ async def run_job(
 
     try:
         # ── ingest ────────────────────────────────────────────
-        if job.settings.mode == Mode.REAL and not job.facts:
+        if job.settings.mode == Mode.REAL and job.facts is None:
             _ck()
             job.current_node = "ingest"
             job.progress = 0.02
             save_job(job)
-            job.facts = await _run_ingest(job, models["primary"])
+            extracted = await _run_ingest(job, models["primary"])
+            # If ingest returned an empty facts object (no PDFs), leave
+            # job.facts as None so the planner falls back to the seed
+            # catalog rather than injecting an empty facts blob.
+            job.facts = extracted if extracted.incident_name else None
             save_job(job)
 
         # ── plan ──────────────────────────────────────────────
@@ -267,7 +284,14 @@ async def run_job(
 
 async def _run_ingest(job: AviationJob, model: str) -> ExtractedFacts:
     if not job.source_pdfs:
-        raise ValueError("Real-mode job has no source PDFs to ingest.")
+        # No PDFs → the planner falls back to the seed catalog. Return
+        # an empty ExtractedFacts so downstream fact-check logic knows
+        # there's nothing hard-authoritative to cross-check against.
+        job.append_log(
+            "ingest",
+            "Real mode with no PDFs — planner will pick from the seed catalog.",
+        )
+        return ExtractedFacts()
     facts = ExtractedFacts()
     for pdf_path in job.source_pdfs:
         job.append_log("ingest", f"Loading {pdf_path}")
@@ -282,29 +306,173 @@ async def _run_ingest(job: AviationJob, model: str) -> ExtractedFacts:
     return facts
 
 
+def _pick_axes(
+    job: AviationJob,
+    history: HistoryStore,
+    seed: IncidentSeed | None,
+) -> tuple[dict[str, str], IncidentSeed | None, list[str], list[str]]:
+    """Pick a value for every rotation axis, honouring cooldowns.
+
+    * If a real-mode seed is provided, its sub_genre / aircraft_type /
+      setting take precedence (a real story doesn't get to change what
+      it is about).
+    * Otherwise walks each axis's enum in a stable order and picks the
+      first value that passes the cooldown check. Falls back to the
+      first enum value if every candidate is on cooldown (extreme).
+    * Hook pattern additionally honours the "max 3 uses in last 10"
+      rule.
+    * Returns (axis map, chosen seed, airline pool hints, name pool
+      hints).
+    """
+    import random
+
+    rng = random.Random(hash(job.job_id) & 0xFFFF)
+
+    axis_choices: dict[str, str] = {}
+
+    def _first_ok(axis: str, candidates: list[str]) -> str:
+        for c in candidates:
+            if history.cooldown_ok(axis, c):
+                if axis == "hook_pattern" and not history.hook_pattern_allowed(c):
+                    continue
+                return c
+        # All on cooldown — take the first anyway, prefer axis default.
+        return candidates[0] if candidates else ""
+
+    if seed is not None:
+        axis_choices["sub_genre"] = seed.sub_genre_primary or SubGenre.MIRACLE_LANDING.value
+        axis_choices["aircraft_type"] = seed.aircraft_type or AircraftClass.NARROW_BODY.value
+        axis_choices["setting"] = seed.setting_layer2 or SettingAxis.NORTH_ATLANTIC.value
+    else:
+        genres = [g.value for g in SubGenre]
+        rng.shuffle(genres)
+        axis_choices["sub_genre"] = _first_ok("sub_genre", genres)
+        acs = [a.value for a in AircraftClass]
+        rng.shuffle(acs)
+        axis_choices["aircraft_type"] = _first_ok("aircraft_type", acs)
+        settings_v = [s.value for s in SettingAxis]
+        rng.shuffle(settings_v)
+        axis_choices["setting"] = _first_ok("setting", settings_v)
+
+    # Protagonist archetype rotates freely.
+    arches = list(PROTAGONIST_ARCHETYPES)
+    rng.shuffle(arches)
+    axis_choices["protagonist_archetype"] = _first_ok("protagonist_archetype", arches)
+
+    # Inciting incident — bias by seed causation when available.
+    incidents_pool = [i.value for i in IncidentType]
+    if seed and seed.causation_type:
+        # Sort so causation-related incidents come first.
+        c = seed.causation_type.lower()
+        incidents_pool.sort(key=lambda v: 0 if any(t in v.lower() for t in c.split("+")) else 1)
+    else:
+        rng.shuffle(incidents_pool)
+    axis_choices["inciting_incident"] = _first_ok("inciting_incident", incidents_pool)
+
+    twists = [t.value for t in TwistType]
+    rng.shuffle(twists)
+    axis_choices["twist_type"] = _first_ok("twist_type", twists)
+
+    resolutions = [r.value for r in ResolutionAxis]
+    rng.shuffle(resolutions)
+    axis_choices["resolution"] = _first_ok("resolution", resolutions)
+
+    beats = [b.value for b in EmotionalBeat]
+    rng.shuffle(beats)
+    axis_choices["emotional_beat"] = beats[0]
+
+    hooks = [h.value for h in HookPattern]
+    rng.shuffle(hooks)
+    axis_choices["hook_pattern"] = _first_ok("hook_pattern", hooks)
+
+    # Airline pool hint: 5 candidates the planner may pick from.
+    used_airlines = set(history.forbidden_elements().get("airline", []))
+    airline_hint = [a.name for a in load_airlines() if a.name not in used_airlines][:5]
+
+    # Name-pool hint: 8 candidates.
+    used_first_names = {c.split()[0] for c in history.forbidden_elements().get("character", []) if c}
+    name_candidates = sample_names(8, excluded_first_names=used_first_names, rng=rng)
+    name_hint = [f"{n.first_name} {n.last_name} ({n.role_hint or 'crew'})" for n in name_candidates]
+
+    return axis_choices, seed, airline_hint, name_hint
+
+
 async def _run_plan(
     job: AviationJob,
     history: HistoryStore,
     model: str,
 ) -> AviationStoryBible:
+    # Structure: user override > next-in-rotation.
     if job.settings.force_structure:
         structure = job.settings.force_structure
     else:
         structure = history.next_structure()
+
+    # Real-mode: pick a seed incident matching whatever the user picked
+    # (falling back to sub_genre filtering only).
+    seed: IncidentSeed | None = None
+    if job.settings.mode == Mode.REAL and not job.facts and not job.source_pdfs:
+        # No PDFs, no facts — try the seed catalog.
+        used_seeds = set(history.used_seed_names())
+        pool = filter_incidents(
+            max_risk="MED",  # keep HIGH-risk incidents out unless the user opts in
+            excluded_names=used_seeds,
+        )
+        if pool:
+            import random
+            seed = random.Random(hash(job.job_id) & 0xFFFF).choice(pool)
+            job.append_log(
+                "planner",
+                f"Real-mode seed catalog picked: {seed.name} (risk {seed.monetization_risk}).",
+            )
+
+    axis_choices, seed, airline_hint, name_hint = _pick_axes(job, history, seed)
+    axis_choices["narrative_structure"] = structure.value
+
     forbidden = history.forbidden_elements()
+
     job.append_log(
         "planner",
-        f"Structure: {structure.value}. Forbidden elements loaded from history "
-        f"({sum(len(v) for v in forbidden.values())} total).",
+        f"Structure: {structure.value}. Axes picked: "
+        + ", ".join(f"{k}={v[:40]}" for k, v in axis_choices.items() if v)
+        + f". Forbidden elements loaded ({sum(len(v) for v in forbidden.values())} total).",
     )
+
     # Uniqueness-retry loop for fictional mode.
+    from aviation.prompts import planner_prompt as _planner_prompt
+    from aviation.llm_helpers import llm_json
+
+    bible: AviationStoryBible | None = None
+    seed_summary = seed.summary_for_prompt() if seed else ""
     for attempt in range(3):
-        bible = await A.plan_story(
-            job=job,
-            facts=job.facts,
+        # Direct call — the standard A.plan_story doesn't yet accept axis/seed hints.
+        prompt = _planner_prompt(
+            topic=job.topic,
+            mode=job.settings.mode,
             structure=structure,
+            target_words=job.settings.target_words,
+            chapter_target=job.settings.chapter_target_words,
+            facts=job.facts,
             forbidden_elements=forbidden,
+            fictionalization_notice=_fictionalization_notice_for_planner(job.settings.mode),
+            axis_selection=axis_choices,
+            seed_summary=seed_summary,
+            airline_pool_hint=airline_hint,
+            name_pool_hint=name_hint,
+        )
+        data = await llm_json(
+            job=job,
             model=model,
+            prompt=prompt,
+            temperature=0.6,
+            max_tokens=6000,
+            agent="planner",
+        )
+        bible = A._hydrate_bible(  # type: ignore[attr-defined]
+            data,
+            structure=structure,
+            mode=job.settings.mode,
+            notice=_fictionalization_notice_for_planner(job.settings.mode),
         )
         violations = history.check_bible(bible)
         if not violations:
@@ -314,20 +482,41 @@ async def _run_plan(
             f"Uniqueness violations on attempt {attempt + 1}: {violations}. Re-planning.",
             level="warn",
         )
-        # Feed the violations back into forbidden for next attempt.
         for v in violations:
             m = re.match(r"([a-z_]+):\s+\"(.+?)\"", v)
             if m:
                 kind, value = m.group(1), m.group(2)
                 forbidden.setdefault(kind, []).append(value)
     else:
-        # Last-resort rename to satisfy the DB constraint.
         job.append_log("history", "Auto-renaming to break uniqueness tie.", level="warn")
-        resolve_violations(bible, attempt=2)
+        resolve_violations(bible, attempt=2)  # type: ignore[arg-type]
 
-    history.record_bible(job.job_id, bible)
+    assert bible is not None
+    # Record with all axis values and the seed name (if any).
+    history.record_bible(
+        job.job_id,
+        bible,
+        axes=axis_choices,
+        seed_incident_name=seed.name if seed else None,
+    )
     job.title = bible.working_title
     return bible
+
+
+def _fictionalization_notice_for_planner(mode: Mode) -> str:
+    """Duplicated tiny helper (agents.py owns the canonical one)."""
+    if mode == Mode.REAL:
+        return (
+            "This story is based on the official accident report. Some "
+            "dialogue and interior moments have been dramatised where "
+            "the record is silent."
+        )
+    return (
+        "This story is entirely fictional. Any resemblance to real "
+        "airlines, aircraft registrations, crew, or specific incidents "
+        "is unintentional. Aircraft systems and phraseology are drawn "
+        "from real practice."
+    )
 
 
 async def _run_one_chapter(

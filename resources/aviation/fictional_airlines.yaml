@@ -1,0 +1,136 @@
+airlines:
+- name: Meridian Skyways
+  region: USA
+  carrier_type: Legacy carrier
+- name: Cascade Air
+  region: USA (Pacific NW)
+  carrier_type: Regional
+- name: Beacon Airways
+  region: USA (East Coast)
+  carrier_type: Low-cost
+- name: Summit Airlines
+  region: USA (Denver)
+  carrier_type: Mainline
+- name: Trailblazer Aviation
+  region: Canada
+  carrier_type: Regional
+- name: Polaris Wings
+  region: Canada
+  carrier_type: Charter
+- name: Redstone Airways
+  region: USA (Southwest)
+  carrier_type: Low-cost
+- name: Britannia Blue
+  region: UK
+  carrier_type: Legacy carrier
+- name: Highland Crest Air
+  region: UK (Scotland)
+  carrier_type: Regional
+- name: Kelvin Airlines
+  region: UK
+  carrier_type: Charter
+- name: Coral Coast Airways
+  region: Australia
+  carrier_type: Domestic
+- name: Southern Cross Air
+  region: Australia/NZ
+  carrier_type: Regional
+- name: Aurelia Airways
+  region: Latin America
+  carrier_type: Legacy carrier
+- name: Andes Vista Air
+  region: Peru/Chile
+  carrier_type: Regional
+- name: Pampas Wings
+  region: Argentina
+  carrier_type: Domestic
+- name: Solano Airlines
+  region: Mexico
+  carrier_type: Low-cost
+- name: Orient Crest Airlines
+  region: Hong Kong
+  carrier_type: Legacy carrier
+- name: Sakura Sky
+  region: Japan
+  carrier_type: Domestic
+- name: Fuji Trans Air
+  region: Japan
+  carrier_type: Regional
+- name: Han River Airways
+  region: South Korea
+  carrier_type: Low-cost
+- name: Jade Dragon Aviation
+  region: China
+  carrier_type: Mainline
+- name: Bay of Bengal Air
+  region: India/Bangladesh
+  carrier_type: Regional
+- name: Indus Valley Airlines
+  region: Pakistan
+  carrier_type: Domestic
+- name: Arabian Star Airways
+  region: Gulf region
+  carrier_type: Long-haul
+- name: Levant Express
+  region: Middle East
+  carrier_type: Regional
+- name: Alpenhorn Air
+  region: Germany/Austria
+  carrier_type: Regional
+- name: Nordkap Airways
+  region: Scandinavia
+  carrier_type: Legacy carrier
+- name: Rhine Wings
+  region: Germany/France
+  carrier_type: Low-cost
+- name: Serengeti Airways
+  region: East Africa
+  carrier_type: Legacy carrier
+- name: Sahara Express
+  region: North Africa
+  carrier_type: Regional
+- name: Kilimanjaro Air
+  region: Kenya/Tanzania
+  carrier_type: Domestic
+- name: Cape Wings
+  region: South Africa
+  carrier_type: Low-cost
+- name: Delta Nile Aviation
+  region: Egypt
+  carrier_type: Charter
+- name: Baltic Star Airlines
+  region: Baltic states
+  carrier_type: Regional
+- name: Carpathia Air
+  region: Central Europe
+  carrier_type: Low-cost
+- name: Volga Trans
+  region: Russia
+  carrier_type: Legacy carrier
+- name: Kyivan Airways
+  region: Ukraine
+  carrier_type: Domestic
+- name: Deccan Sky
+  region: South India
+  carrier_type: Regional
+- name: Punjab Airways
+  region: North India
+  carrier_type: Domestic
+- name: Colombo Wings
+  region: Sri Lanka
+  carrier_type: Charter
+- name: Mekong Air
+  region: Vietnam/Cambodia
+  carrier_type: Regional
+- name: Java Skies
+  region: Indonesia
+  carrier_type: Low-cost
+- name: Malacca Airways
+  region: Malaysia/Singapore
+  carrier_type: Legacy carrier
+- name: Northern Lights Aviation
+  region: Alaska/Yukon
+  carrier_type: Bush operator
+- name: Aurora Air
+  region: Iceland/Greenland
+  carrier_type: Charter
