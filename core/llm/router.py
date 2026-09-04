@@ -15,13 +15,20 @@ Model ID                                         Provider / notes
 ``gemini/gemini-1.5-pro``                        Google Gemini             — ``GEMINI_API_KEY``
 ``deepseek/deepseek-chat``                       DeepSeek                  — ``DEEPSEEK_API_KEY``
 ``kie/<their-model-slug>``                       kie.ai — ``KIE_API_KEY`` + ``KIE_BASE_URL``.
-                                                  Under the hood, ``kie/X`` is rewritten to
-                                                  ``openai/X`` so LiteLLM routes it as an
-                                                  OpenAI-compatible endpoint (kie.ai is
-                                                  OpenAI-schema-compatible). ``<their-model-slug>``
-                                                  is whatever kie.ai calls the model in their
-                                                  dashboard (e.g. ``anthropic/claude-3.5-sonnet``
-                                                  or ``claude-3-5-sonnet-20241022``).
+                                                  kie.ai proxies the Anthropic Messages API
+                                                  (``POST /claude/v1/messages`` with
+                                                  ``Authorization: Bearer …``), so ``kie/X``
+                                                  is rewritten to ``anthropic/X`` and routed via
+                                                  LiteLLM's anthropic handler with the Bearer
+                                                  header injected alongside LiteLLM's default
+                                                  ``x-api-key`` (kie.ai reads Authorization; the
+                                                  extra x-api-key is harmless).
+                                                  ``KIE_BASE_URL`` must include the ``/v1``
+                                                  segment — e.g. ``https://api.kie.ai/claude/v1``.
+                                                  ``<their-model-slug>`` is whatever kie.ai calls
+                                                  the model in their dashboard, e.g.
+                                                  ``claude-sonnet-4-5`` or
+                                                  ``claude-3-5-sonnet-20241022``.
 ``custom/<any-model>``                           Any OpenAI-compatible base URL —
                                                   ``CUSTOM_API_KEY`` + ``CUSTOM_BASE_URL``.
                                                   Rewritten to ``openai/<model>`` internally.
@@ -208,12 +215,23 @@ async def call_llm(
         )
 
     # Rewrite our shorthand prefixes to what LiteLLM actually understands.
-    # ``kie/X`` and ``custom/X`` don't exist as first-party providers in
-    # LiteLLM; both route to any OpenAI-compatible endpoint via the
-    # ``openai/`` prefix + explicit ``api_base``.
+    #
+    # kie.ai proxies the Anthropic Messages API (POST /claude/v1/messages,
+    # ``Authorization: Bearer <token>``, Anthropic-style request body),
+    # so ``kie/X`` routes via LiteLLM's anthropic handler with an
+    # explicit ``api_base`` and a Bearer header alongside LiteLLM's
+    # default ``x-api-key`` (kie.ai reads Authorization; the extra
+    # x-api-key is harmless).
+    #
+    # ``custom/X`` still assumes OpenAI-compatible.
     effective_model = model
+    effective_headers = dict(extra_headers or {})
     prefix = model.split("/", 1)[0].lower() if "/" in model else ""
-    if prefix in ("kie", "custom"):
+    if prefix == "kie":
+        effective_model = "anthropic/" + model.split("/", 1)[1]
+        if key:
+            effective_headers.setdefault("Authorization", f"Bearer {key}")
+    elif prefix == "custom":
         effective_model = "openai/" + model.split("/", 1)[1]
 
     # Import lazily so an environment without LiteLLM (e.g. a unit test
@@ -233,8 +251,8 @@ async def call_llm(
         kwargs["api_base"] = base_url
     if json_mode:
         kwargs["response_format"] = {"type": "json_object"}
-    if extra_headers:
-        kwargs["extra_headers"] = extra_headers
+    if effective_headers:
+        kwargs["extra_headers"] = effective_headers
 
     try:
         resp = await litellm.acompletion(**kwargs)

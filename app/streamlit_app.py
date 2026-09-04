@@ -145,11 +145,11 @@ def _sidebar_settings() -> None:
         "gemini/gemini-1.5-flash",
         # DeepSeek
         "deepseek/deepseek-chat",
-        # kie.ai (needs KIE_API_KEY + KIE_BASE_URL in .env)
-        "kie/anthropic/claude-3.5-sonnet",
-        "kie/anthropic/claude-3-5-haiku-latest",
-        "kie/openai/gpt-4o",
-        "kie/openai/gpt-4o-mini",
+        # kie.ai (proxies Anthropic Messages API — Claude models only).
+        # Needs KIE_API_KEY + KIE_BASE_URL=https://api.kie.ai/claude/v1 in .env.
+        "kie/claude-sonnet-4-5",
+        "kie/claude-3-5-sonnet-20241022",
+        "kie/claude-3-5-haiku-latest",
         # Custom OpenAI-compatible endpoint (needs CUSTOM_API_KEY + CUSTOM_BASE_URL)
         "custom/whatever-your-endpoint-serves",
     ]
