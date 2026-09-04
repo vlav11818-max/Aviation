@@ -1,215 +1,182 @@
-# AI Story Generator Pro v1.0
+# ✈ Aviation Content Factory
 
-Automated evergreen YouTube voiceover story generator with multi-provider
-LLM support, step-based pipeline, 4-level quality evaluation, and
-parallel processing in 11 languages.
+A LangGraph-inspired, multi-agent Python pipeline that turns a single
+incident topic (or an uploaded accident-report PDF) into a **40–60
+minute long-form aviation script** for YouTube narration, with three
+deliverables ready for the ElevenLabs → Midjourney → post-production
+workflow.
 
-## Features
+Runs entirely offline against a deterministic **mock provider** if no
+API keys are configured — the same pipeline runs against real
+providers just by setting an environment variable.
 
-- **6 API providers** — OpenRouter, OpenAI, Anthropic, Google, DeepSeek, Qwen
-- **11 languages** — EN, RU, DE, FR, PT, IT, PL, UK, RO, TR, DA
-- **3 pipeline strategies** — auto-selected by target word count:
-  - Single shot (< 2 000 words)
-  - Two pass (2 000–4 000 words)
-  - Full pipeline (> 4 000 words) with section-by-section generation
-- **4-level evaluation** — Technical, Linguistic, Content, Voiceover
-- **Evaluate → revise loop** — automatic revision until quality threshold (default 9.0/10)
-- **5 story structures** — Three Act, Hero's Journey, In Medias Res, Episodic, Circular
-- **Text adaptation** — translate/adapt existing stories in 3 modes (literal, cultural, free)
-- **Parallel processing** — N concurrent workers with per-provider rate limiting
-- **Crash recovery** — auto-save after every step, resume from interruption
-- **Result caching** — skip already-processed topics
-- **Export** — TXT (clean text) and SSML (for TTS systems)
-- **Analytics** — per-language, per-provider, score distribution, quality trends
-- **GUI** — customtkinter dark-theme interface with progress tracking, log, and analytics
+## What it produces per incident
 
-## Quick Start
+| File | Purpose |
+|------|---------|
+| `01_tts_script.txt` | Clean narration + ElevenLabs `<break>` SSML (0.8 s between paragraphs, 1.5 s after cliffhangers). |
+| `02_youtube_metadata.md` | 3–5 title options · hook · ⚠ fictionalization notice · ⏱ chapter timestamps (at 150 wpm) · 📚 sources · 🖋 100–150-word personal note · 20–30 SEO tags. |
+| `03_storyboard.csv` (+ pipe & JSON variants) | `Timestamp \| Text Segment \| Image Generation Prompt` — one row per ~5 s. AI-image prompts only, no B-roll suggestions. |
+| `00_manuscript.md` | Full source-of-truth manuscript. |
+| `04_story_bible.json` | Aviation StoryBible for auditability. |
 
-### 1. Clone and install
+## Two modes
 
-```bash
-git clone <repository-url>
-cd ai-story-generator-pro
-pip install -r requirements.txt
+* **Real Incident (RAG)** — upload NTSB / AAIB / BEA / TSB PDFs. The
+  ingest agent walks the report in ~18k-char chunks, extracts
+  structured facts (aircraft, timeline, CVR, cause chain, findings),
+  and feeds them into every downstream prompt. The Fact-Checker agent
+  cross-verifies each chapter's technical claims against the extracted
+  facts — a chapter with any HIGH-severity issue is sent back to the
+  Editor.
+* **Fictional** — invent a realistic incident from the topic. The
+  **Global History Manager** guarantees no reused airlines / tail
+  numbers / flight numbers / crew names / cities across your batch,
+  and rotates the narrative structure (In Media Res → Three-Act →
+  Rashomon → Reverse-Chronological → Frame Story) so successive
+  stories don't sound the same.
+
+## Architecture
+
+```
+                                 [ Batch queue ]
+                                        │
+                                        ▼
+    ingest (real) ─▶ plan ─▶ plan_chapters ─▶ ┌─ write ─────┐
+                                              │             │
+                             per-chapter loop │  fact-check │  ── HIGH? → editor ─┐
+                             (bounded by      │             │                     │
+                             max_revisions)   │  critic ────┼── score<min → editor┘
+                                              │             │
+                                              └─ summarise ─▶ approve → next
+                                                                             │
+                                              ┌──────────────────────────────┘
+                                              ▼
+                                       holistic review ── flagged? → editor per ch → holistic (max_holistic_rounds)
+                                              │
+                                              ▼
+                                       post-process → SSML · YouTube MD · Storyboard CSV · manuscript · bible
 ```
 
-### 2. Configure API keys
+Every node persists the job's full state to
+`data/jobs/<job_id>.json` (atomic writes) — a crash or a `Cancel`
+click resumes from exactly the last completed node.
 
-Copy the example environment file and add your keys:
+The engine sits on:
+
+* **LiteLLM** — one call, every provider. Model IDs use the LiteLLM
+  convention (`openrouter/anthropic/claude-3.5-sonnet`, `openai/gpt-4o`,
+  `anthropic/claude-3-5-sonnet-latest`, `gemini/gemini-1.5-pro`,
+  `deepseek/deepseek-chat`, `kie/<model>`, `custom/<model>`,
+  `mock/demo`).
+* **Pydantic v2** — every agent's output is a validated model.
+* **PyMuPDF** + **pdfplumber** fallback for PDF ingest.
+* **SQLite** (single `data/global_history.db`) for cross-story
+  uniqueness and structure rotation.
+* **Streamlit** for the control panel (queue, live progress,
+  history, global-history, settings).
+
+## Quick start
 
 ```bash
+# 1. Set up the venv (Python 3.11+)
+python3 -m venv .venv
+.venv/bin/pip install -U pip
+.venv/bin/pip install -r requirements.txt
+
+# 2. Configure providers (all optional — mock is the default)
 cp .env.example .env
+$EDITOR .env
+
+# 3. Launch the UI
+.venv/bin/streamlit run app/streamlit_app.py
+# → open http://localhost:8501
 ```
 
-Edit `.env` and fill in at least one provider key:
-
-```
-OPENROUTER_API_KEY=sk-or-...
-OPENAI_API_KEY=sk-...
-ANTHROPIC_API_KEY=sk-ant-...
-GOOGLE_API_KEY=AIza...
-DEEPSEEK_API_KEY=sk-...
-QWEN_API_KEY=sk-...
-```
-
-### 3. Run
+Prefer the CLI? Run a single incident in one command:
 
 ```bash
-python main.py
+AVIATION_FORCE_MOCK=1 .venv/bin/python -c "
+from aviation.orchestrator import new_job, run_job_sync
+from models.aviation_bible import Mode
+job = new_job(topic='Cascading hydraulic failure over the North Atlantic', mode=Mode.FICTIONAL)
+run_job_sync(job)
+print('Deliverables in', job.output_dir)
+"
 ```
 
-The GUI will open. Select a topics file, choose your language and style,
-configure the API provider, and click **START**.
+## Provider setup
 
-## Configuration
+Every provider is opt-in. Set the corresponding environment variable
+in `.env`:
 
-All settings are in `settings.yaml`. The file is loaded at startup and
-merged with defaults from `resources/defaults/settings.yaml`.
+| Provider | Env var | Model id example |
+|----------|---------|------------------|
+| OpenAI direct | `OPENAI_API_KEY` | `gpt-4o` or `openai/gpt-4o` |
+| Anthropic direct | `ANTHROPIC_API_KEY` | `anthropic/claude-3-5-sonnet-latest` |
+| Google Gemini | `GEMINI_API_KEY` | `gemini/gemini-1.5-pro` |
+| OpenRouter | `OPENROUTER_API_KEY` | `openrouter/anthropic/claude-3.5-sonnet` |
+| DeepSeek | `DEEPSEEK_API_KEY` | `deepseek/deepseek-chat` |
+| kie.ai | `KIE_API_KEY` + `KIE_BASE_URL` | `kie/<any-model>` |
+| Custom (LiteLLM proxy, vLLM, LM Studio, Ollama…) | `CUSTOM_API_KEY` + `CUSTOM_BASE_URL` | `custom/<any-model>` |
+| **Mock** (no key needed) | `AVIATION_FORCE_MOCK=1` | `mock/demo` |
 
-Key sections:
+You can point each agent role at a different model in
+`settings.yaml` (or override per job in the sidebar): `primary`,
+`evaluation`, `fact_check`, `summary`, `storyboard`.
 
-| Section | Description |
-|---------|-------------|
-| `api` | Default provider, model, timeout, retry settings, pricing table |
-| `generation` | Default tone, perspective, register, pacing, target words, min score, max attempts |
-| `strategy` | Word-count thresholds for strategy auto-selection |
-| `parallelism` | Max threads, auto-throttle |
-| `paths` | Output, data, resources, recovery, cache directories |
-| `cache` | Enable/disable caching, skip-processed flag |
-| `ssml` | Pause durations (sentence, paragraph, section) |
-| `logging` | Log level, file rotation settings |
+## Batch queue
 
-## Supported Providers
+The Streamlit **New incident** page adds one incident at a time and
+starts it in a background thread. You can queue as many as you like —
+each runs to completion independently and shares one Global History
+Manager, so uniqueness and rotation stay consistent across the batch.
 
-| Provider | Environment Variable | Models |
-|----------|---------------------|--------|
-| OpenRouter | `OPENROUTER_API_KEY` | anthropic/claude-3.5-sonnet, meta-llama/llama-3.1-70b, google/gemini-pro-1.5, mistralai/mistral-large |
-| OpenAI | `OPENAI_API_KEY` | gpt-4o, gpt-4o-mini, gpt-4-turbo |
-| Anthropic | `ANTHROPIC_API_KEY` | claude-3-5-sonnet-20241022, claude-3-5-haiku-20241022 |
-| Google | `GOOGLE_API_KEY` | gemini-1.5-pro, gemini-1.5-flash |
-| DeepSeek | `DEEPSEEK_API_KEY` | deepseek-chat, deepseek-coder |
-| Qwen | `QWEN_API_KEY` | qwen-max, qwen-plus, qwen-turbo |
-
-## Supported Languages
-
-| Code | Language | Flag |
-|------|----------|------|
-| en | English | 🇬🇧 |
-| ru | Russian | 🇷🇺 |
-| de | German | 🇩🇪 |
-| fr | French | 🇫🇷 |
-| pt | Portuguese | 🇵🇹 |
-| it | Italian | 🇮🇹 |
-| pl | Polish | 🇵🇱 |
-| uk | Ukrainian | 🇺🇦 |
-| ro | Romanian | 🇷🇴 |
-| tr | Turkish | 🇹🇷 |
-| da | Danish | 🇩🇰 |
-
-Each language has dedicated cultural instruction files and prompt
-localisation to ensure natural, culturally appropriate output.
-
-## Usage
-
-### Generation Mode
-
-1. Create a text file with one topic per line (e.g., `topics.txt`)
-2. Open the application and select **Generate** mode
-3. Click **Browse** and select your topics file
-4. Choose the output language
-5. Configure style (tone, perspective, register, length, structure)
-6. Select API provider and model
-7. Click **START**
-
-The application will show a cost estimate before proceeding.
-Stories are saved to the `output/` directory, organised by language
-and topic.
-
-### Adaptation Mode
-
-1. Place source `.txt` files in a folder
-2. Select **Adapt** mode in the application
-3. Choose the source folder
-4. Select target language(s)
-5. Choose adaptation mode:
-   - **Literal** — faithful translation preserving structure
-   - **Cultural** — localised adaptation with cultural references
-   - **Free** — creative reimagining for the target culture
-6. Configure adaptation parameters and click **START**
-
-## Output Structure
-
-Each completed story produces:
+## Repository layout
 
 ```
-output/<language>/<topic>/
-├── concept.json          # Story concept and bible
-├── outline.json          # Structural outline
-├── section_1.txt ...     # Individual sections (full pipeline only)
-├── draft_v1.txt          # First draft
-├── draft_v2.txt          # Revised draft(s)
-├── eval_v1.json          # Evaluation results
-├── final.txt             # Final clean text
-├── final.ssml            # SSML markup for TTS
-└── metadata.json         # Full run metadata
+aviation/                # The aviation-specific pipeline
+├── state.py             # AviationJob + JobSettings (Pydantic v2)
+├── persistence.py       # data/jobs/<id>.json atomic checkpoints
+├── orchestrator.py      # run_job() — the whole graph
+├── agents.py            # Seven agents, one function each
+├── prompts.py           # All prompts (real & fictional)
+├── llm_helpers.py       # llm_text / llm_json wrappers
+├── deliverables.py      # SSML / YouTube MD / Storyboard CSV
+├── text.py              # count_words / segmenter / TTS strip
+└── tests/               # 34 unit tests
+core/
+├── llm/                 # LiteLLM router + offline mock provider
+├── history.py           # Global History Manager (SQLite)
+├── pdf_ingest.py        # PyMuPDF + pdfplumber
+├── api_client.py        # LiteLLM-backed unified client (facade)
+└── … (utilities kept from the AI Story Generator base)
+models/
+├── aviation_bible.py    # AviationStoryBible + ExtractedFacts + …
+└── … (generic story models kept from the base project)
+app/
+└── streamlit_app.py     # Control panel
+resources/               # Prompt-template fallbacks (used by legacy runner)
+settings.yaml            # Roles → models, retry, rate-limits, pricing
 ```
 
-## Project Structure
-
-```
-ai-story-generator-pro/
-├── main.py                    # Entry point
-├── settings.yaml              # User configuration
-├── .env                       # API keys (not committed)
-├── core/                      # Core logic
-│   ├── steps/                 # Pipeline step implementations
-│   ├── api_adapters/          # Provider-specific API adapters
-│   ├── api_client.py          # Unified API client
-│   ├── step_runner.py         # Strategy executor
-│   ├── state_manager.py       # Pipeline state management
-│   ├── prompt_manager.py      # Template loading and rendering
-│   ├── parallel_processor.py  # Concurrent batch processing
-│   ├── analytics_collector.py # Analytics persistence
-│   └── ...                    # Events, settings, cache, recovery
-├── models/                    # Pydantic data models
-├── gui/                       # customtkinter GUI panels
-├── exporters/                 # TXT, SSML, report exporters
-├── resources/                 # Prompts, cultural files, structures
-├── utils/                     # Logging, file I/O, token counting
-├── tests/                     # Unit and integration tests
-└── data/                      # Analytics, cache, recovery state
-```
-
-## Development
-
-### Install development dependencies
+## Tests
 
 ```bash
-pip install -e ".[dev]"
+.venv/bin/python -m pytest aviation/tests -q            # 34 aviation-specific tests
+.venv/bin/python -m pytest tests/unit -q                # foundation tests (603 passing baseline)
 ```
 
-### Run tests
+## Notes
 
-```bash
-pytest tests/ -v
-```
-
-### Run tests with coverage
-
-```bash
-pytest tests/ --cov=core --cov=models --cov=utils --cov=exporters -v
-```
-
-### Code style
-
-- Python 3.11+
-- Type hints on all functions (parameters and return types)
-- Google-style docstrings on all classes and public methods
-- Absolute imports from project root
-- `logging.getLogger(__name__)` in every module (no `print()`)
-- Custom exceptions from `core/exceptions.py`
-- Pydantic v2 for all data models
-
-## License
-
-*License placeholder — to be determined.*
+* **Not a real LangGraph graph.** The orchestrator is a plain Python
+  state machine that persists a Pydantic checkpoint after every node
+  — behaviourally identical to a `StateGraph` + `SqliteSaver`
+  combination for this pipeline shape, but easier to reason about.
+* **The legacy customtkinter GUI** at `main_legacy_ctk.py` is kept
+  for reference; the Streamlit app is the supported UI.
+* **The generic story-generator pipeline** (`core/steps/*`,
+  `core/step_runner.py`, `resources/prompts/templates/`) is also
+  retained — it powers the mock provider's schema-shape hints and
+  keeps a broad test suite compiling. You can ignore it if you only
+  care about the aviation flow.
