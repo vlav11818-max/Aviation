@@ -1,120 +1,61 @@
-# ============================================================
-# AI Story Generator Pro v1.0 — Settings
-# ============================================================
-# All tunable parameters. Edit this file to customize behavior.
-# Missing values fall back to resources/defaults/settings.yaml.
-# ============================================================
-
-# --- Generation defaults ---
-generation:
-  tone: "dramatic_cinematic"
-  perspective: "third_person"
-  register: "conversational"
-  pacing: "medium"
-  audience: "all_ages"
-  dialog_density: "medium"
-  target_words: 3000
-  structure: "three_act"
-  genres:
-    - "fantasy"
-    - "mystery"
-  min_score: 9.0
-  max_attempts: 5
-  # Minimum score improvement between consecutive evaluations to
-  # justify another revision attempt.  If the score improves by less
-  # than this threshold, the revision loop stops early (plateau
-  # detection) to avoid wasting tokens on marginal gains.
-  # Example: 8.5 → 8.6 → 8.5 → loop stops instead of retrying.
-  min_score_improvement: 0.3
-  # Voiceover-specific
-  voiceover_optimized: true
-  avoid_complex_sentences: true
-  pause_markers: true
-  no_headers: true
-  no_meta_comments: true
-  # Per-section quality gate (Fix #8):
-  # After each section is generated, a free programmatic L1 check runs.
-  # Sections with CRITICAL issues (chapter markers, meta-comments, encoding
-  # errors) or a score below the internal threshold are regenerated up to
-  # section_max_retries additional times.  The best result is always kept.
-  # Set section_quality_check: false to disable entirely (not recommended).
-  section_quality_check: true
-  section_max_retries: 2
-
-# --- API settings ---
-# Model IDs use the LiteLLM convention. Any of these prefixes works
-# out of the box: openrouter/, openai/ (or bare gpt-*), anthropic/
-# (or bare claude-*), gemini/, deepseek/, kie/, custom/ (any OpenAI-
-# compatible base URL — set CUSTOM_BASE_URL + CUSTOM_API_KEY),
-# mock/demo (offline).
 api:
-  primary_provider: "openrouter"
-  primary_model: "openrouter/anthropic/claude-3.5-sonnet"
-  fallback_provider: "openai"
-  fallback_model: "gpt-4o"
+  primary_provider: openrouter
+  primary_model: openrouter/anthropic/claude-3.5-sonnet
+  fallback_provider: openai
+  fallback_model: gpt-4o
   auto_fallback: true
   max_retries: 3
   timeout_seconds: 120
-
-  # Per-role model overrides. Each generation role can be routed to a
-  # different / cheaper model. Roles used:
-  #   primary       — concept / outline / section / revision
-  #   evaluation    — evaluation & critic passes
-  #   fact_check    — RAG fact-checking against source PDF
-  #   summary       — chapter memory summariser
-  #   storyboard    — image-prompt generator
   models:
     openrouter:
-      primary: "openrouter/anthropic/claude-3.5-sonnet"
-      fallback: "openrouter/openai/gpt-4o"
-      evaluation: "openrouter/anthropic/claude-3-haiku"
-      fact_check: "openrouter/anthropic/claude-3-haiku"
-      summary: "openrouter/anthropic/claude-3-haiku"
-      storyboard: "openrouter/anthropic/claude-3-haiku"
+      primary: openrouter/anthropic/claude-3.5-sonnet
+      fallback: openrouter/openai/gpt-4o
+      evaluation: openrouter/anthropic/claude-3-haiku
+      fact_check: openrouter/anthropic/claude-3-haiku
+      summary: openrouter/anthropic/claude-3-haiku
+      storyboard: openrouter/anthropic/claude-3-haiku
     openai:
-      primary: "gpt-4o"
-      fallback: "gpt-4-turbo"
-      evaluation: "gpt-4o-mini"
-      fact_check: "gpt-4o-mini"
-      summary: "gpt-4o-mini"
-      storyboard: "gpt-4o-mini"
+      primary: gpt-4o
+      fallback: gpt-4-turbo
+      evaluation: gpt-4o-mini
+      fact_check: gpt-4o-mini
+      summary: gpt-4o-mini
+      storyboard: gpt-4o-mini
     anthropic:
-      primary: "anthropic/claude-3-5-sonnet-latest"
-      fallback: "anthropic/claude-3-5-haiku-latest"
-      evaluation: "anthropic/claude-3-5-haiku-latest"
-      fact_check: "anthropic/claude-3-5-haiku-latest"
-      summary: "anthropic/claude-3-5-haiku-latest"
-      storyboard: "anthropic/claude-3-5-haiku-latest"
+      primary: anthropic/claude-3-5-sonnet-latest
+      fallback: anthropic/claude-3-5-haiku-latest
+      evaluation: anthropic/claude-3-5-haiku-latest
+      fact_check: anthropic/claude-3-5-haiku-latest
+      summary: anthropic/claude-3-5-haiku-latest
+      storyboard: anthropic/claude-3-5-haiku-latest
     google:
-      primary: "gemini/gemini-1.5-pro"
-      fallback: "gemini/gemini-1.5-flash"
-      evaluation: "gemini/gemini-1.5-flash"
-      fact_check: "gemini/gemini-1.5-flash"
-      summary: "gemini/gemini-1.5-flash"
-      storyboard: "gemini/gemini-1.5-flash"
+      primary: gemini/gemini-1.5-pro
+      fallback: gemini/gemini-1.5-flash
+      evaluation: gemini/gemini-1.5-flash
+      fact_check: gemini/gemini-1.5-flash
+      summary: gemini/gemini-1.5-flash
+      storyboard: gemini/gemini-1.5-flash
     deepseek:
-      primary: "deepseek/deepseek-chat"
-      fallback: "deepseek/deepseek-chat"
-      evaluation: "deepseek/deepseek-chat"
-      fact_check: "deepseek/deepseek-chat"
-      summary: "deepseek/deepseek-chat"
-      storyboard: "deepseek/deepseek-chat"
+      primary: deepseek/deepseek-chat
+      fallback: deepseek/deepseek-chat
+      evaluation: deepseek/deepseek-chat
+      fact_check: deepseek/deepseek-chat
+      summary: deepseek/deepseek-chat
+      storyboard: deepseek/deepseek-chat
     qwen:
-      primary: "openrouter/qwen/qwen-max"
-      fallback: "openrouter/qwen/qwen-plus"
-      evaluation: "openrouter/qwen/qwen-plus"
-      fact_check: "openrouter/qwen/qwen-plus"
-      summary: "openrouter/qwen/qwen-plus"
-      storyboard: "openrouter/qwen/qwen-plus"
+      primary: openrouter/qwen/qwen-max
+      fallback: openrouter/qwen/qwen-plus
+      evaluation: openrouter/qwen/qwen-plus
+      fact_check: openrouter/qwen/qwen-plus
+      summary: openrouter/qwen/qwen-plus
+      storyboard: openrouter/qwen/qwen-plus
     mock:
-      primary: "mock/demo"
-      fallback: "mock/demo"
-      evaluation: "mock/demo"
-      fact_check: "mock/demo"
-      summary: "mock/demo"
-      storyboard: "mock/demo"
-
-  # Provider-specific rate limits (max concurrent requests)
+      primary: mock/demo
+      fallback: mock/demo
+      evaluation: mock/demo
+      fact_check: mock/demo
+      summary: mock/demo
+      storyboard: mock/demo
   rate_limits:
     openrouter: 5
     openai: 3
@@ -122,119 +63,102 @@ api:
     google: 5
     deepseek: 3
     qwen: 3
-
-  # Pricing per 1M tokens (input / output) in USD
   pricing:
-    "anthropic/claude-3.5-sonnet":
+    anthropic/claude-3.5-sonnet:
       input: 3.0
       output: 15.0
-    "anthropic/claude-3-haiku":
+    anthropic/claude-3-haiku:
       input: 0.25
       output: 1.25
-    "openai/gpt-4o":
+    openai/gpt-4o:
       input: 2.5
       output: 10.0
-    "gpt-4o":
+    gpt-4o:
       input: 2.5
       output: 10.0
-    "gpt-4-turbo":
+    gpt-4-turbo:
       input: 10.0
       output: 30.0
-    "gpt-4o-mini":
+    gpt-4o-mini:
       input: 0.15
       output: 0.6
-    "claude-3-5-sonnet-latest":
+    claude-3-5-sonnet-latest:
       input: 3.0
       output: 15.0
-    "claude-3-5-sonnet-20241022":
+    claude-3-5-sonnet-20241022:
       input: 3.0
       output: 15.0
-    "claude-3-5-haiku-latest":
+    claude-3-5-haiku-latest:
       input: 0.8
       output: 4.0
-    "claude-3-opus-20240229":
+    claude-3-opus-20240229:
       input: 15.0
       output: 75.0
-    "gemini-1.5-pro":
+    gemini-1.5-pro:
       input: 1.25
       output: 5.0
-    "gemini-1.5-flash":
+    gemini-1.5-flash:
       input: 0.075
       output: 0.3
-    "deepseek-chat":
+    deepseek-chat:
       input: 0.14
       output: 0.28
-    "deepseek-coder":
+    deepseek-coder:
       input: 0.14
       output: 0.28
-    "qwen-max":
+    qwen-max:
       input: 1.6
       output: 6.4
-    "qwen-plus":
+    qwen-plus:
       input: 0.4
       output: 1.2
-    "qwen-turbo":
+    qwen-turbo:
       input: 0.1
       output: 0.3
-    "deepseek/deepseek-chat":
+    deepseek/deepseek-chat:
       input: 0.14
       output: 0.28
-    "qwen/qwen-max":
+    qwen/qwen-max:
       input: 1.6
       output: 6.4
-    "google/gemini-pro-1.5":
+    google/gemini-pro-1.5:
       input: 1.25
       output: 5.0
-    "meta-llama/llama-3.1-405b":
+    meta-llama/llama-3.1-405b:
       input: 3.0
       output: 3.0
-
-# --- Retry settings ---
 retry:
   initial_delay_seconds: 1.0
   max_delay_seconds: 16.0
   exponential_base: 2
   max_retries: 3
-
-# --- Parallelism ---
 parallelism:
   max_workers: 3
   auto_throttle: true
   separate_queues: true
-
-# --- SSML export rules ---
 ssml:
-  paragraph_break: "600ms"
-  scene_break: "1000ms"
-  dialog_pause: "400ms"
-  dramatic_pause: "800ms"
-  sentence_pause: "200ms"
+  paragraph_break: 600ms
+  scene_break: 1000ms
+  dialog_pause: 400ms
+  dramatic_pause: 800ms
+  sentence_pause: 200ms
   slow_for_dramatic: true
   emphasis_for_key_words: false
-
-# --- Logging ---
 logging:
-  level: "DEBUG"
+  level: DEBUG
   max_files: 10
   max_file_size_mb: 10
-  log_dir: "logs"
-
-# --- Paths ---
+  log_dir: logs
 paths:
-  output_dir: "output"
-  data_dir: "data"
-  resources_dir: "resources"
-  recovery_dir: "data/recovery"
-  cache_dir: "data/cache"
-  analytics_dir: "data/analytics"
-
-# --- Cache ---
+  output_dir: output
+  data_dir: data
+  resources_dir: resources
+  recovery_dir: data/recovery
+  cache_dir: data/cache
+  analytics_dir: data/analytics
 cache:
   enabled: true
   skip_processed: true
-
-# --- Strategy thresholds (word count) ---
 strategy:
   single_shot_max: 2000
   two_pass_max: 4000
-  # Above two_pass_max → full pipeline

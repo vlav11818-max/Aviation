@@ -32,7 +32,3 @@ pandas>=2.2.0
 
 # Env loading
 python-dotenv>=1.0.0
-
-# Legacy desktop GUI (kept so main_legacy_ctk.py still runs on a machine
-# that has a display; not required for the Streamlit app or the pipeline).
-customtkinter>=5.2.0

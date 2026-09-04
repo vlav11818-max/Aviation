@@ -183,8 +183,7 @@ settings.yaml            # Roles → models, retry, rate-limits, pricing
 ## Tests
 
 ```bash
-.venv/bin/python -m pytest aviation/tests -q            # 34 aviation-specific tests
-.venv/bin/python -m pytest tests/unit -q                # foundation tests (603 passing baseline)
+.venv/bin/python -m pytest aviation/tests -q            # 74 aviation-specific tests, all green
 ```
 
 ## Notes
@@ -193,10 +192,7 @@ settings.yaml            # Roles → models, retry, rate-limits, pricing
   state machine that persists a Pydantic checkpoint after every node
   — behaviourally identical to a `StateGraph` + `SqliteSaver`
   combination for this pipeline shape, but easier to reason about.
-* **The legacy customtkinter GUI** at `main_legacy_ctk.py` is kept
-  for reference; the Streamlit app is the supported UI.
-* **The generic story-generator pipeline** (`core/steps/*`,
-  `core/step_runner.py`, `resources/prompts/templates/`) is also
-  retained — it powers the mock provider's schema-shape hints and
-  keeps a broad test suite compiling. You can ignore it if you only
-  care about the aviation flow.
+* **The generic story-generator base** the aviation flow was ported
+  from has been removed from the tree; only what aviation actually
+  imports remains under `core/` and `models/`. If you ever need the
+  generic pipeline back, restore it from the Phase-1 commit history.

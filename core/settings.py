@@ -33,74 +33,6 @@ _DEFAULT_SETTINGS_PATH = Path("resources/defaults/settings.yaml")
 # ── Nested settings models ─────────────────────────────────────────────────
 
 
-class GenerationSettings(BaseModel):
-    """Generation-related tunable parameters."""
-
-    tone: str = Field(default="dramatic_cinematic", description="Story tone preset.")
-    perspective: str = Field(default="third_person", description="Narration perspective.")
-    register: str = Field(default="conversational", description="Language register.")
-    pacing: str = Field(default="medium", description="Story pacing (slow/medium/fast).")
-    audience: str = Field(default="all_ages", description="Target audience.")
-    dialog_density: str = Field(default="medium", description="Dialog density level.")
-    target_words: int = Field(default=3000, ge=500, le=10000, description="Target word count.")
-    structure: str = Field(default="three_act", description="Story structure type.")
-    genres: list[str] = Field(
-        default_factory=lambda: ["fantasy", "mystery"],
-        description="Selected genres.",
-    )
-    min_score: float = Field(
-        default=9.0, ge=0.0, le=10.0, description="Minimum acceptable score."
-    )
-    max_attempts: int = Field(
-        default=5, ge=1, le=20, description="Max evaluation/revision attempts."
-    )
-    min_score_improvement: float = Field(
-        default=0.3,
-        ge=0.0,
-        le=10.0,
-        description=(
-            "Minimum score improvement between consecutive evaluations to "
-            "justify another revision attempt.  If improvement is below "
-            "this threshold the loop stops early (plateau detection)."
-        ),
-    )
-    voiceover_optimized: bool = Field(
-        default=True, description="Optimize output for voiceover."
-    )
-    avoid_complex_sentences: bool = Field(
-        default=True, description="Simplify sentence structure."
-    )
-    pause_markers: bool = Field(
-        default=True, description="Include pause markers in text."
-    )
-    no_headers: bool = Field(
-        default=True, description="Suppress chapter/section headers."
-    )
-    no_meta_comments: bool = Field(
-        default=True, description="Remove AI meta-comments."
-    )
-    # ── Per-section quality gate (Fix #8) ───────────────────────────────────
-    section_quality_check: bool = Field(
-        default=True,
-        description=(
-            "Run a lightweight programmatic L1 quality check after each "
-            "section is generated.  Sections that fail are regenerated up "
-            "to section_max_retries additional times before the best result "
-            "is kept.  Disable to skip the gate entirely (not recommended)."
-        ),
-    )
-    section_max_retries: int = Field(
-        default=2,
-        ge=0,
-        le=5,
-        description=(
-            "Maximum number of additional generation attempts when a section "
-            "fails the per-section quality gate.  0 = no retries (generate "
-            "once regardless of quality).  Max 5."
-        ),
-    )
-
-
 class RateLimitsSettings(BaseModel):
     """Per-provider max concurrent requests."""
 
@@ -244,7 +176,6 @@ class Settings(BaseModel):
     ``resources/defaults/settings.yaml``.
     """
 
-    generation: GenerationSettings = Field(default_factory=GenerationSettings)
     api: APISettings = Field(default_factory=APISettings)
     retry: RetrySettings = Field(default_factory=RetrySettings)
     parallelism: ParallelismSettings = Field(default_factory=ParallelismSettings)

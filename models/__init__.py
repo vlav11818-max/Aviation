@@ -1,38 +1,36 @@
-"""Data models for AI Story Generator Pro.
+"""Data models for the Aviation Content Factory.
 
-Re-exports all models so external code can use a flat import::
+Only three modules survive after the generic-story cleanup:
 
-    from models import Story, Section, GenerationConfig, PipelineState
+* :mod:`models.aviation_bible` — the aviation-flavoured StoryBible
+  and the RAG-extraction schema.
+* :mod:`models.story_bible` — the small ``Character`` / ``Setting`` /
+  ``StoryBible`` primitives the aviation bible reuses.
+* :mod:`models.config` — API-configuration and (legacy) generation-
+  config models used by the LiteLLM-backed ``core.api_client``.
 """
 
+from models.aviation_bible import (
+    Aircraft,
+    AviationStoryBible,
+    CausalLink,
+    CrewMember,
+    ExtractedFacts,
+    Mode,
+    NarrativeStructure,
+    ROTATION_ORDER,
+    Route,
+    TimelineEvent,
+)
 from models.config import (
     APIConfig,
     APIFormat,
     APIProvider,
-    Audience,
-    DialogDensity,
-    GenerationConfig,
+    FallbackPoolEntry,
     LANGUAGES,
-    Pacing,
-    Perspective,
     PROVIDER_CONFIG,
-    Register,
-    StructureType,
     SUPPORTED_LANGUAGE_CODES,
-    Tone,
 )
-from models.evaluation import (
-    EvaluationIssue,
-    EvaluationLevel,
-    EvaluationResult,
-    IssueSeverity,
-    LevelResult,
-)
-from models.outline import Outline, OutlineSection
-from models.section import Section
-from models.state import PipelineState, PipelineStatus
-from models.story import Story, StoryStatus
-from models.metadata import StoryMetadata
 from models.story_bible import Character, Setting, StoryBible
 
 __all__ = [
@@ -40,38 +38,23 @@ __all__ = [
     "APIConfig",
     "APIFormat",
     "APIProvider",
-    "Audience",
-    "DialogDensity",
-    "GenerationConfig",
+    "FallbackPoolEntry",
     "LANGUAGES",
-    "Pacing",
-    "Perspective",
     "PROVIDER_CONFIG",
-    "Register",
-    "StructureType",
     "SUPPORTED_LANGUAGE_CODES",
-    "Tone",
-    # evaluation
-    "EvaluationIssue",
-    "EvaluationLevel",
-    "EvaluationResult",
-    "IssueSeverity",
-    "LevelResult",
-    # outline
-    "Outline",
-    "OutlineSection",
-    # section
-    "Section",
-    # state
-    "PipelineState",
-    "PipelineStatus",
-    # story
-    "Story",
-    "StoryStatus",
-    # story_bible
+    # story primitives
     "Character",
     "Setting",
     "StoryBible",
-    # metadata
-    "StoryMetadata",
+    # aviation
+    "Aircraft",
+    "AviationStoryBible",
+    "CausalLink",
+    "CrewMember",
+    "ExtractedFacts",
+    "Mode",
+    "NarrativeStructure",
+    "ROTATION_ORDER",
+    "Route",
+    "TimelineEvent",
 ]
