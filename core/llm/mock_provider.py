@@ -83,36 +83,115 @@ def _lorem(target_words: int, seed: int) -> str:
 
 
 def _mock_concept(seed: int) -> str:
-    """Return a JSON payload that satisfies StoryBible."""
+    """Return an aviation-shaped payload that satisfies AviationStoryBible.
+
+    Uses a deterministic-per-seed suffix so successive fictional mock
+    runs do not collide on the global-history uniqueness constraint.
+    """
+    tag = f"{seed & 0xFFF:03X}"
     return json.dumps(
         {
-            "premise": "A commercial jet begins a routine transoceanic flight when a "
-            "hydraulic warning light turns steady. The crew has minutes to "
-            "understand a cascading fault chain that no simulator ever taught "
-            "them, and only one runway within reach.",
-            "setting": {
-                "location": "Cruise altitude over the North Atlantic; alternate: Keflavík.",
-                "time_period": "Present day, night sector.",
-                "atmosphere": "Cold, quiet cockpit; steady low hum broken by a rising "
-                "chorus of aural warnings.",
+            "working_title": f"Cascade at Flight Level 370 (mock/{tag})",
+            "logline": "A cascading hydraulic failure at cruise, and the four minutes that separate a diversion from a headline.",
+            "premise": (
+                "A commercial jet begins a routine transoceanic flight when a "
+                "hydraulic warning light turns steady. The crew has minutes to "
+                "understand a cascading fault chain that no simulator ever "
+                "taught them, and only one runway within reach."
+            ),
+            "aircraft": {
+                "type": "Airbus A340-300",
+                "operator": f"TransOcean Airways {tag}",
+                "registration": f"N{tag}AB",
+                "flight_number": f"TO{tag}",
+                "engines": "4 × CFM56-5C4",
+                "seat_capacity": 295,
             },
-            "characters": [
+            "route": {
+                "origin": "New York JFK",
+                "destination": "London LHR",
+                "alternate": "Reykjavík KEF",
+                "filed_altitude": "FL370",
+                "actual_diversion": "Reykjavík KEF",
+            },
+            "crew": [
                 {
-                    "name": "Captain Ivo Rask",
-                    "role": "protagonist",
+                    "name": f"Captain Ivo Rask {tag}",
+                    "role": "captain",
+                    "seat": "left",
+                    "hours_total": 12400,
+                    "hours_on_type": 4800,
                     "traits": ["deliberate", "instinctive", "self-doubting"],
-                    "arc": "From by-the-book command to trusting his gut in a "
-                    "situation the manuals do not cover.",
+                    "arc": "From by-the-book command to trusting his gut when the manuals go quiet.",
                 },
                 {
-                    "name": "First Officer Nadia Vella",
-                    "role": "co-pilot",
+                    "name": f"First Officer Nadia Vella {tag}",
+                    "role": "first_officer",
+                    "seat": "right",
+                    "hours_total": 3200,
+                    "hours_on_type": 1100,
                     "traits": ["analytical", "young", "unshakably calm"],
-                    "arc": "Learns that the checklists have a limit, and that a "
-                    "captain who deviates is not always wrong.",
+                    "arc": "Learns the checklists have a limit — and that a captain who deviates is not always wrong.",
                 },
             ],
-            "themes": ["human vs. automation", "cascading failure", "trust"],
+            "other_characters": [],
+            "timeline": [
+                {
+                    "time_utc": "02:14:00Z",
+                    "time_local": "22:14 EST",
+                    "altitude": "FL370",
+                    "airspeed": ".82M",
+                    "phase": "cruise",
+                    "description": "First steady HYD Y caution illuminates.",
+                    "source_reference": "",
+                },
+                {
+                    "time_utc": "02:16:12Z",
+                    "time_local": "22:16 EST",
+                    "altitude": "FL370",
+                    "airspeed": ".82M",
+                    "phase": "cruise",
+                    "description": "ECAM cascade: HYD Y RSVR LO, then GEN 2 FAULT.",
+                    "source_reference": "",
+                },
+                {
+                    "time_utc": "02:18:47Z",
+                    "time_local": "22:18 EST",
+                    "altitude": "FL370",
+                    "airspeed": ".80M",
+                    "phase": "cruise",
+                    "description": "Captain elects diversion direct BIKF.",
+                    "source_reference": "",
+                },
+                {
+                    "time_utc": "02:47:03Z",
+                    "time_local": "22:47 EST",
+                    "altitude": "0 ft",
+                    "airspeed": "135 KIAS",
+                    "phase": "landing",
+                    "description": "CAT I ILS RWY 19 to a full-stop landing at BIKF.",
+                    "source_reference": "",
+                },
+            ],
+            "technical_facts": [
+                "Yellow hydraulic system fluid loss of 4 L/min.",
+                "No cascade into the green system throughout the event.",
+                "APU-driven electrical bus took the GEN 2 loss without a busbar drop.",
+            ],
+            "causal_chain": [
+                {"factor": "cracked reservoir sight-gauge fitting", "role": "primary", "description": "Metal-fatigue crack in an aluminium fitting."},
+                {"factor": "deferred maintenance advisory", "role": "contributing", "description": "MEL item left open past its calendar cap."},
+                {"factor": "ambiguous ECAM sequencing", "role": "latent", "description": "System messages arrived in an order that suggested a different fault."},
+            ],
+            "cvr_excerpts": [
+                '"Standby — I want to see the trend on Y before we call it."',
+                '"Set course direct KEF, we\'ll brief on the way."',
+            ],
+            "glossary": {
+                "ECAM": "Electronic Centralised Aircraft Monitoring — Airbus's system-status display.",
+                "MEL": "Minimum Equipment List — deferred-defects register.",
+                "BIKF": "ICAO code for Keflavík International Airport, Iceland.",
+            },
             "tone_description": "Dramatic-cinematic, minute-by-minute, procedurally accurate.",
             "narrative_voice": "Third-person omniscient with cockpit intimacy.",
             "key_rules": [
@@ -120,6 +199,14 @@ def _mock_concept(seed: int) -> str:
                 "Radio calls in real ATC phraseology.",
                 "Time-stamps in UTC.",
             ],
+            "retention_plan": [
+                "Open loop: foreshadow the deferred MEL item in the pre-flight briefing.",
+                "Sensory anchor: the yellow-limit tape on the HYD Y quantity gauge.",
+                "Somatic detail: captain's hand hovering over the thrust levers before commanding an FL change.",
+            ],
+            "narrative_structure": "in_media_res",
+            "mode": "fictional",
+            "fictionalization_notice": "This story is entirely fictional; any resemblance to real airlines, aircraft or crew is unintentional.",
         },
         ensure_ascii=False,
     )
