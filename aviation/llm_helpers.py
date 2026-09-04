@@ -14,15 +14,33 @@ Adds:
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
+import random
 import re
 from typing import Any
 
+from core.exceptions import (
+    APIAuthError,
+    APIConnectionError,
+    APIError,
+    APIRateLimitError,
+    APIResponseError,
+)
 from core.llm import LLMResponse, call_llm
 from aviation.state import AviationJob
 
 logger = logging.getLogger(__name__)
+
+# Retry policy for transient upstream errors (503 "resources tight" /
+# 429 rate-limit / network blips / timeouts). The router raises them as
+# APIResponseError / APIRateLimitError / APIConnectionError. Auth errors
+# and 4xx client errors are not retried.
+_TRANSIENT = (APIConnectionError, APIRateLimitError, APIResponseError)
+_MAX_RETRIES = 5              # 6 total attempts
+_BACKOFF_BASE = 2.0           # seconds
+_BACKOFF_MAX = 45.0           # cap
 
 
 _JSON_FENCE = re.compile(r"```(?:json)?\s*(.*?)```", re.S | re.I)
@@ -158,17 +176,54 @@ async def _call(
     max_tokens: int,
     json_mode: bool,
 ) -> LLMResponse:
-    try:
-        return await call_llm(
-            model=model,
-            messages=messages,
-            temperature=temperature,
-            max_tokens=max_tokens,
-            json_mode=json_mode,
-        )
-    except Exception as exc:
-        logger.error("LLM call failed on %s: %s", model, exc)
-        raise
+    """Send one completion with retry on transient upstream errors.
+
+    Retries on 503 ServiceUnavailable, 429 RateLimit, connection errors
+    and timeouts. Non-retryable auth errors and 4xx client errors are
+    surfaced immediately. Backs off exponentially (2 s → 4 s → 8 s → 16 s
+    → 32 s, capped at 45 s) with a jitter to avoid a thundering herd.
+    """
+    last_exc: Exception | None = None
+    for attempt in range(_MAX_RETRIES + 1):
+        try:
+            return await call_llm(
+                model=model,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                json_mode=json_mode,
+            )
+        except APIAuthError:
+            # Bad key — no point retrying.
+            raise
+        except _TRANSIENT as exc:
+            last_exc = exc
+            # Honour Retry-After if the provider gave one.
+            hint = getattr(exc, "retry_after", None)
+            if hint is not None:
+                wait = min(float(hint), _BACKOFF_MAX)
+            else:
+                wait = min(_BACKOFF_MAX, _BACKOFF_BASE * (2 ** attempt))
+            # ±25 % jitter.
+            wait *= 0.75 + 0.5 * random.random()
+            if attempt >= _MAX_RETRIES:
+                logger.error(
+                    "LLM call failed on %s after %d attempts: %s",
+                    model, attempt + 1, exc,
+                )
+                raise
+            logger.warning(
+                "Transient error on %s (attempt %d/%d, backing off %.1fs): %s",
+                model, attempt + 1, _MAX_RETRIES + 1, wait, exc,
+            )
+            await asyncio.sleep(wait)
+        except Exception as exc:
+            logger.error("LLM call failed on %s: %s", model, exc)
+            raise
+    # Loop fell through (shouldn't happen — the last iteration re-raises).
+    if last_exc is not None:
+        raise last_exc
+    raise APIError(f"Unexpected retry-loop exit for {model}", provider="", model=model)
 
 
 def _track_cost(job: AviationJob, response: LLMResponse, model: str) -> None:
