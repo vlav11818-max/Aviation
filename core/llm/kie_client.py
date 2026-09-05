@@ -101,6 +101,12 @@ async def kie_completion(
         "messages": chat,
         "max_tokens": max_tokens,
         "temperature": temperature,
+        # kie.ai's ``stream`` defaults to true (per their OpenAPI spec).
+        # If we omit it, they try to return an SSE stream to our
+        # non-streaming client and their router falls through to
+        # ``{"code":500,"msg":"The page does not exist"}``. Force
+        # non-streaming so the request body matches their doc example.
+        "stream": False,
     }
     if system:
         body["system"] = system
