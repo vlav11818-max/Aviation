@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from typing import Any
 
 import httpx
@@ -39,10 +40,22 @@ class KieHTTPError(Exception):
 
 
 def _resolve_messages_url(base_url: str) -> str:
-    """``https://api.kie.ai/claude``       → …/claude/v1/messages
-       ``https://api.kie.ai/claude/v1``    → …/claude/v1/messages
+    """Resolve the full ``/messages`` URL.
+
+    Priority order:
+    1. ``KIE_MESSAGES_URL`` env var wins (full URL override — paste
+       the exact one from your kie.ai dashboard here if the derived
+       one doesn't work).
+    2. ``base_url`` (from ``KIE_BASE_URL``) with the trailing shape
+       normalised:
+
+       ``https://api.kie.ai/claude``        → …/claude/v1/messages
+       ``https://api.kie.ai/claude/v1``     → …/claude/v1/messages
        ``https://api.kie.ai/claude/v1/messages`` → unchanged
     """
+    override = os.environ.get("KIE_MESSAGES_URL", "").strip()
+    if override:
+        return override.rstrip("/")
     base = (base_url or "").rstrip("/")
     if base.endswith("/messages"):
         return base
@@ -101,6 +114,8 @@ async def kie_completion(
     if extra_headers:
         headers.update(extra_headers)
 
+    logger.info("kie.ai POST %s (model=%s, %d msgs, max_tokens=%d)", url, model, len(chat), max_tokens)
+
     async with httpx.AsyncClient(timeout=timeout) as client:
         resp = await client.post(url, json=body, headers=headers)
 
@@ -130,6 +145,30 @@ async def kie_completion(
             status_code=resp.status_code,
             body=text_body[:2000],
         ) from exc
+
+    # Some providers (kie.ai included) return HTTP 200 with an app-level
+    # error envelope like {"code": 500, "msg": "...", "data": null}.
+    # Detect that shape and treat it as an error so we don't try to
+    # parse it as a completion.
+    if isinstance(data, dict) and set(data.keys()) <= {"code", "msg", "data", "message", "error"}:
+        app_code = data.get("code")
+        app_msg = data.get("msg") or data.get("message") or ""
+        if app_code is not None and int(app_code) != 200:
+            hint = (
+                f"kie.ai app-level error {app_code}: {app_msg!r} at {url}. "
+                f"Try the exact URL from your kie.ai dashboard by setting "
+                f"KIE_MESSAGES_URL in .env, e.g.:\n"
+                f"  KIE_MESSAGES_URL=https://api.kie.ai/claude/v1/messages\n"
+                f"and verify it works with:\n"
+                f"  curl -X POST '<that URL>' \\\n"
+                f"    -H 'Authorization: Bearer $KIE_API_KEY' \\\n"
+                f"    -H 'Content-Type: application/json' \\\n"
+                f"    -H 'anthropic-version: 2023-06-01' \\\n"
+                f"    -d '{{\"model\":\"{model}\",\"max_tokens\":50,\"messages\":[{{\"role\":\"user\",\"content\":\"ping\"}}]}}'"
+            )
+            # 5xx-shaped app codes are retryable; 4xx are not.
+            status_hint = 503 if int(app_code) >= 500 else int(app_code)
+            raise KieHTTPError(hint, status_code=status_hint, body=json.dumps(data)[:2000])
 
     text, tokens_in, tokens_out = _extract_text_and_usage(data)
     return {
