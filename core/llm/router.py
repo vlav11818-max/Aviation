@@ -58,6 +58,7 @@ from core.exceptions import (
     APIRateLimitError,
     APIResponseError,
 )
+from core.llm.kie_client import KieHTTPError, kie_completion
 from core.llm.mock_provider import mock_completion
 
 logger = logging.getLogger(__name__)
@@ -217,31 +218,49 @@ async def call_llm(
             model=model,
         )
 
-    # Rewrite our shorthand prefixes to what LiteLLM actually understands.
+    # ``kie/X`` bypasses LiteLLM entirely and talks to kie.ai's
+    # ``/claude/v1/messages`` endpoint via :mod:`core.llm.kie_client`.
+    # LiteLLM's anthropic transformer had two brittle-parser bugs
+    # against kie.ai's response body (KeyError on 'content', /v1/v1
+    # URL doubling); the direct client is small, tolerant, and gives
+    # useful error text on non-2xx.
     #
-    # kie.ai proxies the Anthropic Messages API (POST /claude/v1/messages,
-    # ``Authorization: Bearer <token>``, Anthropic-style request body),
-    # so ``kie/X`` routes via LiteLLM's anthropic handler with an
-    # explicit ``api_base`` and a Bearer header alongside LiteLLM's
-    # default ``x-api-key`` (kie.ai reads Authorization; the extra
-    # x-api-key is harmless).
-    #
-    # ``custom/X`` still assumes OpenAI-compatible.
-    effective_model = model
-    effective_headers = dict(extra_headers or {})
+    # ``custom/X`` still routes as OpenAI-compatible via LiteLLM.
     prefix = model.split("/", 1)[0].lower() if "/" in model else ""
     if prefix == "kie":
-        effective_model = "anthropic/" + model.split("/", 1)[1]
-        if key:
-            effective_headers.setdefault("Authorization", f"Bearer {key}")
-        # LiteLLM's anthropic handler always appends ``/v1/messages`` to
-        # ``api_base``. If the user's KIE_BASE_URL ended in ``/v1`` we
-        # would call ``…/v1/v1/messages`` (404). Strip it defensively so
-        # the .env value works whether the user wrote ``…/claude`` or
-        # ``…/claude/v1``.
-        if base_url and base_url.rstrip("/").endswith("/v1"):
-            base_url = base_url.rstrip("/")[: -len("/v1")]
-    elif prefix == "custom":
+        kie_model = model.split("/", 1)[1]
+        try:
+            raw = await kie_completion(
+                base_url=base_url or "https://api.kie.ai/claude",
+                api_key=key,
+                model=kie_model,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                timeout=timeout,
+                extra_headers=extra_headers,
+            )
+        except KieHTTPError as exc:
+            status = exc.status_code
+            if status is not None and status in (401, 403):
+                raise APIAuthError(str(exc), provider="kie", model=model) from exc
+            if status is not None and status == 429:
+                raise APIRateLimitError(str(exc), provider="kie", model=model, retry_after=None) from exc
+            if status is None or status >= 500:
+                # 5xx or transport-layer — classify as retryable.
+                raise APIConnectionError(str(exc), provider="kie", model=model) from exc
+            raise APIResponseError(str(exc), provider="kie", model=model, status_code=status) from exc
+        return LLMResponse(
+            text=raw["choices"][0]["message"]["content"],
+            tokens_in=int(raw["usage"]["prompt_tokens"]),
+            tokens_out=int(raw["usage"]["completion_tokens"]),
+            model=raw.get("model", kie_model),
+            raw=raw,
+        )
+
+    effective_model = model
+    effective_headers = dict(extra_headers or {})
+    if prefix == "custom":
         effective_model = "openai/" + model.split("/", 1)[1]
 
     # Import lazily so an environment without LiteLLM (e.g. a unit test
